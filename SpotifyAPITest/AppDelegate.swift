@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         SPTAuth.defaultInstance().clientID = spotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: spotifyCallbackURL)
-        SPTAuth.defaultInstance().requestedScopes = [SPTAuthPlaylistModifyPublicScope]
+        SPTAuth.defaultInstance().requestedScopes = [SPTAuthPlaylistModifyPublicScope, SPTAuthUserLibraryReadScope]
         
         
         // Override point for customization after application launch.

@@ -13,6 +13,9 @@ import Spotify
 class MainViewController: UIViewController {
     
     
+    var session: SPTSession!
+    var myTotalList: SPTListPage!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,7 +36,7 @@ class MainViewController: UIViewController {
         
         //decode current session
         let sessionData = userDefault.objectForKey("currentSession") as! NSData
-        let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as! SPTSession
+        session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as! SPTSession
         
         //get user information for session
         SPTRequest.userInformationForUserInSession(session, callback: { (error, user) in
@@ -45,8 +48,49 @@ class MainViewController: UIViewController {
             
             print("\(user.displayName)")
             
-            })
+            self.getAllSongs()
+        })
         
+    }
+    
+    
+    func getAllSongs(){
+        
+        myTotalList = SPTListPage()
+        
+        SPTRequest.savedTracksForUserInSession(session, callback: { (error, songs) in
+            
+            if error != nil {
+                print("Me Error: \(error)")
+                return
+            }
+            
+            if let myList = songs as? SPTListPage {
+                self.myTotalList = self.myTotalList.pageByAppendingPage(myList)
+                self.getNextSongBatch(myList)
+            }
+        })
+    }
+    
+    
+    func getNextSongBatch(prevList: SPTListPage){
+        
+        if prevList.hasNextPage {
+            prevList.requestNextPageWithSession(session, callback: { (error, nextList) in
+                
+                if error != nil {
+                    print("Me Error: \(error)")
+                    return
+                }
+                
+                if let myList = nextList as? SPTListPage {
+                    self.myTotalList = self.myTotalList.pageByAppendingPage(myList)
+                    self.getNextSongBatch(myList)
+                }
+            })
+        }else{
+            print("Done!\n \(myTotalList.items)")
+        }
     }
     
     
