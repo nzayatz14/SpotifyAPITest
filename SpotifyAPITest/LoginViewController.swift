@@ -10,7 +10,7 @@ import UIKit
 //import Soundcloud
 import Spotify
 
-class ViewController: UIViewController {
+class LoginViewController: UIViewController {
     
     
     let spotifyClientID = "173e2d7724a74fadb4e54946c0e180d1"
