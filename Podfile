@@ -4,7 +4,7 @@
 use_frameworks!
 
 pod 'Soundcloud'
-#pod 'Spotify-iOS-SDK'
+pod 'Spotify-iOS-SDK'
 
 target 'SpotifyAPITest' do
 

@@ -3,14 +3,17 @@ PODS:
   - Soundcloud (0.5.0):
     - 1PasswordExtension (~> 1.5)
     - UICKeyChainStore (~> 2.0.6)
+  - Spotify-iOS-SDK (0.13.0)
   - UICKeyChainStore (2.0.7)
 
 DEPENDENCIES:
   - Soundcloud
+  - Spotify-iOS-SDK
 
 SPEC CHECKSUMS:
   1PasswordExtension: 9f471645d378283cb88c6d4bf502e4381a42c0ad
   Soundcloud: 9559c6b5e51ad46c4b7680ede984579d9c14978a
+  Spotify-iOS-SDK: 0ba94c0ac207567be704fe1edd541f63a7ca66cd
   UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575
 
 COCOAPODS: 0.39.0

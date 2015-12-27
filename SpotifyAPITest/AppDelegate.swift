@@ -8,6 +8,8 @@
 
 import UIKit
 //import Soundcloud
+//import Spotify
+import AVFoundation
 import Spotify
 
 @UIApplicationMain
@@ -30,6 +32,49 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         SPTAuth.defaultInstance().redirectURL = NSURL(string: spotifyCallbackURL)
         SPTAuth.defaultInstance().requestedScopes = [SPTAuthPlaylistModifyPublicScope, SPTAuthUserLibraryReadScope]
         
+        //set root VC based on login status
+        let navController = self.window?.rootViewController as! UINavigationController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController: UIViewController!
+        
+        let auth = SPTAuth.defaultInstance()
+        
+        //if there is a session saved in userDefaults, get it
+        let userDefault = NSUserDefaults()
+        
+        if let sessionData = userDefault.objectForKey("currentSession") as? NSData {
+            if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
+                auth.session = session
+            }
+        }
+        
+        
+        //if there is no session, begin checking for a login
+        if auth.session == nil {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
+        }
+        
+        //if there is a valid session, continue to next VC
+        if auth.session.isValid() {
+            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
+        }
+        
+        //if the session needs refreshing, refresh it then continue to next VC
+        if auth.hasTokenRefreshService {
+            auth.renewSession(auth.session, callback: { (error, session) in
+                auth.session = session
+                
+                if (error != nil) {
+                    print("Error renewing token: \(error)")
+                    return
+                }
+                
+                initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
+            })
+        }
+        
+        navController.pushViewController(initialViewController, animated: false)
+
         
         // Override point for customization after application launch.
         return true

@@ -8,66 +8,89 @@
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 		<key>1PasswordExtension.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 		<key>Pods-SpotifyAPITest.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>4</integer>
 		</dict>
 		<key>Pods-SpotifyAPITestTests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>5</integer>
 		</dict>
 		<key>Pods-SpotifyAPITestUITests.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>6</integer>
 		</dict>
 		<key>Pods.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>3</integer>
 		</dict>
 		<key>Soundcloud.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>7</integer>
+		</dict>
+		<key>Spotify-iOS-SDK 2.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>10</integer>
+		</dict>
+		<key>Spotify-iOS-SDK.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>8</integer>
 		</dict>
 		<key>UICKeyChainStore.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
+			<key>orderHint</key>
+			<integer>9</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>1C3A6DC0C48A35B8A34712374060AADC</key>
+		<key>1C176D961E3CB06F3858E9B85D4483DD</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC7CF813F0EA4839E1B2C98305848EF8</key>
+		<key>43A9C6567749243AFCDF166D9DC6BD95</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BFA7319206FFC18708B6A8B6DA9841EE</key>
+		<key>4903BA5A3AA39BBA0CDFFD70D0962C1D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>C1658DA71C9F46576D723767A7D2534C</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C52E43E2D017F5CBDD3EAD5E21DAA363</key>
+		<key>D7ED9C9248931B69B74EEE85C76443A5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -77,7 +100,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>E7FF741E526F23D747EDD8B381A1B557</key>
+		<key>D8D3C9A65E9DDA5A0D3B8E0860DD58AB</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>DDBBB608D1197D0B57471FC82110AB4F</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E909F60BAA06D56D657717D142237997</key>
 		<dict>
 			<key>primary</key>
 			<true/>

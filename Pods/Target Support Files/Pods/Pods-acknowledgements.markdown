@@ -48,6 +48,10 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
 
+## Spotify-iOS-SDK
+
+https://developer.spotify.com/developer-terms-of-use/
+
 ## UICKeyChainStore
 
 The MIT License

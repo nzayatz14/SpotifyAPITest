@@ -86,10 +86,12 @@ strip_invalid_archs() {
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/OnePasswordExtension.framework"
   install_framework "Pods/Soundcloud.framework"
+  install_framework "Pods/Spotify.framework"
   install_framework "Pods/UICKeyChainStore.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/OnePasswordExtension.framework"
   install_framework "Pods/Soundcloud.framework"
+  install_framework "Pods/Spotify.framework"
   install_framework "Pods/UICKeyChainStore.framework"
 fi

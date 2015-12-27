@@ -36,42 +36,42 @@ class ViewController: UIViewController {
         self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
         }*/
         
-        let auth = SPTAuth.defaultInstance()
+        /*let auth = SPTAuth.defaultInstance()
         
         //if there is a session saved in userDefaults, get it
         let userDefault = NSUserDefaults()
         
         if let sessionData = userDefault.objectForKey("currentSession") as? NSData {
-            if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
-                auth.session = session
-            }
+        if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
+        auth.session = session
         }
+        }*/
         
         
         //if there is no session, begin checking for a login
-        if auth.session == nil {
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedLogin", name: "loginDone", object: nil)
-            return
-        }
+        //if auth.session == nil {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedLogin", name: "loginDone", object: nil)
+        //return
+        // }
         
-        //if there is a valid session, continue to next VC
+        /*//if there is a valid session, continue to next VC
         if auth.session.isValid() {
-            self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
+        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
         }
         
         //if the session needs refreshing, refresh it then continue to next VC
         if auth.hasTokenRefreshService {
-            auth.renewSession(auth.session, callback: { (error, session) in
-                auth.session = session
-                
-                if (error != nil) {
-                    print("Error renewing token: \(error)")
-                    return
-                }
-                
-                self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
-            })
+        auth.renewSession(auth.session, callback: { (error, session) in
+        auth.session = session
+        
+        if (error != nil) {
+        print("Error renewing token: \(error)")
+        return
         }
+        
+        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
+        })
+        }*/
     }
     
     
