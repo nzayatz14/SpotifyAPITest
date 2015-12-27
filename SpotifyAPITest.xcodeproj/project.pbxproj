@@ -18,10 +18,10 @@
 		845B47331BF68FE10043AC08 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845B47311BF68FE10043AC08 /* LaunchScreen.storyboard */; };
 		845B473E1BF68FE20043AC08 /* SpotifyAPITestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B473D1BF68FE20043AC08 /* SpotifyAPITestTests.swift */; };
 		845B47491BF68FE20043AC08 /* SpotifyAPITestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B47481BF68FE20043AC08 /* SpotifyAPITestUITests.swift */; };
+		84AD4BE11C2F63A800CD84F9 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84AD4BE01C2F63A800CD84F9 /* Spotify.framework */; };
 		84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */; };
 		84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */; };
 		84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFA9761BF69A3E00B872BC /* MainViewController.swift */; };
-		84FCFD5D1C2F4596009E1D58 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84FCFD5C1C2F4596009E1D58 /* Spotify.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,11 +67,11 @@
 		847B6A491BF6955900C2D50E /* JSONKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JSONKit.framework; path = "Pods/../build/Debug-iphoneos/JSONKit.framework"; sourceTree = "<group>"; };
 		847B6A4A1BF6955900C2D50E /* NXOAuth2Client.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NXOAuth2Client.framework; path = "Pods/../build/Debug-iphoneos/NXOAuth2Client.framework"; sourceTree = "<group>"; };
 		847B6A4B1BF6955900C2D50E /* OHAttributedLabel.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHAttributedLabel.framework; path = "Pods/../build/Debug-iphoneos/OHAttributedLabel.framework"; sourceTree = "<group>"; };
+		84AD4BE01C2F63A800CD84F9 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
 		84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = "Pods/../build/Debug-iphoneos/UICKeyChainStore.framework"; sourceTree = "<group>"; };
 		84EFA9761BF69A3E00B872BC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
-		84FCFD5C1C2F4596009E1D58 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Spotify.framework; sourceTree = "<group>"; };
 		D56D9E755ECC9A9C282FB320 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -82,7 +82,7 @@
 			files = (
 				843AF9531C1B2EE8009A8F75 /* Soundcloud.framework in Frameworks */,
 				843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */,
-				84FCFD5D1C2F4596009E1D58 /* Spotify.framework in Frameworks */,
+				84AD4BE11C2F63A800CD84F9 /* Spotify.framework in Frameworks */,
 				843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */,
 				84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */,
 				84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */,
@@ -141,7 +141,7 @@
 		845B47271BF68FE10043AC08 /* SpotifyAPITest */ = {
 			isa = PBXGroup;
 			children = (
-				84FCFD5C1C2F4596009E1D58 /* Spotify.framework */,
+				84AD4BE01C2F63A800CD84F9 /* Spotify.framework */,
 				845B47281BF68FE10043AC08 /* AppDelegate.swift */,
 				845B472A1BF68FE10043AC08 /* ViewController.swift */,
 				84EFA9761BF69A3E00B872BC /* MainViewController.swift */,
@@ -527,6 +527,17 @@
 				INFOPLIST_FILE = SpotifyAPITest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"OnePasswordExtension\"",
+					"-framework",
+					"\"Soundcloud\"",
+					"-framework",
+					"\"UICKeyChainStore\"",
+					"-ObjC",
+					"\"Spotify\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighPointUniversity.SpotifyAPITest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Objective-CBridgingHeader.h";
@@ -548,6 +559,17 @@
 				INFOPLIST_FILE = SpotifyAPITest/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-framework",
+					"\"OnePasswordExtension\"",
+					"-framework",
+					"\"Soundcloud\"",
+					"-framework",
+					"\"UICKeyChainStore\"",
+					"-ObjC",
+					"\"Spotify\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighPointUniversity.SpotifyAPITest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Objective-CBridgingHeader.h";
