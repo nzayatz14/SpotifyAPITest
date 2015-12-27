@@ -35,7 +35,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //set root VC based on login status
         let navController = self.window?.rootViewController as! UINavigationController
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        var initialViewController: UIViewController!
+        var initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
         
         let auth = SPTAuth.defaultInstance()
         
@@ -52,11 +52,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //if there is no session, begin checking for a login
         if auth.session == nil {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
+            navController.pushViewController(initialViewController, animated: false)
+            return true
         }
         
         //if there is a valid session, continue to next VC
         if auth.session.isValid() {
             initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
+            navController.pushViewController(initialViewController, animated: false)
+            return true
         }
         
         //if the session needs refreshing, refresh it then continue to next VC
@@ -69,12 +73,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return
                 }
                 
+                print("Renew")
                 initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
             })
         }
         
         navController.pushViewController(initialViewController, animated: false)
-
         
         // Override point for customization after application launch.
         return true
@@ -123,9 +127,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userDefault.synchronize()
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("loginDone", object: nil)
-                
-                
-                
+
             })
             
             return true

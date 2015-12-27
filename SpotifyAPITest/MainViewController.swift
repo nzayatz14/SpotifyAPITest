@@ -54,6 +54,12 @@ class MainViewController: UIViewController {
     }
     
     
+    /**
+     Function called to get all of the users songs
+     
+     - parameter void:
+     - returns: void
+    */
     func getAllSongs(){
         
         myTotalList = SPTListPage()
@@ -73,8 +79,15 @@ class MainViewController: UIViewController {
     }
     
     
+    /**
+     Function called to get the next batch of songs in the users list
+     
+     - parameter prevList: the previous batch of songs
+     - returns: void
+    */
     func getNextSongBatch(prevList: SPTListPage){
         
+        //if there is a next page
         if prevList.hasNextPage {
             prevList.requestNextPageWithSession(session, callback: { (error, nextList) in
                 
