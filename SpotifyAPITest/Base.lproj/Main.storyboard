@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
@@ -89,12 +90,65 @@
                     <view key="view" contentMode="scaleToFill" id="8Qr-Ou-2XL">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="25p-H9-ck2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SoundcloudTableCell" id="6vg-Bt-jWt" customClass="SoundCloudTableCell" customModule="SpotifyAPITest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="600" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6vg-Bt-jWt" id="SQD-cv-vid">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p6-Yp-vaf">
+                                                    <rect key="frame" x="8" y="11" width="544" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black&amp;WhiteSoundcloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="KQ1-Ff-OcJ">
+                                                    <rect key="frame" x="560" y="6" width="32" height="32"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="KQ1-Ff-OcJ" secondAttribute="height" multiplier="1:1" id="CSS-9t-PsO"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="KQ1-Ff-OcJ" firstAttribute="leading" secondItem="4p6-Yp-vaf" secondAttribute="trailing" constant="8" id="C7k-Xx-vO3"/>
+                                                <constraint firstItem="4p6-Yp-vaf" firstAttribute="leading" secondItem="SQD-cv-vid" secondAttribute="leading" constant="8" id="YBX-lg-WcI"/>
+                                                <constraint firstItem="4p6-Yp-vaf" firstAttribute="centerY" secondItem="SQD-cv-vid" secondAttribute="centerY" id="iuq-bp-HsA"/>
+                                                <constraint firstItem="KQ1-Ff-OcJ" firstAttribute="top" secondItem="SQD-cv-vid" secondAttribute="top" constant="6" id="kVe-tz-cNY"/>
+                                                <constraint firstAttribute="trailing" secondItem="KQ1-Ff-OcJ" secondAttribute="trailing" constant="8" id="ngn-g4-Eci"/>
+                                                <constraint firstAttribute="bottom" secondItem="KQ1-Ff-OcJ" secondAttribute="bottom" constant="5.5" id="zXe-kj-XYI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblSongTitle" destination="4p6-Yp-vaf" id="S4G-qN-crb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" red="1" green="0.6475150502" blue="0.143372359" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="25p-H9-ck2" secondAttribute="trailing" id="96y-1z-SAo"/>
+                            <constraint firstItem="25p-H9-ck2" firstAttribute="leading" secondItem="8Qr-Ou-2XL" secondAttribute="leading" id="Htx-or-CYg"/>
+                            <constraint firstItem="25p-H9-ck2" firstAttribute="top" secondItem="8Qr-Ou-2XL" secondAttribute="top" id="cmv-S3-Z3w"/>
+                            <constraint firstItem="knN-bL-YNE" firstAttribute="top" secondItem="25p-H9-ck2" secondAttribute="bottom" id="dIy-du-ftl"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="tblSongList" destination="25p-H9-ck2" id="8l4-6q-WDQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H9k-bq-jtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1026" y="952"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Black&amp;WhiteSoundcloud.png" width="64" height="64"/>
+    </resources>
 </document>

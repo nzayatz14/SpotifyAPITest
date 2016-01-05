@@ -12,6 +12,9 @@
 		843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94C1C1B24D4009A8F75 /* Foundation.framework */; };
 		843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */; };
 		843AF9531C1B2EE8009A8F75 /* Soundcloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */; };
+		845557D41C3C694000FD6C12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D31C3C694000FD6C12 /* Extensions.swift */; };
+		845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */; };
+		845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */; };
 		845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B47281BF68FE10043AC08 /* AppDelegate.swift */; };
 		845B472B1BF68FE10043AC08 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B472A1BF68FE10043AC08 /* LoginViewController.swift */; };
 		845B472E1BF68FE10043AC08 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845B472C1BF68FE10043AC08 /* Main.storyboard */; };
@@ -50,6 +53,9 @@
 		843AF94C1C1B24D4009A8F75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
+		845557D31C3C694000FD6C12 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Black&WhiteSoundcloud.png"; sourceTree = "<group>"; };
+		845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudTableCell.swift; sourceTree = "<group>"; };
 		8456026D1C1B019400E4856D /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "Pods/../build/Debug-iphoneos/Spotify.framework"; sourceTree = "<group>"; };
 		8456026F1C1B02B000E4856D /* Objective-CBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Objective-CBridgingHeader.h"; path = "../Objective-CBridgingHeader.h"; sourceTree = "<group>"; };
 		845B47251BF68FE10043AC08 /* SpotifyAPITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyAPITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,8 +156,11 @@
 				845B472A1BF68FE10043AC08 /* LoginViewController.swift */,
 				84EFA9761BF69A3E00B872BC /* MainViewController.swift */,
 				84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */,
+				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
+				845557D31C3C694000FD6C12 /* Extensions.swift */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
+				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
 				845B47311BF68FE10043AC08 /* LaunchScreen.storyboard */,
 				8456026F1C1B02B000E4856D /* Objective-CBridgingHeader.h */,
 				845B47341BF68FE10043AC08 /* Info.plist */,
@@ -306,6 +315,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */,
 				845B47331BF68FE10043AC08 /* LaunchScreen.storyboard in Resources */,
 				845B47301BF68FE10043AC08 /* Assets.xcassets in Resources */,
 				845B472E1BF68FE10043AC08 /* Main.storyboard in Resources */,
@@ -381,9 +391,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845557D41C3C694000FD6C12 /* Extensions.swift in Sources */,
 				84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */,
 				84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */,
 				845B472B1BF68FE10043AC08 /* LoginViewController.swift in Sources */,
+				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
 				845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -33,8 +33,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidAppear(animated: Bool) {
         if (Soundcloud.session != nil) {
-        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
+        
         }
+        
+        Soundcloud.session?.refreshSession({ session in
+            self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
+        })
         
         let auth = SPTAuth.defaultInstance()
         
