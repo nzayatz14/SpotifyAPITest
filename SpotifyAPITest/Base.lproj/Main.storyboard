@@ -26,11 +26,20 @@
                                     <action selector="btnLoginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nkd-Si-ke6"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KaS-HC-uAl">
+                                <rect key="frame" x="237" y="333" width="126" height="30"/>
+                                <state key="normal" title="SoundCloud Login"/>
+                                <connections>
+                                    <action selector="btnSoundCloudLoginPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rQi-7E-IWc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="bRb-nV-qVc" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="7WH-wK-zzb"/>
                             <constraint firstItem="bRb-nV-qVc" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Ntx-eR-1GC"/>
+                            <constraint firstItem="KaS-HC-uAl" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="tHk-wF-eEc"/>
+                            <constraint firstItem="KaS-HC-uAl" firstAttribute="top" secondItem="bRb-nV-qVc" secondAttribute="bottom" constant="18" id="yAx-zH-wEk"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -68,6 +77,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cd2-3V-WSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1026" y="281"/>
+        </scene>
+        <!--Sound Cloud Main View Controller-->
+        <scene sceneID="ErJ-Rz-UVg">
+            <objects>
+                <viewController storyboardIdentifier="SoundCloudMain" id="WUa-Lq-tmr" customClass="SoundCloudMainViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="LNx-Jp-3NW"/>
+                        <viewControllerLayoutGuide type="bottom" id="knN-bL-YNE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8Qr-Ou-2XL">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="0.6475150502" blue="0.143372359" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="H9k-bq-jtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026" y="952"/>
         </scene>
     </scenes>
 </document>

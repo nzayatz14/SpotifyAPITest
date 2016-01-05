@@ -26,12 +26,6 @@ class MainViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        /*let session = Soundcloud.session
-        session?.me({result in
-        print("\(result)")
-        })*/
-        
-        
         let userDefault = NSUserDefaults()
         
         //decode current session

@@ -7,8 +7,7 @@
 //
 
 import UIKit
-//import Soundcloud
-//import Spotify
+import Soundcloud
 import AVFoundation
 import Spotify
 
@@ -24,9 +23,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        /*Soundcloud.clientIdentifier = "6c9090264a265d91bba9b915ec9cc0c5"
+        Soundcloud.clientIdentifier = "6c9090264a265d91bba9b915ec9cc0c5"
         Soundcloud.clientSecret  = "179c12371d2f76e030bfb689d3e73582"
-        Soundcloud.redirectURI = "http://www.zipsyapp.com/"*/
+        Soundcloud.redirectURI = "http://www.zipsyapp.com/"
         
         SPTAuth.defaultInstance().clientID = spotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: spotifyCallbackURL)
@@ -45,6 +44,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if let sessionData = userDefault.objectForKey("currentSession") as? NSData {
             if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
                 auth.session = session
+                print("\(auth.session.encryptedRefreshToken)")
             }
         }
         

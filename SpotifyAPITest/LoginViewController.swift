@@ -7,7 +7,7 @@
 //
 
 import UIKit
-//import Soundcloud
+import Soundcloud
 import Spotify
 
 class LoginViewController: UIViewController {
@@ -32,9 +32,9 @@ class LoginViewController: UIViewController {
     
     
     override func viewDidAppear(animated: Bool) {
-        /*if (Soundcloud.session != nil) {
-        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
-        }*/
+        if (Soundcloud.session != nil) {
+        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
+        }
         
         let auth = SPTAuth.defaultInstance()
         
@@ -44,6 +44,8 @@ class LoginViewController: UIViewController {
         if let sessionData = userDefault.objectForKey("currentSession") as? NSData {
             if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
                 auth.session = session
+                auth.tokenSwapURL = NSURL(string: spotifyTokenSwapURL)
+                auth.tokenRefreshURL = NSURL(string: spotifyTokenRefreshServiceURL)
             }
         }
         
@@ -61,17 +63,24 @@ class LoginViewController: UIViewController {
         
         //if the session needs refreshing, refresh it then continue to next VC
         if auth.hasTokenRefreshService {
-            auth.renewSession(auth.session, callback: { (error, session) in
-                auth.session = session
-                
-                if (error != nil) {
-                    print("Error renewing token: \(error)")
-                    return
-                }
-                
-                print("Renew")
-                self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
-            })
+            print("attempted renew")
+            
+            if !auth.session.isValid() {
+                auth.renewSession(auth.session, callback: { (error, session) in
+                    
+                    if (error != nil) {
+                        print("Error renewing token: \(error)")
+                        return
+                    }
+                    
+                    auth.session = session
+                    
+                    print("Renew")
+                    self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
+                })
+            }
+        }else{
+            print("No Renew")
         }
     }
     
@@ -104,16 +113,23 @@ class LoginViewController: UIViewController {
      - returns: void
      */
     @IBAction func btnLoginPressed(sender: AnyObject) {
-        /*Session.login(self, completion: { response in
-        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("Main"), animated: true, completion: nil)
-        })*/
         
         let spotAuth = SPTAuth.defaultInstance()
         let loginURL = spotAuth.loginURL
         
+        //let loginURL = SPTAuth.loginURLForClientId(spotifyClientID, withRedirectURL: NSURL(string: spotifyCallbackURL), scopes: [SPTAuthPlaylistModifyPublicScope, SPTAuthUserLibraryReadScope], responseType: "code")
+        
         UIApplication.sharedApplication().openURL(loginURL)
         
     }
+    
+    
+    @IBAction func btnSoundCloudLoginPressed(sender: AnyObject) {
+        Session.login(self, completion: { response in
+        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
+        })
+    }
+    
     
 }
 
