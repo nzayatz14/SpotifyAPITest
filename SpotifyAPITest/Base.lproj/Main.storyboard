@@ -147,6 +147,24 @@
             </objects>
             <point key="canvasLocation" x="1026" y="952"/>
         </scene>
+        <!--Song Player View Controller-->
+        <scene sceneID="SeC-sh-aiB">
+            <objects>
+                <viewController id="qyG-6y-feR" customClass="SongPlayerViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="qid-Jv-1QB"/>
+                        <viewControllerLayoutGuide type="bottom" id="Q2x-X6-7re"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="mdg-1v-irv">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="QhC-Uh-7VY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1704" y="952"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Black&amp;WhiteSoundcloud.png" width="64" height="64"/>

@@ -85,12 +85,14 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-SpotifyAPITest/OnePasswordExtension.framework"
+  install_framework "Pods-SpotifyAPITest/MarqueeLabel.framework"
   install_framework "Pods-SpotifyAPITest/Soundcloud.framework"
   install_framework "Pods-SpotifyAPITest/Spotify.framework"
   install_framework "Pods-SpotifyAPITest/UICKeyChainStore.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-SpotifyAPITest/OnePasswordExtension.framework"
+  install_framework "Pods-SpotifyAPITest/MarqueeLabel.framework"
   install_framework "Pods-SpotifyAPITest/Soundcloud.framework"
   install_framework "Pods-SpotifyAPITest/Spotify.framework"
   install_framework "Pods-SpotifyAPITest/UICKeyChainStore.framework"

@@ -1,5 +1,6 @@
 PODS:
   - 1PasswordExtension (1.6.4)
+  - MarqueeLabel (2.4.2)
   - Soundcloud (0.5.0):
     - 1PasswordExtension (~> 1.5)
     - UICKeyChainStore (~> 2.0.6)
@@ -7,11 +8,13 @@ PODS:
   - UICKeyChainStore (2.0.7)
 
 DEPENDENCIES:
+  - MarqueeLabel
   - Soundcloud
   - Spotify-iOS-SDK
 
 SPEC CHECKSUMS:
   1PasswordExtension: 9f471645d378283cb88c6d4bf502e4381a42c0ad
+  MarqueeLabel: 641f82cd199dae0ab194bd157984b3cbfbb31b09
   Soundcloud: 9559c6b5e51ad46c4b7680ede984579d9c14978a
   Spotify-iOS-SDK: 0ba94c0ac207567be704fe1edd541f63a7ca66cd
   UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575

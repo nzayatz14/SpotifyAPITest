@@ -5,6 +5,7 @@ use_frameworks!
 
 pod 'Soundcloud'
 pod 'Spotify-iOS-SDK'
+pod 'MarqueeLabel'
 
 target 'SpotifyAPITest' do
 
