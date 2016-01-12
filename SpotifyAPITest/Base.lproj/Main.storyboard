@@ -141,6 +141,7 @@
                     </view>
                     <connections>
                         <outlet property="tblSongList" destination="25p-H9-ck2" id="8l4-6q-WDQ"/>
+                        <segue destination="qyG-6y-feR" kind="show" identifier="sgeToPlayer" id="Ufx-PV-vcW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H9k-bq-jtW" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -150,7 +151,7 @@
         <!--Song Player View Controller-->
         <scene sceneID="SeC-sh-aiB">
             <objects>
-                <viewController id="qyG-6y-feR" customClass="SongPlayerViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="songPlayer" id="qyG-6y-feR" customClass="SongPlayerViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="qid-Jv-1QB"/>
                         <viewControllerLayoutGuide type="bottom" id="Q2x-X6-7re"/>
@@ -158,12 +159,66 @@
                     <view key="view" contentMode="scaleToFill" id="mdg-1v-irv">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve5-Qc-JW4" customClass="MarqueeLabel">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJG-Tf-b33" customClass="MarqueeLabel">
+                                <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="Q2x-X6-7re" firstAttribute="top" secondItem="KJG-Tf-b33" secondAttribute="bottom" constant="20.5" id="4zU-iu-fVb"/>
+                            <constraint firstItem="ve5-Qc-JW4" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="FTY-cb-PGo"/>
+                            <constraint firstAttribute="trailing" secondItem="KJG-Tf-b33" secondAttribute="trailing" constant="8" id="Zqx-ot-lcQ"/>
+                            <constraint firstItem="KJG-Tf-b33" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="bax-bb-mQd"/>
+                            <constraint firstAttribute="trailing" secondItem="ve5-Qc-JW4" secondAttribute="trailing" constant="8" id="cDd-19-U2V"/>
+                            <constraint firstItem="KJG-Tf-b33" firstAttribute="top" secondItem="ve5-Qc-JW4" secondAttribute="bottom" constant="15" id="dXv-Jd-1OO"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="ve5-Qc-JW4"/>
+                                <exclude reference="KJG-Tf-b33"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
+                                <exclude reference="Zqx-ot-lcQ"/>
+                                <exclude reference="bax-bb-mQd"/>
+                                <exclude reference="dXv-Jd-1OO"/>
+                                <exclude reference="4zU-iu-fVb"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="ve5-Qc-JW4"/>
+                                <include reference="KJG-Tf-b33"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
+                                <include reference="Zqx-ot-lcQ"/>
+                                <include reference="bax-bb-mQd"/>
+                                <include reference="dXv-Jd-1OO"/>
+                                <include reference="4zU-iu-fVb"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="lblArtistName" destination="KJG-Tf-b33" id="NaA-ji-Bgn"/>
+                        <outlet property="lblSongTitle" destination="ve5-Qc-JW4" id="cO0-T4-uir"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhC-Uh-7VY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1704" y="952"/>
+            <point key="canvasLocation" x="1704" y="951.75"/>
         </scene>
     </scenes>
     <resources>

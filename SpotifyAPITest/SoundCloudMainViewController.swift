@@ -20,7 +20,9 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
     var songs = [Track]()
     var songDatas = [String : NSData]()
     
-    var size = 4
+    var songSelected = 0
+    
+    //var size = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,8 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        
+        sharedSoundcloudAPIAccess.getSongs()
         
         let session = Soundcloud.session
         session?.me({result in
@@ -46,32 +50,6 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
                 Track.relatedTracks(self.songs[0].identifier, completion: { result in
                     print("\(self.songs[0]) \n\n \(result)")
                 })
-                
-                /*var streamable = false
-                var i = 0
-                while(!streamable){
-                if(tracklist.response.result![i].streamable){
-                print("Track \(i): \(tracklist.response.result![i].streamURL)")
-                streamable = true
-                }else{
-                i++
-                }
-                }*/
-                
-                /*let songData = NSData(contentsOfURL: tracklist.response.result![i].streamURL!)
-                
-                do {
-                print("do play")
-                self.audioPlayer = try AVAudioPlayer(data: songData!)
-                self.audioPlayer?.delegate = self
-                self.audioPlayer?.prepareToPlay()
-                } catch let error1 as NSError {
-                self.audioPlayer = nil
-                print("\(error1)")
-                }catch{
-                self.audioPlayer = nil
-                print("other error")
-                }*/
                 
             })
         })
@@ -102,27 +80,40 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
     
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        var songData: NSData!
+        
+        songSelected = indexPath.row
+        self.performSegueWithIdentifier("sgeToPlayer", sender: self)
+        
+        /*var songData: NSData!
         
         if songDatas["\(songs[indexPath.row].identifier)"] == nil {
-            songData = NSData(contentsOfURL: songs[indexPath.row].streamURL!)
-            songDatas["\(songs[indexPath.row].identifier)"] = songData
+        songData = NSData(contentsOfURL: songs[indexPath.row].streamURL!)
+        songDatas["\(songs[indexPath.row].identifier)"] = songData
         }else{
-            songData = songDatas["\(songs[indexPath.row].identifier)"]
+        songData = songDatas["\(songs[indexPath.row].identifier)"]
         }
         
         do {
-            print("do play")
-            self.audioPlayer = try AVAudioPlayer(data: songData!)
-            self.audioPlayer?.delegate = self
-            self.audioPlayer?.prepareToPlay()
-            audioPlayer?.play()
+        print("do play")
+        self.audioPlayer = try AVAudioPlayer(data: songData!)
+        self.audioPlayer?.delegate = self
+        self.audioPlayer?.prepareToPlay()
+        audioPlayer?.play()
         } catch let error1 as NSError {
-            self.audioPlayer = nil
-            print("\(error1)")
+        self.audioPlayer = nil
+        print("\(error1)")
         }catch{
-            self.audioPlayer = nil
-            print("other error")
+        self.audioPlayer = nil
+        print("other error")
+        }*/
+    }
+    
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "sgeToPlayer"{
+            let playerVC = segue.destinationViewController as! SongPlayerViewController
+            playerVC.track = songs[songSelected]
+            playerVC.trackInArray = songSelected
         }
     }
 }
