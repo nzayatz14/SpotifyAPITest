@@ -27,7 +27,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Soundcloud.clientSecret  = "179c12371d2f76e030bfb689d3e73582"
         Soundcloud.redirectURI = "http://www.zipsyapp.com/"
         
-        SPTAuth.defaultInstance().clientID = spotifyClientID
+        //set root VC based on login status
+        let navController = self.window?.rootViewController as! UINavigationController
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        var initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
+        
+        if Soundcloud.session != nil {
+            Soundcloud.session?.refreshSession({ session in
+                initialViewController = storyboard.instantiateViewControllerWithIdentifier("SoundCloudMain")
+                navController.pushViewController(initialViewController, animated: false)
+            })
+        }else{
+            navController.pushViewController(initialViewController, animated: false)
+        }
+        
+        /*SPTAuth.defaultInstance().clientID = spotifyClientID
         SPTAuth.defaultInstance().redirectURL = NSURL(string: spotifyCallbackURL)
         SPTAuth.defaultInstance().requestedScopes = [SPTAuthPlaylistModifyPublicScope, SPTAuthUserLibraryReadScope]
         
@@ -42,43 +56,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let userDefault = NSUserDefaults()
         
         if let sessionData = userDefault.objectForKey("currentSession") as? NSData {
-            if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
-                auth.session = session
-                print("\(auth.session.encryptedRefreshToken)")
-            }
+        if let session = NSKeyedUnarchiver.unarchiveObjectWithData(sessionData) as? SPTSession {
+        auth.session = session
+        print("\(auth.session.encryptedRefreshToken)")
+        }
         }
         
         
         //if there is no session, begin checking for a login
         if auth.session == nil {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
-            navController.pushViewController(initialViewController, animated: false)
-            return true
+        initialViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
+        navController.pushViewController(initialViewController, animated: false)
+        return true
         }
         
         //if there is a valid session, continue to next VC
         if auth.session.isValid() {
-            initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
-            navController.pushViewController(initialViewController, animated: false)
-            return true
+        initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
+        navController.pushViewController(initialViewController, animated: false)
+        return true
         }
         
         //if the session needs refreshing, refresh it then continue to next VC
         if auth.hasTokenRefreshService {
-            auth.renewSession(auth.session, callback: { (error, session) in
-                auth.session = session
-                
-                if (error != nil) {
-                    print("Error renewing token: \(error)")
-                    return
-                }
-                
-                print("Renew")
-                initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
-            })
+        auth.renewSession(auth.session, callback: { (error, session) in
+        auth.session = session
+        
+        if (error != nil) {
+        print("Error renewing token: \(error)")
+        return
         }
         
-        navController.pushViewController(initialViewController, animated: false)
+        print("Renew")
+        initialViewController = storyboard.instantiateViewControllerWithIdentifier("Main")
+        })
+        }
+        
+        navController.pushViewController(initialViewController, animated: false)*/
         
         // Override point for customization after application launch.
         return true
@@ -127,7 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 userDefault.synchronize()
                 
                 NSNotificationCenter.defaultCenter().postNotificationName("loginDone", object: nil)
-
+                
             })
             
             return true

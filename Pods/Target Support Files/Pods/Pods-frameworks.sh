@@ -85,6 +85,7 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods/OnePasswordExtension.framework"
+  install_framework "Pods/AFNetworking.framework"
   install_framework "Pods/MarqueeLabel.framework"
   install_framework "Pods/Soundcloud.framework"
   install_framework "Pods/Spotify.framework"
@@ -92,6 +93,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods/OnePasswordExtension.framework"
+  install_framework "Pods/AFNetworking.framework"
   install_framework "Pods/MarqueeLabel.framework"
   install_framework "Pods/Soundcloud.framework"
   install_framework "Pods/Spotify.framework"

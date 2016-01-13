@@ -105,7 +105,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4p6-Yp-vaf">
                                                     <rect key="frame" x="8" y="11" width="544" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Black&amp;WhiteSoundcloud.png" translatesAutoresizingMaskIntoConstraints="NO" id="KQ1-Ff-OcJ">
@@ -163,13 +163,13 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ve5-Qc-JW4" customClass="MarqueeLabel">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJG-Tf-b33" customClass="MarqueeLabel">
                                 <rect key="frame" x="-42" y="-21" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
@@ -188,12 +188,12 @@
                                 <exclude reference="KJG-Tf-b33"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="FTY-cb-PGo"/>
-                                <exclude reference="cDd-19-U2V"/>
+                                <exclude reference="4zU-iu-fVb"/>
                                 <exclude reference="Zqx-ot-lcQ"/>
                                 <exclude reference="bax-bb-mQd"/>
                                 <exclude reference="dXv-Jd-1OO"/>
-                                <exclude reference="4zU-iu-fVb"/>
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -202,12 +202,12 @@
                                 <include reference="KJG-Tf-b33"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="FTY-cb-PGo"/>
-                                <include reference="cDd-19-U2V"/>
+                                <include reference="4zU-iu-fVb"/>
                                 <include reference="Zqx-ot-lcQ"/>
                                 <include reference="bax-bb-mQd"/>
                                 <include reference="dXv-Jd-1OO"/>
-                                <include reference="4zU-iu-fVb"/>
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
                             </mask>
                         </variation>
                     </view>

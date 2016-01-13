@@ -14,6 +14,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -57,42 +62,47 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>0EA86176C8E6F554BC04CB6973CC7608</key>
+		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>17CC7E60FE0472B675F53AB7A0C96806</key>
+		<key>1DF6CDE9D03A6B2861DE2D9D5CCAF0F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>33A89F20A1A14C522B84EBC0A4CA4152</key>
+		<key>6B90CC06B670CBBDE6D960FFEA74A01E</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>59DE1AE6E39EB7DACCF1DC4DC0F8D433</key>
+		<key>A225D7F44DC83923FBC80C147A02DA75</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>6B78D2C95424D2648A0B99417335C2B2</key>
+		<key>B52AAACC161A3E4A25BFC67EFA36E3F8</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC8F399AF36C603DA5AE90170934B13D</key>
+		<key>C03DC363AC526EB7E7F1F3955F21EE2A</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B7498257878CE0FF52CE4E8B61A25549</key>
+		<key>D54578FACD23D4AF297069A18B877E99</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>D8B57B89BC28E74DBA035283E73E0107</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>E8CE2F55873D2656CCE893D4594CA0B7</key>
 		<dict>
 			<key>primary</key>
 			<true/>

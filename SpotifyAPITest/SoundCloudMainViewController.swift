@@ -11,18 +11,19 @@ import Soundcloud
 import AVKit
 import AVFoundation
 
-class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UITableViewDataSource, UITableViewDelegate {
-    
-    var audioPlayer: AVAudioPlayer?
-    
+class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var tblSongList: UITableView!
-    var songs = [Track]()
-    var songDatas = [String : NSData]()
     
+    var songs = [Track]() {
+        didSet{
+            tblSongList.reloadData()
+        }
+    }
+    
+    var songDatas = [String : NSData]()
     var songSelected = 0
     
-    //var size = 4
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,41 +36,31 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        sharedSoundcloudAPIAccess.getSongs()
-        
-        let session = Soundcloud.session
-        session?.me({result in
-            //print("\(result)")
-            result.response.result?.favorites({ tracklist in
-                print("Tracklist count: \(tracklist.response.result?.count)")
-                
-                self.songs = (tracklist.response.result?.filter({$0.streamable == true}))!
-                //self.songDatas = [String : NSData]
-                self.tblSongList.reloadData()
-                
-                Track.relatedTracks(self.songs[0].identifier, completion: { result in
-                    print("\(self.songs[0]) \n\n \(result)")
-                })
-                
-            })
-        })
-    }
-    
-    
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        if flag == true{
-            print("done")
-        }else{
-            print("did not finish properly")
+        sharedSoundcloudAPIAccess.getSongs { (songlist) -> Void in
+            self.songs = songlist
         }
     }
     
     
+    /**
+     Returns the number of rows in the given tableView in the given section
+     
+     - parameter tableView: the tableView passed in
+     - parameter section: the section being described
+     - returns: the number of sections in this tableView
+    */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return songs.count
     }
     
     
+    /**
+     Returns the cell at the given index
+     
+     - parameter tableView: the tableView passed in
+     - parameter indexPath: the index of the cell being described
+     - returns: the new table cell to be loaded into the table view
+     */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("SoundcloudTableCell", forIndexPath: indexPath) as! SoundCloudTableCell
         
@@ -79,36 +70,27 @@ class SoundCloudMainViewController: UIViewController, AVAudioPlayerDelegate, UIT
     }
     
     
+    /**
+     Function called when a row in the table was selected
+     
+     - parameter tableView: the tableView that had its row selected
+     - parameter indexPath: the index of the row that was selected
+     - returns: void
+    */
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         songSelected = indexPath.row
         self.performSegueWithIdentifier("sgeToPlayer", sender: self)
-        
-        /*var songData: NSData!
-        
-        if songDatas["\(songs[indexPath.row].identifier)"] == nil {
-        songData = NSData(contentsOfURL: songs[indexPath.row].streamURL!)
-        songDatas["\(songs[indexPath.row].identifier)"] = songData
-        }else{
-        songData = songDatas["\(songs[indexPath.row].identifier)"]
-        }
-        
-        do {
-        print("do play")
-        self.audioPlayer = try AVAudioPlayer(data: songData!)
-        self.audioPlayer?.delegate = self
-        self.audioPlayer?.prepareToPlay()
-        audioPlayer?.play()
-        } catch let error1 as NSError {
-        self.audioPlayer = nil
-        print("\(error1)")
-        }catch{
-        self.audioPlayer = nil
-        print("other error")
-        }*/
     }
     
     
+    /**
+     Prepare the view for a segue
+     
+     - parameter segue: the segue being made
+     - parameter sender: the sender of the segue
+     - returns: void
+     */
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "sgeToPlayer"{
             let playerVC = segue.destinationViewController as! SongPlayerViewController

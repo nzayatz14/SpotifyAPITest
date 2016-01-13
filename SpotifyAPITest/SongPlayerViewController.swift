@@ -47,7 +47,35 @@ class SongPlayerViewController: UIViewController, AVAudioPlayerDelegate {
         lblSongTitle.text = track.title
         lblArtistName.text = track.createdBy.fullname
         
-        trackData = sharedSoundcloudAPIAccess.getSongFromSavedSongs(trackInArray)
+        //get the song data from AFNetworking
+        sharedSoundcloudAPIAccess.getSongFromSavedSongs(trackInArray, success: { (songData) -> Void in
+            
+            self.trackData = songData
+            
+            dispatch_async(dispatch_get_main_queue()) {
+                //update UI Things
+            }
+            
+            }) { (error) -> Void in
+                
+                print(error)
+        }
+    }
+    
+    
+    /**
+     Function called when an audio player has finished playing
+     
+     - parameter player: the player that has finished playing
+     - parameter flag: whether or not the finish was successful
+     - returns: void
+    */
+    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
+        if flag == true{
+            print("done")
+        }else{
+            print("did not finish properly")
+        }
     }
     
     
