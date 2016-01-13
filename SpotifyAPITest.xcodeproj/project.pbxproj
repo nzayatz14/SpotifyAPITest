@@ -12,6 +12,7 @@
 		843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94C1C1B24D4009A8F75 /* Foundation.framework */; };
 		843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */; };
 		843AF9531C1B2EE8009A8F75 /* Soundcloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */; };
+		844792DA1C470C7B0044FE07 /* CircleSlider.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844792D91C470C7B0044FE07 /* CircleSlider.framework */; };
 		845557D41C3C694000FD6C12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D31C3C694000FD6C12 /* Extensions.swift */; };
 		845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */; };
 		845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */; };
@@ -57,6 +58,7 @@
 		843AF94C1C1B24D4009A8F75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
+		844792D91C470C7B0044FE07 /* CircleSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CircleSlider.framework; path = "Pods/../build/Debug-iphoneos/CircleSlider.framework"; sourceTree = "<group>"; };
 		845557D31C3C694000FD6C12 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Black&WhiteSoundcloud.png"; sourceTree = "<group>"; };
 		845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudTableCell.swift; sourceTree = "<group>"; };
@@ -99,6 +101,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844792DA1C470C7B0044FE07 /* CircleSlider.framework in Frameworks */,
 				846AF6211C45CAE500A13F24 /* MarqueeLabel.framework in Frameworks */,
 				846AF61F1C45CAE100A13F24 /* AFNetworking.framework in Frameworks */,
 				843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */,
@@ -202,6 +205,7 @@
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				844792D91C470C7B0044FE07 /* CircleSlider.framework */,
 				846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */,
 				846AF61E1C45CAE100A13F24 /* AFNetworking.framework */,
 				849D7FCC1C455CC90001A9D6 /* InteractivePlayerView.framework */,

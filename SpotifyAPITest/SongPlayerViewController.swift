@@ -10,12 +10,17 @@ import UIKit
 import MarqueeLabel
 import Soundcloud
 import AVFoundation
+import CircleSlider
 
 class SongPlayerViewController: UIViewController {
     
     
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
+    @IBOutlet weak var sliderArea: UIView!
+    
+    
+    var circleSlider: CircleSlider!
     
     var audioPlayer: AVAudioPlayer?
     var audioStreamer: AVQueuePlayer?
@@ -57,6 +62,17 @@ class SongPlayerViewController: UIViewController {
         
         print(error)
         }*/
+    }
+    
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: nil)
+        self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .ValueChanged)
+        self.sliderArea.addSubview(self.circleSlider)
     }
     
     
@@ -102,6 +118,11 @@ class SongPlayerViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    
+    func valueChange(slider: AnyObject){
+        
     }
     
     
