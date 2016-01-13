@@ -19,6 +19,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>CircleSlider.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>MarqueeLabel.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -61,62 +66,6 @@
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>1C3436CEA5C3D39764C5F54374794ECB</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>1DF6CDE9D03A6B2861DE2D9D5CCAF0F8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>6B90CC06B670CBBDE6D960FFEA74A01E</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>A225D7F44DC83923FBC80C147A02DA75</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>B52AAACC161A3E4A25BFC67EFA36E3F8</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>C03DC363AC526EB7E7F1F3955F21EE2A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D54578FACD23D4AF297069A18B877E99</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>D8B57B89BC28E74DBA035283E73E0107</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>E8CE2F55873D2656CCE893D4594CA0B7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F0EA0DBE4CC14BB311124892C749C9B3</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FF62A25D3E480238C0D473193AB70325</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-	</dict>
+	<dict/>
 </dict>
 </plist>

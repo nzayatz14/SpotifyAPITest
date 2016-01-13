@@ -7,6 +7,7 @@ pod 'Soundcloud'
 pod 'Spotify-iOS-SDK'
 pod 'MarqueeLabel'
 pod 'AFNetworking'
+pod 'CircleSlider'
 
 target 'SpotifyAPITest' do
 
