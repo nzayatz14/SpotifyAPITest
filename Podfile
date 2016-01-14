@@ -3,11 +3,12 @@
 # Uncomment this line if you're using Swift
 use_frameworks!
 
-pod 'Soundcloud'
-pod 'Spotify-iOS-SDK'
-pod 'MarqueeLabel'
-pod 'AFNetworking'
-pod 'CircleSlider'
+    pod 'Soundcloud'
+    pod 'Spotify-iOS-SDK'
+    pod 'MarqueeLabel'
+    pod 'AFNetworking'
+    pod 'CircleSlider'
+    pod 'BluetoothKit', '~> 0.2.0'
 
 target 'SpotifyAPITest' do
 

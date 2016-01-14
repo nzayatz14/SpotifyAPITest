@@ -1,5 +1,5 @@
 PODS:
-  - 1PasswordExtension (1.6.4)
+  - 1PasswordExtension (1.7)
   - AFNetworking (3.0.4):
     - AFNetworking/NSURLSession (= 3.0.4)
     - AFNetworking/Reachability (= 3.0.4)
@@ -15,9 +15,10 @@ PODS:
   - AFNetworking/Serialization (3.0.4)
   - AFNetworking/UIKit (3.0.4):
     - AFNetworking/NSURLSession
+  - BluetoothKit (0.2.1)
   - CircleSlider (0.1.0)
   - MarqueeLabel (2.4.2)
-  - Soundcloud (0.5.0):
+  - Soundcloud (0.6.1):
     - 1PasswordExtension (~> 1.5)
     - UICKeyChainStore (~> 2.0.6)
   - Spotify-iOS-SDK (0.13.0)
@@ -25,17 +26,19 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking
+  - BluetoothKit (~> 0.2.0)
   - CircleSlider
   - MarqueeLabel
   - Soundcloud
   - Spotify-iOS-SDK
 
 SPEC CHECKSUMS:
-  1PasswordExtension: 9f471645d378283cb88c6d4bf502e4381a42c0ad
+  1PasswordExtension: a22573ad528dd63bd79c1f3b3813b17c2f86b91b
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
+  BluetoothKit: c1dfd8f529a1d4d2c0778b97a8937b5b68c75395
   CircleSlider: d195e672f7b7a644bb07743c90f271d939ef63f0
   MarqueeLabel: 641f82cd199dae0ab194bd157984b3cbfbb31b09
-  Soundcloud: 9559c6b5e51ad46c4b7680ede984579d9c14978a
+  Soundcloud: 973814195594c910eac4ac27bd7fcc0d11e44fd0
   Spotify-iOS-SDK: 0ba94c0ac207567be704fe1edd541f63a7ca66cd
   UICKeyChainStore: 696cd35083f7c8fb5e201d909b7e6aea6b478575
 

@@ -6,8 +6,10 @@
 //  Copyright (c) 2015 Kevin Delannoy. All rights reserved.
 //
 
-import UIKit
-import UICKeyChainStore
+import Foundation
+#if os(iOS) || os(OSX)
+    import UICKeyChainStore
+#endif
 
 // MARK: - Errors
 ////////////////////////////////////////////////////////////////////////////
@@ -16,10 +18,12 @@ public enum SoundcloudError: ErrorType {
     case CredentialsNotSet
     case NotFound
     case Forbidden
-    case NeedsLogin
     case Parsing
     case Unknown
     case Network(ErrorType)
+    #if os(iOS) || os(OSX)
+    case NeedsLogin
+    #endif
 }
 
 extension SoundcloudError: RequestError {
@@ -63,6 +67,7 @@ extension PaginatedAPIResponse {
 // MARK: - Session
 ////////////////////////////////////////////////////////////////////////////
 
+#if os(iOS) || os(OSX)
 public class Session: NSObject, NSCoding, NSCopying {
     //First session info
     internal var authorizationCode: String
@@ -139,7 +144,7 @@ extension Session {
     - parameter displayViewController: An UIViewController that is in the view hierarchy
     - parameter completion:            The closure that will be called when the user is logged in or upon error
     */
-    public static func login(displayViewController: UIViewController, completion: SimpleAPIResponse<Session> -> Void) {
+    public static func login(displayViewController: ViewController, completion: SimpleAPIResponse<Session> -> Void) {
         authorize(displayViewController, completion: { result in
             if let session = result.response.result {
                 session.getToken({ result in
@@ -213,7 +218,7 @@ extension Session {
     // MARK: Authorize
     ////////////////////////////////////////////////////////////////////////////
 
-    internal static func authorize(displayViewController: UIViewController, completion: SimpleAPIResponse<Session> -> Void) {
+    internal static func authorize(displayViewController: ViewController, completion: SimpleAPIResponse<Session> -> Void) {
         guard let clientIdentifier = Soundcloud.clientIdentifier, redirectURI = Soundcloud.redirectURI else {
             completion(SimpleAPIResponse(.CredentialsNotSet))
             return
@@ -226,7 +231,6 @@ extension Session {
         let web = SoundcloudWebViewController()
         web.autoDismissScheme = NSURL(string: redirectURI)?.scheme
         web.URL = URL.URLByAppendingQueryString(parameters.queryString)
-        web.navigationItem.title = "Soundcloud"
         web.onDismiss = { URL in
             if let accessCode = URL?.query?.queryDictionary["code"] {
                 let session = Session(authorizationCode: accessCode)
@@ -237,8 +241,17 @@ extension Session {
             }
         }
 
-        let nav = UINavigationController(rootViewController: web)
-        displayViewController.presentViewController(nav, animated: true, completion: nil)
+        #if os(OSX)
+            web.title = "Soundcloud"
+            web.preferredContentSize = displayViewController.view.bounds.size
+
+            displayViewController.presentViewControllerAsSheet(web)
+        #else
+            web.navigationItem.title = "Soundcloud"
+
+            let nav = UINavigationController(rootViewController: web)
+            displayViewController.presentViewController(nav, animated: true, completion: nil)
+        #endif
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -307,6 +320,7 @@ extension Session {
 
     ////////////////////////////////////////////////////////////////////////////
 }
+#endif
 
 ////////////////////////////////////////////////////////////////////////////
 
@@ -318,6 +332,7 @@ public class Soundcloud: NSObject {
     // MARK: Properties
     ////////////////////////////////////////////////////////////////////////////
 
+    #if os(iOS) || os(OSX)
     private static let sessionKey = "sessionKey"
 
     private static let keychain = UICKeyChainStore(server: NSURL(string: "https://soundcloud.com")!,
@@ -340,6 +355,7 @@ public class Soundcloud: NSObject {
             }
         }
     }
+    #endif
 
     /// Your Soundcloud app client identifier
     public static var clientIdentifier: String?

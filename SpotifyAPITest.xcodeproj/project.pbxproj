@@ -8,10 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		60E5964C6C35D579E850D3F7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369C2C46D81302EF1865882C /* Pods.framework */; };
-		840FB46F1C2F7333007725B1 /* Spotify.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840FB46E1C2F7333007725B1 /* Spotify.framework */; };
 		843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94C1C1B24D4009A8F75 /* Foundation.framework */; };
 		843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */; };
-		843AF9531C1B2EE8009A8F75 /* Soundcloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */; };
 		845557D41C3C694000FD6C12 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D31C3C694000FD6C12 /* Extensions.swift */; };
 		845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */; };
 		845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */; };
@@ -23,14 +21,14 @@
 		845B473E1BF68FE20043AC08 /* SpotifyAPITestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B473D1BF68FE20043AC08 /* SpotifyAPITestTests.swift */; };
 		845B47491BF68FE20043AC08 /* SpotifyAPITestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845B47481BF68FE20043AC08 /* SpotifyAPITestUITests.swift */; };
 		84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */; };
-		846AF61F1C45CAE100A13F24 /* AFNetworking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846AF61E1C45CAE100A13F24 /* AFNetworking.framework */; };
-		846AF6211C45CAE500A13F24 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */; };
 		847C066A1C2F6E8800865E33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847C06691C2F6E8800865E33 /* AVFoundation.framework */; };
 		849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */; };
 		84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */; };
-		84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */; };
-		84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */; };
 		84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFA9761BF69A3E00B872BC /* MainViewController.swift */; };
+		A77086CD1C47F59300FB31E7 /* BluetoothPeripheral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086CC1C47F59300FB31E7 /* BluetoothPeripheral.swift */; };
+		A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086CE1C47F5AA00FB31E7 /* BluetoothCentral.swift */; };
+		A77086D51C47F93F00FB31E7 /* BluetoothErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086D41C47F93F00FB31E7 /* BluetoothErrorType.swift */; };
+		A77086D71C47FD7400FB31E7 /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086D61C47FD7400FB31E7 /* Console.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -91,6 +89,11 @@
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
 		84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = "Pods/../build/Debug-iphoneos/UICKeyChainStore.framework"; sourceTree = "<group>"; };
 		84EFA9761BF69A3E00B872BC /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		90FA43539E19042834B5697B /* Pods_SpotifyAPITest.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotifyAPITest.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A77086CC1C47F59300FB31E7 /* BluetoothPeripheral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothPeripheral.swift; sourceTree = "<group>"; };
+		A77086CE1C47F5AA00FB31E7 /* BluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothCentral.swift; sourceTree = "<group>"; };
+		A77086D41C47F93F00FB31E7 /* BluetoothErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothErrorType.swift; sourceTree = "<group>"; };
+		A77086D61C47FD7400FB31E7 /* Console.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
 		D56D9E755ECC9A9C282FB320 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -99,16 +102,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				846AF6211C45CAE500A13F24 /* MarqueeLabel.framework in Frameworks */,
-				846AF61F1C45CAE100A13F24 /* AFNetworking.framework in Frameworks */,
 				843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */,
 				60E5964C6C35D579E850D3F7 /* Pods.framework in Frameworks */,
 				843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */,
-				840FB46F1C2F7333007725B1 /* Spotify.framework in Frameworks */,
 				847C066A1C2F6E8800865E33 /* AVFoundation.framework in Frameworks */,
-				843AF9531C1B2EE8009A8F75 /* Soundcloud.framework in Frameworks */,
-				84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */,
-				84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -170,7 +167,8 @@
 				84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */,
 				84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */,
 				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
-				845557D31C3C694000FD6C12 /* Extensions.swift */,
+				A77086D31C47F81600FB31E7 /* Supporting Classes */,
+				A77086D21C47F66700FB31E7 /* Bluetooth */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
 				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
@@ -199,6 +197,25 @@
 			path = SpotifyAPITestUITests;
 			sourceTree = "<group>";
 		};
+		A77086D21C47F66700FB31E7 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				A77086CE1C47F5AA00FB31E7 /* BluetoothCentral.swift */,
+				A77086CC1C47F59300FB31E7 /* BluetoothPeripheral.swift */,
+				A77086D41C47F93F00FB31E7 /* BluetoothErrorType.swift */,
+			);
+			name = Bluetooth;
+			sourceTree = "<group>";
+		};
+		A77086D31C47F81600FB31E7 /* Supporting Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A77086D61C47FD7400FB31E7 /* Console.swift */,
+				845557D31C3C694000FD6C12 /* Extensions.swift */,
+			);
+			name = "Supporting Classes";
+			sourceTree = "<group>";
+		};
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -220,6 +237,7 @@
 				847B6A4A1BF6955900C2D50E /* NXOAuth2Client.framework */,
 				847B6A4B1BF6955900C2D50E /* OHAttributedLabel.framework */,
 				369C2C46D81302EF1865882C /* Pods.framework */,
+				90FA43539E19042834B5697B /* Pods_SpotifyAPITest.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -382,7 +400,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SpotifyAPITest/Pods-SpotifyAPITest-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		8F4B08854A0EB40A51C13CD7 /* Copy Pods Resources */ = {
@@ -408,12 +426,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				845557D41C3C694000FD6C12 /* Extensions.swift in Sources */,
+				A77086D51C47F93F00FB31E7 /* BluetoothErrorType.swift in Sources */,
+				A77086CD1C47F59300FB31E7 /* BluetoothPeripheral.swift in Sources */,
 				849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */,
 				84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */,
+				A77086D71C47FD7400FB31E7 /* Console.swift in Sources */,
 				84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */,
 				845B472B1BF68FE10043AC08 /* LoginViewController.swift in Sources */,
 				84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
+				A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */,
 				845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
