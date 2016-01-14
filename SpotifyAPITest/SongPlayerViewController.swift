@@ -22,6 +22,7 @@ class SongPlayerViewController: UIViewController {
     
     
     var circleSlider: CircleSlider!
+    var trackTimer: NSTimer?
     
     var audioPlayer: AVAudioPlayer?
     var audioStreamer: AVQueuePlayer?
@@ -39,6 +40,8 @@ class SongPlayerViewController: UIViewController {
         audioStreamer = AVQueuePlayer(URL: track.streamURL!)
         audioStreamer?.play()
         audioStreamer?.actionAtItemEnd = AVPlayerActionAtItemEnd.Advance
+        
+        trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
         loadNextSong()
         /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
@@ -77,13 +80,15 @@ class SongPlayerViewController: UIViewController {
             MPMediaItemPropertyTitle:track.title,
             MPMediaItemPropertyArtist:track.createdBy.fullname
         ]
+
     }
     
     
     override func viewDidAppear(animated: Bool) {
         
-        let length: Float = Float(track.duration)
+        let length: Float = Float(track.duration)/1000.0
         
+        print("Length: \(length)")
         //set the options of the slider
         let options = [
             CircleSliderOption.BarColor(UIColor.blackColor()),
@@ -97,7 +102,7 @@ class SongPlayerViewController: UIViewController {
         
         self.audioStreamer?.currentTime()
         self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
-        self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .ValueChanged)
+        self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
         self.sliderArea.addSubview(self.circleSlider)
     }
     
@@ -153,8 +158,18 @@ class SongPlayerViewController: UIViewController {
      - parameter slider: the slider being changed
      - returns: void
      */
-    func valueChange(slider: AnyObject){
+    func valueChange(slider: CircleSlider){
         
+        let timeTo = CMTime(seconds: Double(slider.value), preferredTimescale: Int32(NSEC_PER_SEC))
+        audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
+            
+        })
+    }
+    
+    
+    func updateCircle(){
+        print(Float(audioStreamer!.currentTime().seconds))
+        circleSlider.value = Float(audioStreamer!.currentTime().seconds)
     }
     
     
