@@ -9,8 +9,14 @@
 import Foundation
 import BluetoothKit
 
+enum bcStateType {
+    case Stopped, Scanning, Waiting
+}
+
 protocol BluetoothCentralDelegate {
-    
+    func bcDidUpdateDataSource()
+    func bcDidUpdateState(state: bcStateType)
+    func bcErrorOccured(error: ErrorType)
 }
 
 class BluetoothCentral: BKCentralDelegate {
@@ -18,7 +24,11 @@ class BluetoothCentral: BKCentralDelegate {
     var delegate: BluetoothCentralDelegate?
     
     let central = BKCentral()
-    var discoverdDevices = [BKDiscovery]()
+    var dataSource = [BKDiscovery]() {
+        didSet {
+            delegate?.bcDidUpdateDataSource()
+        }
+    }
     
     /** Time that we will scan for devices */
     var scanTime: NSTimeInterval = 3.0
@@ -45,12 +55,22 @@ class BluetoothCentral: BKCentralDelegate {
         central.scanContinuouslyWithChangeHandler({ changes, discoveries in
             // Handle changes to "availabile" discoveries, [BKDiscoveriesChange].
             // Handle current "available" discoveries, [BKDiscovery].
+            self.dataSource = discoveries
             // This is where you'd ie. update a table view.
             }, stateHandler: { newState in
                 // Handle newState, BKCentral.ContinuousScanState.
                 // This is where you'd ie. start/stop an activity indicator.
+                switch newState {
+                case .Stopped:
+                    self.delegate?.bcDidUpdateState(.Stopped)
+                case .Scanning:
+                    self.delegate?.bcDidUpdateState(.Scanning)
+                case .Waiting:
+                    self.delegate?.bcDidUpdateState(.Waiting)
+                }
             }, duration: scanTime, inBetweenDelay: scanDelayTime, errorHandler: { error in
                 // Handle error.
+                self.delegate?.bcErrorOccured(error)
         })
     }
     
