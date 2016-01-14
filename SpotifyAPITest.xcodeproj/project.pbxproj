@@ -29,6 +29,7 @@
 		847C066A1C2F6E8800865E33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847C06691C2F6E8800865E33 /* AVFoundation.framework */; };
 		849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */; };
 		84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */; };
+		84E9D09E1C47241D00EE8CEF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */; };
 		84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */; };
 		84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */; };
 		84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84EFA9761BF69A3E00B872BC /* MainViewController.swift */; };
@@ -89,6 +90,7 @@
 		849D7FCC1C455CC90001A9D6 /* InteractivePlayerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InteractivePlayerView.framework; path = "Pods/../build/Debug-iphoneos/InteractivePlayerView.framework"; sourceTree = "<group>"; };
 		849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudMainViewController.swift; sourceTree = "<group>"; };
+		84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
 		84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = "Pods/../build/Debug-iphoneos/UICKeyChainStore.framework"; sourceTree = "<group>"; };
@@ -101,6 +103,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E9D09E1C47241D00EE8CEF /* MediaPlayer.framework in Frameworks */,
 				844792DA1C470C7B0044FE07 /* CircleSlider.framework in Frameworks */,
 				846AF6211C45CAE500A13F24 /* MarqueeLabel.framework in Frameworks */,
 				846AF61F1C45CAE100A13F24 /* AFNetworking.framework in Frameworks */,
@@ -205,6 +208,7 @@
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */,
 				844792D91C470C7B0044FE07 /* CircleSlider.framework */,
 				846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */,
 				846AF61E1C45CAE100A13F24 /* AFNetworking.framework */,

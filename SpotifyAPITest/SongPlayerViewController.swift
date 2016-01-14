@@ -11,6 +11,7 @@ import MarqueeLabel
 import Soundcloud
 import AVFoundation
 import CircleSlider
+import MediaPlayer
 
 class SongPlayerViewController: UIViewController {
     
@@ -65,12 +66,37 @@ class SongPlayerViewController: UIViewController {
     }
     
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+    override func viewWillAppear(animated: Bool) {
+        
+        //show the player when the phone is locked
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+        
+        let mpic = MPNowPlayingInfoCenter.defaultCenter()
+        mpic.nowPlayingInfo = [
+            MPMediaItemPropertyTitle:track.title,
+            MPMediaItemPropertyArtist:track.createdBy.fullname
+        ]
     }
     
+    
     override func viewDidAppear(animated: Bool) {
-        self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: nil)
+        
+        let length: Float = Float(track.duration)
+        
+        //set the options of the slider
+        let options = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0)
+        ]
+        
+        self.audioStreamer?.currentTime()
+        self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
         self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .ValueChanged)
         self.sliderArea.addSubview(self.circleSlider)
     }
@@ -98,7 +124,7 @@ class SongPlayerViewController: UIViewController {
      
      - parameter: void
      - returns: void
-    */
+     */
     func loadNextSong(){
         
         //select a song at random
@@ -121,8 +147,42 @@ class SongPlayerViewController: UIViewController {
     }
     
     
+    /**
+     Function called when the value of the slider is changed
+     
+     - parameter slider: the slider being changed
+     - returns: void
+     */
     func valueChange(slider: AnyObject){
         
+    }
+    
+    
+    /**
+     Function called when the user controls music from the lock screen
+     
+     - parameter event: the event being triggered from the lock screen
+     - returns: void
+     */
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        
+        if event?.type == .RemoteControl {
+            
+            switch (event!.subtype) {
+            case UIEventSubtype.RemoteControlTogglePlayPause:
+                print("Play/pause")
+                break
+            case UIEventSubtype.RemoteControlNextTrack:
+                print("next track")
+                break
+            case UIEventSubtype.RemoteControlPreviousTrack:
+                print("previous track")
+                break
+            default: break
+                
+                
+            }
+        }
     }
     
     
