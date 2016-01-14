@@ -10,12 +10,19 @@ import UIKit
 import MarqueeLabel
 import Soundcloud
 import AVFoundation
+import CircleSlider
+import MediaPlayer
 
 class SongPlayerViewController: UIViewController {
     
     
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
+    @IBOutlet weak var sliderArea: UIView!
+    
+    
+    var circleSlider: CircleSlider!
+    var trackTimer: NSTimer?
     
     var audioPlayer: AVAudioPlayer?
     var audioStreamer: AVQueuePlayer?
@@ -33,6 +40,8 @@ class SongPlayerViewController: UIViewController {
         audioStreamer = AVQueuePlayer(URL: track.streamURL!)
         audioStreamer?.play()
         audioStreamer?.actionAtItemEnd = AVPlayerActionAtItemEnd.Advance
+        
+        trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
         loadNextSong()
         /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
@@ -60,6 +69,44 @@ class SongPlayerViewController: UIViewController {
     }
     
     
+    override func viewWillAppear(animated: Bool) {
+        
+        //show the player when the phone is locked
+        UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
+        self.becomeFirstResponder()
+        
+        let mpic = MPNowPlayingInfoCenter.defaultCenter()
+        mpic.nowPlayingInfo = [
+            MPMediaItemPropertyTitle:track.title,
+            MPMediaItemPropertyArtist:track.createdBy.fullname
+        ]
+
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        
+        let length: Float = Float(track.duration)/1000.0
+        
+        print("Length: \(length)")
+        //set the options of the slider
+        let options = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0)
+        ]
+        
+        self.audioStreamer?.currentTime()
+        self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
+        self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
+        self.sliderArea.addSubview(self.circleSlider)
+    }
+    
+    
     /**
      Function called when an audio player has finished playing
      
@@ -82,7 +129,7 @@ class SongPlayerViewController: UIViewController {
      
      - parameter: void
      - returns: void
-    */
+     */
     func loadNextSong(){
         
         //select a song at random
@@ -100,6 +147,55 @@ class SongPlayerViewController: UIViewController {
                     let playerItem = AVPlayerItem(asset: streamAsset)
                     self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
                 }
+            }
+        }
+    }
+    
+    
+    /**
+     Function called when the value of the slider is changed
+     
+     - parameter slider: the slider being changed
+     - returns: void
+     */
+    func valueChange(slider: CircleSlider){
+        
+        let timeTo = CMTime(seconds: Double(slider.value), preferredTimescale: Int32(NSEC_PER_SEC))
+        audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
+            
+        })
+    }
+    
+    
+    func updateCircle(){
+        print(Float(audioStreamer!.currentTime().seconds))
+        circleSlider.value = Float(audioStreamer!.currentTime().seconds)
+    }
+    
+    
+    /**
+     Function called when the user controls music from the lock screen
+     
+     - parameter event: the event being triggered from the lock screen
+     - returns: void
+     */
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
+        
+        if event?.type == .RemoteControl {
+            
+            switch (event!.subtype) {
+            case UIEventSubtype.RemoteControlTogglePlayPause:
+                print("Play/pause")
+                break
+            case UIEventSubtype.RemoteControlNextTrack:
+                print("next track")
+                break
+            case UIEventSubtype.RemoteControlPreviousTrack:
+                print("previous track")
+                break
+            default: break
+                
+                
             }
         }
     }

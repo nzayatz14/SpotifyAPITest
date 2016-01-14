@@ -55,6 +55,7 @@
 		843AF94C1C1B24D4009A8F75 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		843AF94E1C1B2856009A8F75 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		843AF9521C1B2EE8009A8F75 /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
+		844792D91C470C7B0044FE07 /* CircleSlider.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CircleSlider.framework; path = "Pods/../build/Debug-iphoneos/CircleSlider.framework"; sourceTree = "<group>"; };
 		845557D31C3C694000FD6C12 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Black&WhiteSoundcloud.png"; sourceTree = "<group>"; };
 		845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudTableCell.swift; sourceTree = "<group>"; };
@@ -85,6 +86,7 @@
 		849D7FCC1C455CC90001A9D6 /* InteractivePlayerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InteractivePlayerView.framework; path = "Pods/../build/Debug-iphoneos/InteractivePlayerView.framework"; sourceTree = "<group>"; };
 		849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudMainViewController.swift; sourceTree = "<group>"; };
+		84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
 		84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = "Pods/../build/Debug-iphoneos/UICKeyChainStore.framework"; sourceTree = "<group>"; };
@@ -219,6 +221,8 @@
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */,
+				844792D91C470C7B0044FE07 /* CircleSlider.framework */,
 				846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */,
 				846AF61E1C45CAE100A13F24 /* AFNetworking.framework */,
 				849D7FCC1C455CC90001A9D6 /* InteractivePlayerView.framework */,
