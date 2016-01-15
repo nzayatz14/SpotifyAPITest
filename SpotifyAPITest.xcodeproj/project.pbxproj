@@ -28,6 +28,7 @@
 		846AF6211C45CAE500A13F24 /* MarqueeLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */; };
 		847C066A1C2F6E8800865E33 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 847C06691C2F6E8800865E33 /* AVFoundation.framework */; };
 		849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */; };
+		84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACF0881C49378500E83A5C /* SongPlayer.swift */; };
 		84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */; };
 		84E9D09E1C47241D00EE8CEF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */; };
 		84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */; };
@@ -89,6 +90,7 @@
 		847C06691C2F6E8800865E33 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		849D7FCC1C455CC90001A9D6 /* InteractivePlayerView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InteractivePlayerView.framework; path = "Pods/../build/Debug-iphoneos/InteractivePlayerView.framework"; sourceTree = "<group>"; };
 		849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
+		84ACF0881C49378500E83A5C /* SongPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
 		84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudMainViewController.swift; sourceTree = "<group>"; };
 		84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
@@ -170,13 +172,14 @@
 			isa = PBXGroup;
 			children = (
 				845B47281BF68FE10043AC08 /* AppDelegate.swift */,
+				845557D31C3C694000FD6C12 /* Extensions.swift */,
 				845B472A1BF68FE10043AC08 /* LoginViewController.swift */,
 				84EFA9761BF69A3E00B872BC /* MainViewController.swift */,
 				849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */,
 				84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */,
 				84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */,
 				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
-				845557D31C3C694000FD6C12 /* Extensions.swift */,
+				84ACF0881C49378500E83A5C /* SongPlayer.swift */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
 				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
@@ -420,6 +423,7 @@
 				84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */,
 				84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */,
 				845B472B1BF68FE10043AC08 /* LoginViewController.swift in Sources */,
+				84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */,
 				84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
 				845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */,

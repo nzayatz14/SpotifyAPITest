@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -211,16 +212,16 @@
                                 <exclude reference="V04-js-jqv"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="4zU-iu-fVb"/>
+                                <exclude reference="Zqx-ot-lcQ"/>
+                                <exclude reference="bax-bb-mQd"/>
+                                <exclude reference="dXv-Jd-1OO"/>
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
                                 <exclude reference="8be-Xg-LcI"/>
                                 <exclude reference="WIB-vX-4w1"/>
                                 <exclude reference="gDC-Gv-fQi"/>
                                 <exclude reference="rX8-xx-7hM"/>
-                                <exclude reference="FTY-cb-PGo"/>
-                                <exclude reference="cDd-19-U2V"/>
-                                <exclude reference="Zqx-ot-lcQ"/>
-                                <exclude reference="bax-bb-mQd"/>
-                                <exclude reference="dXv-Jd-1OO"/>
-                                <exclude reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -230,16 +231,16 @@
                                 <include reference="V04-js-jqv"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="4zU-iu-fVb"/>
+                                <include reference="Zqx-ot-lcQ"/>
+                                <include reference="bax-bb-mQd"/>
+                                <include reference="dXv-Jd-1OO"/>
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
                                 <include reference="8be-Xg-LcI"/>
                                 <include reference="WIB-vX-4w1"/>
                                 <include reference="gDC-Gv-fQi"/>
                                 <include reference="rX8-xx-7hM"/>
-                                <include reference="FTY-cb-PGo"/>
-                                <include reference="cDd-19-U2V"/>
-                                <include reference="Zqx-ot-lcQ"/>
-                                <include reference="bax-bb-mQd"/>
-                                <include reference="dXv-Jd-1OO"/>
-                                <include reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                     </view>
