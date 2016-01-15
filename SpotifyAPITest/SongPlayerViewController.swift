@@ -24,9 +24,6 @@ class SongPlayerViewController: UIViewController {
     var circleSlider: CircleSlider!
     var trackTimer: NSTimer?
     
-    var audioPlayer: AVAudioPlayer?
-    var audioStreamer: AVQueuePlayer?
-    
     var trackInArray: Int!
     var track: Track!
     
@@ -37,13 +34,11 @@ class SongPlayerViewController: UIViewController {
         lblSongTitle.text = track.title
         lblArtistName.text = track.createdBy.fullname
         
-        audioStreamer = AVQueuePlayer(URL: track.streamURL!)
-        audioStreamer?.play()
-        audioStreamer?.actionAtItemEnd = AVPlayerActionAtItemEnd.Advance
+        sharedSongPlayer.clearStreamer()
+        sharedSongPlayer.initPlayerWithTrack(track)
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
-        loadNextSong()
         /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
         audioStreamer?.insertItem(item, afterItem: audioStreamer?.currentItem)*/
         
@@ -71,6 +66,7 @@ class SongPlayerViewController: UIViewController {
     
     override func viewWillAppear(animated: Bool) {
         
+        
         //show the player when the phone is locked
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
@@ -80,30 +76,14 @@ class SongPlayerViewController: UIViewController {
             MPMediaItemPropertyTitle:track.title,
             MPMediaItemPropertyArtist:track.createdBy.fullname
         ]
-
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: sharedSongPlayer.audioStreamer?.currentItem)
+        
     }
     
     
     override func viewDidAppear(animated: Bool) {
-        
-        let length: Float = Float(track.duration)/1000.0
-        
-        print("Length: \(length)")
-        //set the options of the slider
-        let options = [
-            CircleSliderOption.BarColor(UIColor.blackColor()),
-            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
-            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
-            CircleSliderOption.BarWidth(3),
-            CircleSliderOption.StartAngle(0),
-            CircleSliderOption.MaxValue(length),
-            CircleSliderOption.MinValue(0)
-        ]
-        
-        self.audioStreamer?.currentTime()
-        self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
-        self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-        self.sliderArea.addSubview(self.circleSlider)
+        setUpTimer(track)
     }
     
     
@@ -123,35 +103,6 @@ class SongPlayerViewController: UIViewController {
     }
     
     
-    
-    /**
-     Function called to add the next song to the queue
-     
-     - parameter: void
-     - returns: void
-     */
-    func loadNextSong(){
-        
-        //select a song at random
-        srand(UInt32(time(nil)))
-        let randomSong = rand() % Int32(sharedSoundcloudAPIAccess.songs.count)
-        
-        //add random song to the queue
-        if let nextURL = sharedSoundcloudAPIAccess.songs[Int(randomSong)].streamURL {
-            let streamAsset = AVURLAsset(URL: nextURL)
-            
-            let keys = ["playable"]
-            
-            streamAsset.loadValuesAsynchronouslyForKeys(keys) { () -> Void in
-                dispatch_async(dispatch_get_main_queue()) {
-                    let playerItem = AVPlayerItem(asset: streamAsset)
-                    self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
-                }
-            }
-        }
-    }
-    
-    
     /**
      Function called when the value of the slider is changed
      
@@ -161,15 +112,21 @@ class SongPlayerViewController: UIViewController {
     func valueChange(slider: CircleSlider){
         
         let timeTo = CMTime(seconds: Double(slider.value), preferredTimescale: Int32(NSEC_PER_SEC))
-        audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
+        sharedSongPlayer.audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
             
         })
     }
     
     
+    /**
+     Function called to update the circle on the timer tick
+     
+     - parameter void:
+     - returns: void
+    */
     func updateCircle(){
-        print(Float(audioStreamer!.currentTime().seconds))
-        circleSlider.value = Float(audioStreamer!.currentTime().seconds)
+        print(Float(sharedSongPlayer.audioStreamer!.currentTime().seconds))
+        circleSlider.value = Float(sharedSongPlayer.audioStreamer!.currentTime().seconds)
     }
     
     
@@ -197,6 +154,55 @@ class SongPlayerViewController: UIViewController {
                 
                 
             }
+        }
+    }
+    
+    
+    /**
+     Function called when the audio player has finished playing a song
+     
+     - parameter note: the NSNotification sent out that the player has finished playing a song
+     - returns: void
+     */
+    func playerDidFinishPlaying(note: NSNotification) {
+        print("called from VC")
+        track = sharedSongPlayer.nextPlaying
+        setUpTimer(track)
+        sharedSongPlayer.currentlyPlaying = sharedSongPlayer.nextPlaying
+        sharedSongPlayer.loadNextSong()
+    }
+    
+    
+    /**
+     Function called to set up the timer with a new song
+     
+     - parameter thisTrack: the track that is currently being played
+     - returns: void
+    */
+    func setUpTimer(thisTrack: Track){
+        let length: Float = Float(thisTrack.duration)/1000.0
+        
+        print("Length: \(length)")
+        
+        //set the options of the slider
+        let options = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0)
+        ]
+        
+        //if the slider is not initialized, initialize it
+        if circleSlider == nil {
+            self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
+            self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
+            self.sliderArea.addSubview(self.circleSlider)
+        }else{
+            circleSlider.maxValue = length
+            circleSlider.value = 0
         }
     }
     

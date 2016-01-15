@@ -54,7 +54,7 @@ public class CircleSlider: UIControl {
   private var trackingColor      = UIColor.blueColor()
   private var thumbColor         = UIColor.blackColor()
   private var barWidth: CGFloat  = 20
-  private var maxValue: Float    = 100
+  public  var maxValue: Float    = 100
   private var minValue: Float    = 0
   private var sliderEnabled      = true
   private var _thumbWidth: CGFloat?
