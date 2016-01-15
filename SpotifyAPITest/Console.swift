@@ -11,8 +11,8 @@ import Foundation
 private let consoleQueue = dispatch_queue_create("console_queue", DISPATCH_QUEUE_SERIAL)
 
 //MARK: - Logging
-struct zipsyLogging {
-    static let sharedLogger = zipsyLogging()
+struct logLevel {
+    static let sharedLogLevel = logLevel()
     
     var logVerbose = false
     var logMainMsg = true //set to false to turn off message logging
@@ -33,9 +33,9 @@ struct zipsyLogging {
  :returns: void
  */
 @inline(__always) func logMsg<T>(message: T, file: String = __FILE__, function: String = __FUNCTION__, line: Int = __LINE__) {
-    if zipsyLogging.sharedLogger.logMainMsg {
+    if logLevel.sharedLogLevel.logMainMsg {
         dispatch_sync(consoleQueue) {
-            if zipsyLogging.sharedLogger.logVerbose {
+            if logLevel.sharedLogLevel.logVerbose {
                 print("»»» (File: \(file.lastPathComponent.stringByDeletingPathExtension), Function: \(function), Line: \(line))\nMessage: \"\(message)\"")
             } else {
                 print("»»» \"\(message)\"")
@@ -58,7 +58,7 @@ struct zipsyLogging {
  :returns: void
  */
 @inline(__always) func logErr<T>(error: T, file: String = __FILE__, function: String = __FUNCTION__, line: Int = __LINE__) {
-    if zipsyLogging.sharedLogger.logMainMsg {
+    if logLevel.sharedLogLevel.logMainMsg {
         dispatch_sync(consoleQueue) {
             print("❌ »»» ERROR: (File: \(file.lastPathComponent.stringByDeletingPathExtension), Function: \(function), Line: \(line)):\nError Message: \"\(error)\"")
         }
