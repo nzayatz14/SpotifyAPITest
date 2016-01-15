@@ -108,6 +108,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navController.pushViewController(initialViewController, animated: false)*/
         
         // Override point for customization after application launch.
+        
+        let central = true
+        
+        if central {
+            do {
+                let x = try BluetoothCentral.sharedCentral()
+                x.startContinuousScan()
+                sleep(5)
+                x.startContinuousScan()
+            } catch let error {
+                logErr(error)
+            }
+        } else {
+            
+        }
+        
+        
+        
         return true
     }
     

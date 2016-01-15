@@ -9,24 +9,43 @@
 import Foundation
 import BluetoothKit
 
-enum bcStateType {
-    case Stopped, Scanning, Waiting
-}
-
 protocol BluetoothCentralDelegate {
-    func bcDidUpdateDataSource()
-    func bcDidUpdateState(state: bcStateType)
-    func bcErrorOccured(error: ErrorType)
+    func bcDidUpdateDataSource(sender: BluetoothCentral)
+    func bcDidUpdateState(sender: BluetoothCentral, state: BKCentral.ContinuousScanState)
+    
+    func bcDidConnectToRemotePeripheral(sender: BluetoothCentral)
+    func bcDidDisconnectFromRemotePeripheral(sender: BluetoothCentral)
+    
+    func bcErrorOccured(sender: BluetoothCentral, error: ErrorType)
 }
 
 class BluetoothCentral: BKCentralDelegate {
     
+    private static var privateSharedCentral = try? BluetoothCentral()
+    
+    static func sharedCentral() throws -> BluetoothCentral {
+        if privateSharedCentral == nil {
+            privateSharedCentral = try BluetoothCentral()
+        }
+        return privateSharedCentral!
+    }
+    
     var delegate: BluetoothCentralDelegate?
     
-    let central = BKCentral()
+    private let central = BKCentral()
     var dataSource = [BKDiscovery]() {
         didSet {
-            delegate?.bcDidUpdateDataSource()
+            delegate?.bcDidUpdateDataSource(self)
+        }
+    }
+    
+    var connectedPeripheral: BKRemotePeripheral? {
+        didSet {
+            if connectedPeripheral == nil {
+                delegate?.bcDidDisconnectFromRemotePeripheral(self)
+            } else {
+                delegate?.bcDidConnectToRemotePeripheral(self)
+            }
         }
     }
     
@@ -34,6 +53,8 @@ class BluetoothCentral: BKCentralDelegate {
     var scanTime: NSTimeInterval = 3.0
     /** Delay between continuous scans */
     var scanDelayTime: NSTimeInterval = 3.0
+    /**  */
+    var connectionTimeout: NSTimeInterval = 5.0
     
     required init() throws {
         
@@ -51,36 +72,77 @@ class BluetoothCentral: BKCentralDelegate {
         
     }
     
+    deinit {
+        delegate = nil
+        dataSource.removeAll()
+        connectedPeripheral = nil
+        do {
+            try self.stop()
+        } catch let error {
+            logErr(error)
+        }
+    }
+    
     func startContinuousScan() {
         central.scanContinuouslyWithChangeHandler({ changes, discoveries in
             // Handle changes to "availabile" discoveries, [BKDiscoveriesChange].
+            logMsg(changes)
+            logMsg(discoveries)
             // Handle current "available" discoveries, [BKDiscovery].
             self.dataSource = discoveries
             // This is where you'd ie. update a table view.
             }, stateHandler: { newState in
                 // Handle newState, BKCentral.ContinuousScanState.
                 // This is where you'd ie. start/stop an activity indicator.
-                switch newState {
-                case .Stopped:
-                    self.delegate?.bcDidUpdateState(.Stopped)
-                case .Scanning:
-                    self.delegate?.bcDidUpdateState(.Scanning)
-                case .Waiting:
-                    self.delegate?.bcDidUpdateState(.Waiting)
-                }
+                
+                self.delegate?.bcDidUpdateState(self, state: newState)
+                
             }, duration: scanTime, inBetweenDelay: scanDelayTime, errorHandler: { error in
                 // Handle error.
-                self.delegate?.bcErrorOccured(error)
+                logErr(error)
+                self.delegate?.bcErrorOccured(self, error: error)
         })
     }
     
     func startScan() {
         central.scanWithDuration(scanTime, progressHandler: { newDiscoveries in
             // Handle newDiscoveries, [BKDiscovery].
+            logMsg(newDiscoveries)
             }, completionHandler: { result, error in
                 // Handle error.
+                if let error = error {
+                    logErr(error)
+                    self.delegate?.bcErrorOccured(self, error: error)
+                    return
+                }
+                
                 // If no error, handle result, [BKDiscovery].
+                if let result = result {
+                    self.dataSource = result
+                    return
+                }
         })
+    }
+    
+    func stop() throws {
+        try central.stop()
+    }
+    
+    func connect(idx: Int) throws {
+        if dataSource.count < idx {
+            throw BluetoothErrorType.IndexOutOfBounds(idx: idx, cnt: dataSource.count)
+        }
+        
+        central.connect(connectionTimeout, remotePeripheral: dataSource[idx].remotePeripheral) { (remotePeripheral, error) -> Void in
+            if let error = error {
+                logErr(error)
+                self.delegate?.bcErrorOccured(self, error: error)
+                return
+            }
+            
+            logMsg(remotePeripheral)
+            self.connectedPeripheral = remotePeripheral
+        }
     }
     
     //MARK: - BKCentralDelegate
@@ -91,7 +153,10 @@ class BluetoothCentral: BKCentralDelegate {
      - parameter remotePeripheral: The remote peripheral that disconnected.
      */
     func central(central: BKCentral, remotePeripheralDidDisconnect remotePeripheral: BKRemotePeripheral) {
-        
+        logMsg(remotePeripheral)
+        if remotePeripheral == connectedPeripheral {
+            connectedPeripheral = nil
+        }
     }
     
 }
