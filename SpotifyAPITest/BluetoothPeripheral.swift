@@ -13,11 +13,11 @@ protocol BluetoothPeripheralDelegate {
     
 }
 
-class BluetoothPeripheral: BKPeripheralDelegate {
+class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
     
     var delegate: BluetoothPeripheralDelegate?
     
-    let peripheral = BKPeripheral()
+    private let peripheral = BKPeripheral()
     
     required init() throws {
         
@@ -30,6 +30,7 @@ class BluetoothPeripheral: BKPeripheralDelegate {
         let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID:  characteristicUUID, localName: localName)
         try peripheral.startWithConfiguration(configuration)
         // You are now ready for incoming connections
+        logMsg("=====================")
         
     }
     
@@ -41,7 +42,7 @@ class BluetoothPeripheral: BKPeripheralDelegate {
      - parameter remoteCentral: The remote central that connected.
      */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
-        
+        logMsg(remoteCentral)
     }
     
     /**
@@ -50,7 +51,25 @@ class BluetoothPeripheral: BKPeripheralDelegate {
      - parameter remoteCentral: The remote central that disconnected.
      */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
-        
+        logMsg(remoteCentral)
+    }
+    
+    /**
+     Informs the observer about a change in Bluetooth LE availability.
+     - parameter availabilityObservable: The object that registered the availability change.
+     - parameter availability: The new availability value.
+     */
+    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
+        logMsg(availability)
+    }
+    
+    /**
+     Informs the observer that the cause of Bluetooth LE unavailability changed.
+     - parameter availabilityObservable: The object that registered the cause change.
+     - parameter unavailabilityCause: The new cause of unavailability.
+     */
+    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
+        logMsg(unavailabilityCause)
     }
     
 }

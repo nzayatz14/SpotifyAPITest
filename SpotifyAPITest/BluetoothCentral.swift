@@ -13,13 +13,15 @@ protocol BluetoothCentralDelegate {
     func bcDidUpdateDataSource(sender: BluetoothCentral)
     func bcDidUpdateState(sender: BluetoothCentral, state: BKCentral.ContinuousScanState)
     
+    func bcIsAbleToScan()
+    
     func bcDidConnectToRemotePeripheral(sender: BluetoothCentral)
     func bcDidDisconnectFromRemotePeripheral(sender: BluetoothCentral)
     
     func bcErrorOccured(sender: BluetoothCentral, error: ErrorType)
 }
 
-class BluetoothCentral: BKCentralDelegate {
+class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
     
     private static var privateSharedCentral = try? BluetoothCentral()
     
@@ -59,7 +61,7 @@ class BluetoothCentral: BKCentralDelegate {
     required init() throws {
         
         central.delegate = self
-        
+        central.addAvailabilityObserver(self)
         guard let serviceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23"),
             let characteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D") else {
                 print("serviceUUID or characteristicUUID are nil")
@@ -157,6 +159,27 @@ class BluetoothCentral: BKCentralDelegate {
         if remotePeripheral == connectedPeripheral {
             connectedPeripheral = nil
         }
+    }
+    
+    /**
+     Informs the observer about a change in Bluetooth LE availability.
+     - parameter availabilityObservable: The object that registered the availability change.
+     - parameter availability: The new availability value.
+     */
+    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
+        logMsg(availability)
+        if availability == .Available {
+            delegate?.bcIsAbleToScan()
+        }
+    }
+    
+    /**
+     Informs the observer that the cause of Bluetooth LE unavailability changed.
+     - parameter availabilityObservable: The object that registered the cause change.
+     - parameter unavailabilityCause: The new cause of unavailability.
+     */
+    func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
+        logMsg(unavailabilityCause)
     }
     
 }

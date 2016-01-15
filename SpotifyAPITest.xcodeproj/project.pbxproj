@@ -172,6 +172,7 @@
 				84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */,
 				84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */,
 				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
+				84ACF0881C49378500E83A5C /* SongPlayer.swift */,
 				A77086D31C47F81600FB31E7 /* Utilities */,
 				A77086D21C47F66700FB31E7 /* Bluetooth */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,

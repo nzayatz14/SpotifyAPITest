@@ -109,19 +109,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         // Override point for customization after application launch.
         
-        let central = true
+        let central = false
         
         if central {
             do {
                 let x = try BluetoothCentral.sharedCentral()
-                x.startContinuousScan()
-                sleep(5)
-                x.startContinuousScan()
+//                x.startContinuousScan()
+//                sleep(5)
+//                x.startContinuousScan()
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+                    x.startContinuousScan()
+                    }
+                
             } catch let error {
                 logErr(error)
             }
         } else {
-            
+            do {
+                let x = try BluetoothPeripheral()
+            } catch let error {
+                logErr(error)
+            }
         }
         
         

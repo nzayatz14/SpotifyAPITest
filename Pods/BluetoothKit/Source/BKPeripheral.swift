@@ -254,7 +254,8 @@ public class BKPeripheral: BKCBPeripheralManagerDelegate, BKAvailabilityObservab
     }
     
     internal func peripheralManagerDidStartAdvertising(peripheral: CBPeripheralManager, error: NSError?) {
-
+        print(peripheral)
+        print(error)
     }
     
     internal func peripheralManager(peripheral: CBPeripheralManager, didAddService service: CBService, error: NSError?) {
