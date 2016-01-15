@@ -14,30 +14,41 @@ import Soundcloud
 
 var sharedSongPlayer = SongPlayer()
 
+protocol SongPlayerDelegate {
+    func updateUI()
+    func allowForwardAndBack()
+}
+
 class SongPlayer: NSObject {
     
-     var audioStreamer: AVQueuePlayer?
-    var currentlyPlaying: Track?
-    var nextPlaying: Track?
+    var audioStreamer: AVQueuePlayer?
     
+    var tracks = [Track]()
+    var currentTrack = 0
+    
+    var delegate: SongPlayerDelegate?
     
     /**
      Function called to init the audioStreamer with a new song
      
      - parameter url: the track that should be streamed
      - returns: void
-    */
+     */
     func initPlayerWithTrack(track: Track){
         
-        currentlyPlaying = track
+        tracks = sharedSoundcloudAPIAccess.songs
+        tracks = tracks.filter({$0.identifier != track.identifier})
+        tracks.shuffle()
+        tracks.insert(track, atIndex: 0)
         
         audioStreamer = AVQueuePlayer(URL: track.streamURL!)
         audioStreamer?.play()
         audioStreamer?.actionAtItemEnd = AVPlayerActionAtItemEnd.Advance
         
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: sharedSongPlayer.audioStreamer?.currentItem)
+        
         loadNextSong()
         
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: audioStreamer?.currentItem)
     }
     
     
@@ -46,10 +57,13 @@ class SongPlayer: NSObject {
      
      - parameter void:
      - returns: void
-    */
+     */
     func clearStreamer(){
         audioStreamer?.pause()
+        audioStreamer?.removeAllItems()
         audioStreamer = nil
+        
+        tracks.removeAll()
     }
     
     
@@ -61,14 +75,9 @@ class SongPlayer: NSObject {
      */
     func loadNextSong(){
         
-        //select a song at random
-        srand(UInt32(time(nil)))
-        let randomSong = rand() % Int32(sharedSoundcloudAPIAccess.songs.count)
-        
-        nextPlaying = sharedSoundcloudAPIAccess.songs[Int(randomSong)]
         
         //add random song to the queue
-        if let nextURL = sharedSoundcloudAPIAccess.songs[Int(randomSong)].streamURL {
+        if let nextURL = tracks[currentTrack+1].streamURL {
             let streamAsset = AVURLAsset(URL: nextURL)
             
             let keys = ["playable"]
@@ -76,10 +85,60 @@ class SongPlayer: NSObject {
             streamAsset.loadValuesAsynchronouslyForKeys(keys) { () -> Void in
                 dispatch_async(dispatch_get_main_queue()) {
                     let playerItem = AVPlayerItem(asset: streamAsset)
+                    
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
+                    
                     self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
+                    self.delegate?.allowForwardAndBack()
                 }
             }
         }
+    }
+    
+    
+    /**
+     Function called to add the previous song to the queue
+     
+     - parameter: void
+     - returns: void
+     */
+    func loadPreviousSong(){
+        
+        //add random song to the queue
+        if let nextURL = tracks[currentTrack].streamURL {
+            let streamAsset = AVURLAsset(URL: nextURL)
+            
+            let keys = ["playable"]
+            
+            streamAsset.loadValuesAsynchronouslyForKeys(keys) { () -> Void in
+                dispatch_async(dispatch_get_main_queue()) {
+                    let playerItem = AVPlayerItem(asset: streamAsset)
+                    
+                    NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
+                    
+                    self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
+                    self.audioStreamer?.play()
+                    self.delegate?.allowForwardAndBack()
+                    self.loadNextSong()
+                }
+            }
+        }
+    }
+    
+    
+    /**
+     Function called to play the previous song
+     
+     - parameter void:
+     - returns: void
+     */
+    func playPreviousSong(){
+        
+        audioStreamer?.pause()
+        audioStreamer?.removeAllItems()
+        
+        currentTrack--
+        loadPreviousSong()
     }
     
     
@@ -88,8 +147,10 @@ class SongPlayer: NSObject {
      
      - parameter note: the NSNotification sent out that the player has finished playing a song
      - returns: void
-    */
+     */
     func playerDidFinishPlaying(note: NSNotification) {
-        //do anything whenever
+        print("called from player")
+        
+        delegate?.updateUI()
     }
 }

@@ -13,12 +13,15 @@ import AVFoundation
 import CircleSlider
 import MediaPlayer
 
-class SongPlayerViewController: UIViewController {
+class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
     @IBOutlet weak var sliderArea: UIView!
+    
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnForward: UIButton!
     
     
     var circleSlider: CircleSlider!
@@ -36,6 +39,7 @@ class SongPlayerViewController: UIViewController {
         
         sharedSongPlayer.clearStreamer()
         sharedSongPlayer.initPlayerWithTrack(track)
+        sharedSongPlayer.delegate = self
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
@@ -71,13 +75,10 @@ class SongPlayerViewController: UIViewController {
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
         
-        let mpic = MPNowPlayingInfoCenter.defaultCenter()
-        mpic.nowPlayingInfo = [
+        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
             MPMediaItemPropertyTitle:track.title,
             MPMediaItemPropertyArtist:track.createdBy.fullname
         ]
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: sharedSongPlayer.audioStreamer?.currentItem)
         
     }
     
@@ -123,10 +124,16 @@ class SongPlayerViewController: UIViewController {
      
      - parameter void:
      - returns: void
-    */
+     */
     func updateCircle(){
         print(Float(sharedSongPlayer.audioStreamer!.currentTime().seconds))
-        circleSlider.value = Float(sharedSongPlayer.audioStreamer!.currentTime().seconds)
+        if !Float(sharedSongPlayer.audioStreamer!.currentTime().seconds).isNaN && circleSlider != nil {
+            if let streamer = sharedSongPlayer.audioStreamer {
+                circleSlider.value = Float(streamer.currentTime().seconds)
+            }
+        }else{
+            circleSlider.value = 0
+        }
     }
     
     
@@ -146,12 +153,30 @@ class SongPlayerViewController: UIViewController {
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
+                sharedSongPlayer.currentTrack++
+                sharedSongPlayer.audioStreamer?.advanceToNextItem()
+                
+                setupNextSong()
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
+                if sharedSongPlayer.currentTrack > 0 && btnBack.enabled {
+                    
+                    btnBack.enabled = false
+                    btnForward.enabled = false
+                    circleSlider.enabled = false
+                    
+                    track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+                    setUpTimer(track)
+                    
+                    lblSongTitle.text = track.title
+                    lblArtistName.text = track.createdBy.fullname
+                    
+                    sharedSongPlayer.playPreviousSong()
+                }
                 break
-            default: break
-                
+            default:
+                print("default")
                 
             }
         }
@@ -159,17 +184,37 @@ class SongPlayerViewController: UIViewController {
     
     
     /**
-     Function called when the audio player has finished playing a song
+     Function called to update the UI after a song has finished playing
      
-     - parameter note: the NSNotification sent out that the player has finished playing a song
+     - parameter void:
      - returns: void
      */
-    func playerDidFinishPlaying(note: NSNotification) {
+    func updateUI() {
         print("called from VC")
-        track = sharedSongPlayer.nextPlaying
-        setUpTimer(track)
-        sharedSongPlayer.currentlyPlaying = sharedSongPlayer.nextPlaying
-        sharedSongPlayer.loadNextSong()
+        
+        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+            MPMediaItemPropertyTitle:track.title,
+            MPMediaItemPropertyArtist:track.createdBy.fullname
+        ]
+        
+        sharedSongPlayer.currentTrack++
+        setupNextSong()
+    }
+    
+    
+    /**
+     Re-enables the forward and back buttons for song changing
+     
+     - parameter void:
+     - returns: void
+     */
+    func allowForwardAndBack(){
+        btnBack.enabled = true
+        btnForward.enabled = true
+        
+        if circleSlider != nil {
+            circleSlider.enabled = true
+        }
     }
     
     
@@ -178,7 +223,7 @@ class SongPlayerViewController: UIViewController {
      
      - parameter thisTrack: the track that is currently being played
      - returns: void
-    */
+     */
     func setUpTimer(thisTrack: Track){
         let length: Float = Float(thisTrack.duration)/1000.0
         
@@ -203,6 +248,71 @@ class SongPlayerViewController: UIViewController {
         }else{
             circleSlider.maxValue = length
             circleSlider.value = 0
+        }
+    }
+    
+    
+    /**
+     Function called when the back button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
+    @IBAction func btnBackPressed(sender: AnyObject) {
+        if sharedSongPlayer.currentTrack > 0 {
+            
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider.enabled = false
+            
+            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            setUpTimer(track)
+            
+            lblSongTitle.text = track.title
+            lblArtistName.text = track.createdBy.fullname
+            
+            sharedSongPlayer.playPreviousSong()
+        }
+    }
+    
+    
+    /**
+     Function called when the forward button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
+    @IBAction func btnForwardPressed(sender: AnyObject) {
+        sharedSongPlayer.currentTrack++
+        sharedSongPlayer.audioStreamer?.advanceToNextItem()
+        
+        setupNextSong()
+    }
+    
+    
+    /**
+     Function called to set up the UI for the next song
+     
+     - parameter void:
+     - returns: void
+     */
+    func setupNextSong(){
+        
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack {
+            
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider.enabled = false
+            
+            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
+            setUpTimer(track)
+            
+            lblSongTitle.text = track.title
+            lblArtistName.text = track.createdBy.fullname
+            
+            sharedSongPlayer.loadNextSong()
+        }else{
+            sharedSongPlayer.clearStreamer()
         }
     }
     

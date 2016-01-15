@@ -191,37 +191,64 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoK-f4-8jE">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Forward"/>
+                                <connections>
+                                    <action selector="btnForwardPressed:" destination="qyG-6y-feR" eventType="touchUpInside" id="tf3-t9-VSi"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDv-1h-Rrb">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Back"/>
+                                <variation key="heightClass=regular-widthClass=compact"/>
+                                <connections>
+                                    <action selector="btnBackPressed:" destination="qyG-6y-feR" eventType="touchUpInside" id="lBN-O8-tOF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="CoK-f4-8jE" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="0gs-Dv-H4O"/>
                             <constraint firstItem="Q2x-X6-7re" firstAttribute="top" secondItem="KJG-Tf-b33" secondAttribute="bottom" constant="20.5" id="4zU-iu-fVb"/>
+                            <constraint firstItem="CoK-f4-8jE" firstAttribute="width" secondItem="UDv-1h-Rrb" secondAttribute="width" id="6IN-DP-zls"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V04-js-jqv" secondAttribute="trailing" constant="60" id="8be-Xg-LcI"/>
                             <constraint firstItem="ve5-Qc-JW4" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="FTY-cb-PGo"/>
+                            <constraint firstItem="UDv-1h-Rrb" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="QXM-3r-OvA"/>
                             <constraint firstItem="V04-js-jqv" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="WIB-vX-4w1"/>
                             <constraint firstAttribute="trailing" secondItem="KJG-Tf-b33" secondAttribute="trailing" constant="8" id="Zqx-ot-lcQ"/>
                             <constraint firstItem="KJG-Tf-b33" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="bax-bb-mQd"/>
                             <constraint firstAttribute="trailing" secondItem="ve5-Qc-JW4" secondAttribute="trailing" constant="8" id="cDd-19-U2V"/>
                             <constraint firstItem="KJG-Tf-b33" firstAttribute="top" secondItem="ve5-Qc-JW4" secondAttribute="bottom" constant="15" id="dXv-Jd-1OO"/>
+                            <constraint firstAttribute="trailing" secondItem="CoK-f4-8jE" secondAttribute="trailing" constant="8" id="dcS-n0-Sqo"/>
                             <constraint firstItem="V04-js-jqv" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leadingMargin" constant="60" id="gDC-Gv-fQi"/>
                             <constraint firstItem="V04-js-jqv" firstAttribute="centerX" secondItem="mdg-1v-irv" secondAttribute="centerX" id="rX8-xx-7hM"/>
+                            <constraint firstItem="UDv-1h-Rrb" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="sRd-1S-Orb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ve5-Qc-JW4"/>
                                 <exclude reference="KJG-Tf-b33"/>
                                 <exclude reference="V04-js-jqv"/>
+                                <exclude reference="CoK-f4-8jE"/>
+                                <exclude reference="UDv-1h-Rrb"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="4zU-iu-fVb"/>
-                                <exclude reference="Zqx-ot-lcQ"/>
-                                <exclude reference="bax-bb-mQd"/>
-                                <exclude reference="dXv-Jd-1OO"/>
-                                <exclude reference="FTY-cb-PGo"/>
-                                <exclude reference="cDd-19-U2V"/>
                                 <exclude reference="8be-Xg-LcI"/>
                                 <exclude reference="WIB-vX-4w1"/>
                                 <exclude reference="gDC-Gv-fQi"/>
                                 <exclude reference="rX8-xx-7hM"/>
+                                <exclude reference="QXM-3r-OvA"/>
+                                <exclude reference="sRd-1S-Orb"/>
+                                <exclude reference="0gs-Dv-H4O"/>
+                                <exclude reference="6IN-DP-zls"/>
+                                <exclude reference="dcS-n0-Sqo"/>
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
+                                <exclude reference="Zqx-ot-lcQ"/>
+                                <exclude reference="bax-bb-mQd"/>
+                                <exclude reference="dXv-Jd-1OO"/>
+                                <exclude reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -229,22 +256,31 @@
                                 <include reference="ve5-Qc-JW4"/>
                                 <include reference="KJG-Tf-b33"/>
                                 <include reference="V04-js-jqv"/>
+                                <include reference="CoK-f4-8jE"/>
+                                <include reference="UDv-1h-Rrb"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="4zU-iu-fVb"/>
-                                <include reference="Zqx-ot-lcQ"/>
-                                <include reference="bax-bb-mQd"/>
-                                <include reference="dXv-Jd-1OO"/>
-                                <include reference="FTY-cb-PGo"/>
-                                <include reference="cDd-19-U2V"/>
                                 <include reference="8be-Xg-LcI"/>
                                 <include reference="WIB-vX-4w1"/>
                                 <include reference="gDC-Gv-fQi"/>
                                 <include reference="rX8-xx-7hM"/>
+                                <include reference="QXM-3r-OvA"/>
+                                <include reference="sRd-1S-Orb"/>
+                                <include reference="0gs-Dv-H4O"/>
+                                <include reference="6IN-DP-zls"/>
+                                <include reference="dcS-n0-Sqo"/>
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
+                                <include reference="Zqx-ot-lcQ"/>
+                                <include reference="bax-bb-mQd"/>
+                                <include reference="dXv-Jd-1OO"/>
+                                <include reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="btnBack" destination="UDv-1h-Rrb" id="ZWZ-q7-4Sm"/>
+                        <outlet property="btnForward" destination="CoK-f4-8jE" id="8vT-j1-TOb"/>
                         <outlet property="lblArtistName" destination="KJG-Tf-b33" id="NaA-ji-Bgn"/>
                         <outlet property="lblSongTitle" destination="ve5-Qc-JW4" id="cO0-T4-uir"/>
                         <outlet property="sliderArea" destination="V04-js-jqv" id="aou-Ik-9RL"/>
