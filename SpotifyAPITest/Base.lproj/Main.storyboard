@@ -201,19 +201,27 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UDv-1h-Rrb">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Back"/>
-                                <variation key="heightClass=regular-widthClass=compact"/>
                                 <connections>
                                     <action selector="btnBackPressed:" destination="qyG-6y-feR" eventType="touchUpInside" id="lBN-O8-tOF"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9V4-EO-28H">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="Pause"/>
+                                <connections>
+                                    <action selector="btnPausePlayPressed:" destination="qyG-6y-feR" eventType="touchUpInside" id="Sh5-2P-DR0"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="CoK-f4-8jE" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="0gs-Dv-H4O"/>
+                            <constraint firstItem="9V4-EO-28H" firstAttribute="top" secondItem="V04-js-jqv" secondAttribute="bottom" constant="17" id="1jn-IP-Hqm"/>
                             <constraint firstItem="Q2x-X6-7re" firstAttribute="top" secondItem="KJG-Tf-b33" secondAttribute="bottom" constant="20.5" id="4zU-iu-fVb"/>
                             <constraint firstItem="CoK-f4-8jE" firstAttribute="width" secondItem="UDv-1h-Rrb" secondAttribute="width" id="6IN-DP-zls"/>
                             <constraint firstAttribute="trailingMargin" secondItem="V04-js-jqv" secondAttribute="trailing" constant="60" id="8be-Xg-LcI"/>
                             <constraint firstItem="ve5-Qc-JW4" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="FTY-cb-PGo"/>
+                            <constraint firstItem="9V4-EO-28H" firstAttribute="centerX" secondItem="mdg-1v-irv" secondAttribute="centerX" id="KP9-Uy-wVz"/>
                             <constraint firstItem="UDv-1h-Rrb" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="QXM-3r-OvA"/>
                             <constraint firstItem="V04-js-jqv" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="WIB-vX-4w1"/>
                             <constraint firstAttribute="trailing" secondItem="KJG-Tf-b33" secondAttribute="trailing" constant="8" id="Zqx-ot-lcQ"/>
@@ -232,6 +240,7 @@
                                 <exclude reference="V04-js-jqv"/>
                                 <exclude reference="CoK-f4-8jE"/>
                                 <exclude reference="UDv-1h-Rrb"/>
+                                <exclude reference="9V4-EO-28H"/>
                             </mask>
                             <mask key="constraints">
                                 <exclude reference="8be-Xg-LcI"/>
@@ -243,6 +252,8 @@
                                 <exclude reference="0gs-Dv-H4O"/>
                                 <exclude reference="6IN-DP-zls"/>
                                 <exclude reference="dcS-n0-Sqo"/>
+                                <exclude reference="1jn-IP-Hqm"/>
+                                <exclude reference="KP9-Uy-wVz"/>
                                 <exclude reference="FTY-cb-PGo"/>
                                 <exclude reference="cDd-19-U2V"/>
                                 <exclude reference="Zqx-ot-lcQ"/>
@@ -258,6 +269,7 @@
                                 <include reference="V04-js-jqv"/>
                                 <include reference="CoK-f4-8jE"/>
                                 <include reference="UDv-1h-Rrb"/>
+                                <include reference="9V4-EO-28H"/>
                             </mask>
                             <mask key="constraints">
                                 <include reference="8be-Xg-LcI"/>
@@ -269,6 +281,8 @@
                                 <include reference="0gs-Dv-H4O"/>
                                 <include reference="6IN-DP-zls"/>
                                 <include reference="dcS-n0-Sqo"/>
+                                <include reference="1jn-IP-Hqm"/>
+                                <include reference="KP9-Uy-wVz"/>
                                 <include reference="FTY-cb-PGo"/>
                                 <include reference="cDd-19-U2V"/>
                                 <include reference="Zqx-ot-lcQ"/>
@@ -281,6 +295,7 @@
                     <connections>
                         <outlet property="btnBack" destination="UDv-1h-Rrb" id="ZWZ-q7-4Sm"/>
                         <outlet property="btnForward" destination="CoK-f4-8jE" id="8vT-j1-TOb"/>
+                        <outlet property="btnPausePlay" destination="9V4-EO-28H" id="m1T-02-oZo"/>
                         <outlet property="lblArtistName" destination="KJG-Tf-b33" id="NaA-ji-Bgn"/>
                         <outlet property="lblSongTitle" destination="ve5-Qc-JW4" id="cO0-T4-uir"/>
                         <outlet property="sliderArea" destination="V04-js-jqv" id="aou-Ik-9RL"/>

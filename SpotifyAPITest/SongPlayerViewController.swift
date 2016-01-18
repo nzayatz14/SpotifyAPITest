@@ -22,6 +22,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnForward: UIButton!
+    @IBOutlet weak var btnPausePlay: UIButton!
     
     
     var circleSlider: CircleSlider!
@@ -30,6 +31,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     var trackInArray: Int!
     var track: Track!
     
+    var paused = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +79,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
             MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.fullname
+            MPMediaItemPropertyArtist:track.createdBy.fullname,
+            MPMediaItemPropertyPlaybackDuration:track.duration/1000,
+            MPNowPlayingInfoPropertyPlaybackRate:1.0
         ]
         
     }
@@ -157,6 +161,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                 sharedSongPlayer.audioStreamer?.advanceToNextItem()
                 
                 setupNextSong()
+                
+                updateOutsidePlayer()
+                
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
@@ -173,11 +180,31 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                     lblArtistName.text = track.createdBy.fullname
                     
                     sharedSongPlayer.playPreviousSong()
+                    
+                    updateOutsidePlayer()
+                    
                 }
+                break
+            case UIEventSubtype.RemoteControlPlay:
+                print("play")
+                paused = false
+                btnPausePlay.setTitle("Pause", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.play()
+                
+                updateOutsidePlayer()
+                
+                break
+            case UIEventSubtype.RemoteControlPause:
+                print("pause")
+                paused = true
+                btnPausePlay.setTitle("Play", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.pause()
+                
+                updateOutsidePlayer()
+                
                 break
             default:
                 print("default")
-                
             }
         }
     }
@@ -192,15 +219,36 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     func updateUI() {
         print("called from VC")
         
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-            MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.fullname
-        ]
+        updateOutsidePlayer()
         
         sharedSongPlayer.currentTrack++
         setupNextSong()
     }
     
+    
+    /**
+     Function called to update the outside player
+     
+     - parameter void:
+     - returns: void
+    */
+    func updateOutsidePlayer(){
+        var currentTime: Float
+        
+        if let streamer = sharedSongPlayer.audioStreamer {
+            currentTime = Float(streamer.currentTime().seconds)
+        }else{
+            currentTime = 0
+        }
+        
+        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+            MPMediaItemPropertyTitle:track.title,
+            MPMediaItemPropertyArtist:track.createdBy.fullname,
+            MPMediaItemPropertyPlaybackDuration:track.duration/1000,
+            MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime,
+            MPNowPlayingInfoPropertyPlaybackRate:1.0
+        ]
+    }
     
     /**
      Re-enables the forward and back buttons for song changing
@@ -215,6 +263,8 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         if circleSlider != nil {
             circleSlider.enabled = true
         }
+        
+        updateOutsidePlayer()
     }
     
     
@@ -249,6 +299,28 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             circleSlider.maxValue = length
             circleSlider.value = 0
         }
+    }
+    
+    
+    /**
+     Function called when the pause/play button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
+    @IBAction func btnPausePlayPressed(sender: AnyObject) {
+        if !paused {
+            paused = true
+            btnPausePlay.setTitle("Play", forState: .Normal)
+            sharedSongPlayer.audioStreamer?.pause()
+            return
+        }else{
+            paused = false
+            btnPausePlay.setTitle("Pause", forState: .Normal)
+            sharedSongPlayer.audioStreamer?.play()
+        }
+        
+        updateOutsidePlayer()
     }
     
     
