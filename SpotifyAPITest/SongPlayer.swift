@@ -38,10 +38,12 @@ class SongPlayer: NSObject {
     func initPlayerWithTrack(track: Track){
         
         clearStreamer()
+        tracks.removeAll()
         tracks = sharedSoundcloudAPIAccess.songs
         tracks = tracks.filter({$0.identifier != track.identifier})
         tracks.shuffle()
         tracks.insert(track, atIndex: 0)
+        currentTrack = 0
         
         audioStreamer = AVQueuePlayer(URL: track.streamURL!)
         audioStreamer?.play()
@@ -100,6 +102,8 @@ class SongPlayer: NSObject {
                     }
                 }
             }
+        }else{
+            self.delegate?.allowForwardAndBack()
         }
     }
     

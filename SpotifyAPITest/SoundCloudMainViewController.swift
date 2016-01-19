@@ -31,6 +31,10 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         
         tblSongList.dataSource = self
         tblSongList.delegate = self
+        
+        sharedSoundcloudAPIAccess.getSongs { (songlist) -> Void in
+            self.songs = songlist
+        }
     }
     
     
@@ -44,10 +48,6 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
-        sharedSoundcloudAPIAccess.getSongs { (songlist) -> Void in
-            self.songs = songlist
-        }
     }
     
     
@@ -92,7 +92,6 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         
         if let playerVC = self.tabBarController?.viewControllers?[1] as? SongPlayerViewController {
             playerVC.track = songs[songSelected]
-            playerVC.trackInArray = songSelected
             sharedSongPlayer.initPlayerWithTrack(songs[songSelected])
             updateOutsidePlayer()
             print("PASSED PLAYER VIEW")
@@ -111,7 +110,6 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         if segue.identifier == "sgeToPlayer"{
             let playerVC = segue.destinationViewController as! SongPlayerViewController
             playerVC.track = songs[songSelected]
-            playerVC.trackInArray = songSelected
         }
     }
     

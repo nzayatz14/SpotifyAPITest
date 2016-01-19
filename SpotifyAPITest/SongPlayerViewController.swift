@@ -31,7 +31,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     var trackTimer: NSTimer?
     var bufferTimer: NSTimer?
     
-    var trackInArray: Int!
     var track: Track?
     
     var paused = false
@@ -205,12 +204,14 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
-                sharedSongPlayer.currentTrack++
-                sharedSongPlayer.audioStreamer?.advanceToNextItem()
-                
-                setupNextSong()
-                
-                updateOutsidePlayer()
+                if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+                    sharedSongPlayer.currentTrack++
+                    sharedSongPlayer.audioStreamer?.advanceToNextItem()
+                    
+                    setupNextSong()
+                    
+                    updateOutsidePlayer()
+                }
                 
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
@@ -257,8 +258,10 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         updateOutsidePlayer()
         
-        sharedSongPlayer.currentTrack++
-        setupNextSong()
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+            sharedSongPlayer.currentTrack++
+            setupNextSong()
+        }
     }
     
     
@@ -303,7 +306,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             circleSlider?.enabled = true
         }
         
-        getAlbumArt()
         updateOutsidePlayer()
     }
     
@@ -401,7 +403,10 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnBackPressed(sender: AnyObject) {
-        self.imgArtwork.image = UIImage(named: "musicNote.png")
+        if sharedSongPlayer.currentTrack > 0 {
+            self.imgArtwork.image = UIImage(named: "musicNote.png")
+        }
+        
         setupPreviousSong()
     }
     
@@ -413,11 +418,13 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnForwardPressed(sender: AnyObject) {
-        sharedSongPlayer.currentTrack++
-        sharedSongPlayer.audioStreamer?.advanceToNextItem()
-        self.imgArtwork.image = UIImage(named: "musicNote.png")
-        
-        setupNextSong()
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+            sharedSongPlayer.currentTrack++
+            sharedSongPlayer.audioStreamer?.advanceToNextItem()
+            self.imgArtwork.image = UIImage(named: "musicNote.png")
+            
+            setupNextSong()
+        }
     }
     
     
@@ -436,6 +443,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
+            getAlbumArt()
             
             if let currentTrack = track {
                 setUpTimer(currentTrack)
@@ -465,6 +473,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            getAlbumArt()
             
             if let currentTrack = track {
                 setUpTimer(currentTrack)
@@ -478,6 +487,12 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     }
     
     
+    /**
+     Function called to get the album art
+     
+     - parameter void:
+     - returns: void
+     */
     func getAlbumArt(){
         if let thisTrack = track {
             sharedSoundcloudAPIAccess.getSongArt(thisTrack, success: { (songData) -> Void in
