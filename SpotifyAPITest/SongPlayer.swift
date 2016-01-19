@@ -28,6 +28,7 @@ class SongPlayer: NSObject {
     
     var delegate: SongPlayerDelegate?
     
+    
     /**
      Function called to init the audioStreamer with a new song
      
@@ -36,6 +37,7 @@ class SongPlayer: NSObject {
      */
     func initPlayerWithTrack(track: Track){
         
+        clearStreamer()
         tracks = sharedSoundcloudAPIAccess.songs
         tracks = tracks.filter({$0.identifier != track.identifier})
         tracks.shuffle()

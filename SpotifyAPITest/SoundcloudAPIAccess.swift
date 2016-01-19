@@ -28,7 +28,7 @@ class SoundcloudAPIAccess: NSObject {
         let session = Soundcloud.session
         session?.me({result in
             result.response.result?.favorites({ tracklist in
-                print("Tracklist count: \(tracklist.response.result?.count)")
+                //print("Tracklist count: \(tracklist.response.result?.count)")
                 
                 self.songs = (tracklist.response.result?.filter({$0.streamable == true}))!
                 
@@ -37,7 +37,7 @@ class SoundcloudAPIAccess: NSObject {
                 
                 //get related tracks example
                 Track.relatedTracks(self.songs[0].identifier, completion: { result in
-                    print("\(self.songs[0]) \n\n \(result)")
+                    //print("\(self.songs[0]) \n\n \(result)")
                 })
                 
             })

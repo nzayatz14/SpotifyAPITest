@@ -36,11 +36,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        lblSongTitle.text = track.title
-        lblArtistName.text = track.createdBy.fullname
-        
-        sharedSongPlayer.clearStreamer()
-        sharedSongPlayer.initPlayerWithTrack(track)
         sharedSongPlayer.delegate = self
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
@@ -72,17 +67,20 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
+        lblSongTitle.text = track.title
+        lblArtistName.text = track.createdBy.username
+        
+        if paused {
+            btnPausePlay.setTitle("Play", forState: .Normal)
+        }else{
+            btnPausePlay.setTitle("Pause", forState: .Normal)
+        }
         
         //show the player when the phone is locked
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
         
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-            MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.fullname,
-            MPMediaItemPropertyPlaybackDuration:track.duration/1000,
-            MPNowPlayingInfoPropertyPlaybackRate:1.0
-        ]
+        updateOutsidePlayer()
         
     }
     
@@ -167,23 +165,11 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
-                if sharedSongPlayer.currentTrack > 0 && btnBack.enabled {
-                    
-                    btnBack.enabled = false
-                    btnForward.enabled = false
-                    circleSlider.enabled = false
-                    
-                    track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
-                    setUpTimer(track)
-                    
-                    lblSongTitle.text = track.title
-                    lblArtistName.text = track.createdBy.fullname
-                    
-                    sharedSongPlayer.playPreviousSong()
-                    
-                    updateOutsidePlayer()
-                    
+                
+                if btnBack.enabled {
+                    setupPreviousSong()
                 }
+                
                 break
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
@@ -243,12 +229,13 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
             MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.fullname,
+            MPMediaItemPropertyArtist:track.createdBy.username,
             MPMediaItemPropertyPlaybackDuration:track.duration/1000,
             MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime,
             MPNowPlayingInfoPropertyPlaybackRate:1.0
         ]
     }
+    
     
     /**
      Re-enables the forward and back buttons for song changing
@@ -297,7 +284,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             self.sliderArea.addSubview(self.circleSlider)
         }else{
             circleSlider.maxValue = length
-            circleSlider.value = 0
+            updateCircle()
         }
     }
     
@@ -331,20 +318,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnBackPressed(sender: AnyObject) {
-        if sharedSongPlayer.currentTrack > 0 {
-            
-            btnBack.enabled = false
-            btnForward.enabled = false
-            circleSlider.enabled = false
-            
-            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
-            setUpTimer(track)
-            
-            lblSongTitle.text = track.title
-            lblArtistName.text = track.createdBy.fullname
-            
-            sharedSongPlayer.playPreviousSong()
-        }
+        setupPreviousSong()
     }
     
     
@@ -380,11 +354,35 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             setUpTimer(track)
             
             lblSongTitle.text = track.title
-            lblArtistName.text = track.createdBy.fullname
+            lblArtistName.text = track.createdBy.username
             
             sharedSongPlayer.loadNextSong()
         }else{
             sharedSongPlayer.clearStreamer()
+        }
+    }
+    
+    
+    /**
+     Function called to set up the UI for the previous song
+     
+     - parameter void:
+     - returns: void
+     */
+    func setupPreviousSong(){
+        if sharedSongPlayer.currentTrack > 0 {
+            
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider.enabled = false
+            
+            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            setUpTimer(track)
+            
+            lblSongTitle.text = track.title
+            lblArtistName.text = track.createdBy.username
+            
+            sharedSongPlayer.playPreviousSong()
         }
     }
     
