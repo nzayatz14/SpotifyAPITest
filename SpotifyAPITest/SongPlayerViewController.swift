@@ -19,6 +19,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
     @IBOutlet weak var imgArtwork: UIImageView!
+    @IBOutlet weak var circleView: UIView!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnForward: UIButton!
@@ -26,7 +27,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     var circleSlider: CircleSlider?
+    var circleBufferSlider: CircleSlider?
     var trackTimer: NSTimer?
+    var bufferTimer: NSTimer?
     
     var trackInArray: Int!
     var track: Track?
@@ -39,6 +42,8 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         sharedSongPlayer.delegate = self
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
+        
+        bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)
         
         /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
         audioStreamer?.insertItem(item, afterItem: audioStreamer?.currentItem)*/
@@ -67,6 +72,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
+        imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        imgArtwork.layer.masksToBounds = true
+        
         if let currentTrack = track {
             lblSongTitle.text = currentTrack.title
             lblArtistName.text = currentTrack.createdBy.username
@@ -89,6 +97,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     override func viewDidAppear(animated: Bool) {
+        imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        imgArtwork.layer.masksToBounds = true
+        
         if let currentTrack = track {
             setUpTimer(currentTrack)
         }
@@ -135,7 +146,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     func updateCircle(){
         
         if let myStreamer = sharedSongPlayer.audioStreamer {
-            print(Float(myStreamer.currentTime().seconds))
             if !Float(myStreamer.currentTime().seconds).isNaN && circleSlider != nil {
                 circleSlider?.value = Float(myStreamer.currentTime().seconds)
             }else{
@@ -143,6 +153,38 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             }
         }else{
             circleSlider?.value = 0
+        }
+    }
+    
+    
+    /**
+     Function called to update the buffer circle on the timer tick
+     
+     - parameter void:
+     - returns: void
+     */
+    func updateBufferCircle(){
+        
+        if let myStreamer = sharedSongPlayer.audioStreamer {
+            if myStreamer.currentItem?.loadedTimeRanges.count >= 1 {
+                if let duration = myStreamer.currentItem?.loadedTimeRanges[0].CMTimeRangeValue.duration {
+                    
+                    let seconds = Float(CMTimeGetSeconds(duration))
+                    print(seconds)
+                    
+                    if !Float(myStreamer.currentTime().seconds).isNaN && circleBufferSlider != nil {
+                        circleBufferSlider?.value = seconds
+                    }else{
+                        circleBufferSlider?.value = 0
+                    }
+                }else{
+                    circleBufferSlider?.value = 0
+                }
+            }else{
+                circleBufferSlider?.value = 0
+            }
+        }else{
+            circleBufferSlider?.value = 0
         }
     }
     
@@ -279,7 +321,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         //set the options of the slider
         let options = [
-            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.BarColor(UIColor.clearColor()),
             CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
             CircleSliderOption.TrackingColor(UIColor.orangeColor()),
             CircleSliderOption.BarWidth(3),
@@ -288,11 +330,39 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             CircleSliderOption.MinValue(0)
         ]
         
+        //set options for the buffer progress
+        let bufferOptions = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.redColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0),
+            CircleSliderOption.SliderEnabled(false)
+        ]
+        
+        
+        //if the buffer is not initialized, initialize it
+        if circleBufferSlider == nil {
+            self.circleBufferSlider = CircleSlider(frame: self.circleView.bounds, options: bufferOptions)
+            
+            /*if let transform = circleBufferSlider?.transform {
+            circleBufferSlider?.transform = CGAffineTransformScale(transform, 0.9, 0.9)
+            }*/
+            
+            self.circleView.addSubview(self.circleBufferSlider!)
+        }else{
+            circleBufferSlider?.maxValue = length
+            updateBufferCircle()
+        }
+        
+        
         //if the slider is not initialized, initialize it
         if circleSlider == nil {
-            self.circleSlider = CircleSlider(frame: self.imgArtwork.bounds, options: options)
+            self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
             self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-            self.imgArtwork.addSubview(self.circleSlider!)
+            self.circleView.addSubview(self.circleSlider!)
         }else{
             circleSlider?.maxValue = length
             updateCircle()
@@ -331,6 +401,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnBackPressed(sender: AnyObject) {
+        self.imgArtwork.image = UIImage(named: "musicNote.png")
         setupPreviousSong()
     }
     
@@ -344,6 +415,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     @IBAction func btnForwardPressed(sender: AnyObject) {
         sharedSongPlayer.currentTrack++
         sharedSongPlayer.audioStreamer?.advanceToNextItem()
+        self.imgArtwork.image = UIImage(named: "musicNote.png")
         
         setupNextSong()
     }
@@ -408,14 +480,15 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     func getAlbumArt(){
         if let thisTrack = track {
-        sharedSoundcloudAPIAccess.getSongArt(thisTrack, success: { (songData) -> Void in
-            
-            let image = UIImage(data: songData)
-            self.imgArtwork.image = image
-            
-            }) { (error) -> Void in
-                print("Error fetching image: \(error)")
-        }
+            sharedSoundcloudAPIAccess.getSongArt(thisTrack, success: { (songData) -> Void in
+                
+                let image = UIImage(data: songData)
+                self.imgArtwork.image = image
+                
+                }) { (error) -> Void in
+                    print("Error fetching image: \(error)")
+                    self.imgArtwork.image = UIImage(named: "musicNote.png")
+            }
         }
     }
     

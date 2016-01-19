@@ -120,7 +120,7 @@ class SoundcloudAPIAccess: NSObject {
      - returns: void
      */
     func getSongArt(track: Track, success: (songData: NSData) -> Void, failure: (error: AnyObject) -> Void){
-        if let url = track.artworkImageURL.largeURL {
+        if let url = track.artworkImageURL.highURL {
             
             //AFNetworking session manager and serialization
             let manager = AFHTTPSessionManager()
@@ -141,6 +141,10 @@ class SoundcloudAPIAccess: NSObject {
                     failure(error: error)
                     
             }
+        }else{
+            
+            let data = UIImagePNGRepresentation(UIImage(named: "musicNote.png")!)
+            success(songData: data!)
         }
     }
 }
