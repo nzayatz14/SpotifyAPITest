@@ -25,11 +25,11 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     @IBOutlet weak var btnPausePlay: UIButton!
     
     
-    var circleSlider: CircleSlider!
+    var circleSlider: CircleSlider?
     var trackTimer: NSTimer?
     
     var trackInArray: Int!
-    var track: Track!
+    var track: Track?
     
     var paused = false
     
@@ -67,8 +67,10 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     override func viewWillAppear(animated: Bool) {
         
-        lblSongTitle.text = track.title
-        lblArtistName.text = track.createdBy.username
+        if let currentTrack = track {
+            lblSongTitle.text = currentTrack.title
+            lblArtistName.text = currentTrack.createdBy.username
+        }
         
         if paused {
             btnPausePlay.setTitle("Play", forState: .Normal)
@@ -86,7 +88,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     override func viewDidAppear(animated: Bool) {
-        setUpTimer(track)
+        if let currentTrack = track {
+            setUpTimer(currentTrack)
+        }
     }
     
     
@@ -128,13 +132,16 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     func updateCircle(){
-        print(Float(sharedSongPlayer.audioStreamer!.currentTime().seconds))
-        if !Float(sharedSongPlayer.audioStreamer!.currentTime().seconds).isNaN && circleSlider != nil {
-            if let streamer = sharedSongPlayer.audioStreamer {
-                circleSlider.value = Float(streamer.currentTime().seconds)
+        
+        if let myStreamer = sharedSongPlayer.audioStreamer {
+            print(Float(myStreamer.currentTime().seconds))
+            if !Float(myStreamer.currentTime().seconds).isNaN && circleSlider != nil {
+                circleSlider?.value = Float(myStreamer.currentTime().seconds)
+            }else{
+                circleSlider?.value = 0
             }
         }else{
-            circleSlider.value = 0
+            circleSlider?.value = 0
         }
     }
     
@@ -217,7 +224,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      
      - parameter void:
      - returns: void
-    */
+     */
     func updateOutsidePlayer(){
         var currentTime: Float
         
@@ -227,13 +234,15 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             currentTime = 0
         }
         
-        MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
-            MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.username,
-            MPMediaItemPropertyPlaybackDuration:track.duration/1000,
-            MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime,
-            MPNowPlayingInfoPropertyPlaybackRate:1.0
-        ]
+        if let currentTrack = track {
+            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+                MPMediaItemPropertyTitle:currentTrack.title,
+                MPMediaItemPropertyArtist:currentTrack.createdBy.username,
+                MPMediaItemPropertyPlaybackDuration:currentTrack.duration/1000,
+                MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime,
+                MPNowPlayingInfoPropertyPlaybackRate:1.0
+            ]
+        }
     }
     
     
@@ -248,7 +257,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         btnForward.enabled = true
         
         if circleSlider != nil {
-            circleSlider.enabled = true
+            circleSlider?.enabled = true
         }
         
         updateOutsidePlayer()
@@ -281,9 +290,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         if circleSlider == nil {
             self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
             self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-            self.sliderArea.addSubview(self.circleSlider)
+            self.sliderArea.addSubview(self.circleSlider!)
         }else{
-            circleSlider.maxValue = length
+            circleSlider?.maxValue = length
             updateCircle()
         }
     }
@@ -296,18 +305,20 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnPausePlayPressed(sender: AnyObject) {
-        if !paused {
-            paused = true
-            btnPausePlay.setTitle("Play", forState: .Normal)
-            sharedSongPlayer.audioStreamer?.pause()
-            return
-        }else{
-            paused = false
-            btnPausePlay.setTitle("Pause", forState: .Normal)
-            sharedSongPlayer.audioStreamer?.play()
+        if let _ = sharedSongPlayer.audioStreamer {
+            if !paused {
+                paused = true
+                btnPausePlay.setTitle("Play", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.pause()
+                return
+            }else{
+                paused = false
+                btnPausePlay.setTitle("Pause", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.play()
+            }
+            
+            updateOutsidePlayer()
         }
-        
-        updateOutsidePlayer()
     }
     
     
@@ -348,13 +359,16 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             
             btnBack.enabled = false
             btnForward.enabled = false
-            circleSlider.enabled = false
+            circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
-            setUpTimer(track)
             
-            lblSongTitle.text = track.title
-            lblArtistName.text = track.createdBy.username
+            if let currentTrack = track {
+                setUpTimer(currentTrack)
+                
+                lblSongTitle.text = currentTrack.title
+                lblArtistName.text = currentTrack.createdBy.username
+            }
             
             sharedSongPlayer.loadNextSong()
         }else{
@@ -374,13 +388,16 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             
             btnBack.enabled = false
             btnForward.enabled = false
-            circleSlider.enabled = false
+            circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
-            setUpTimer(track)
             
-            lblSongTitle.text = track.title
-            lblArtistName.text = track.createdBy.username
+            if let currentTrack = track {
+                setUpTimer(currentTrack)
+                
+                lblSongTitle.text = currentTrack.title
+                lblArtistName.text = currentTrack.createdBy.username
+            }
             
             sharedSongPlayer.playPreviousSong()
         }

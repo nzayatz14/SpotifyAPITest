@@ -79,19 +79,21 @@ class SongPlayer: NSObject {
         
         
         //add random song to the queue
-        if let nextURL = tracks[currentTrack+1].streamURL {
-            let streamAsset = AVURLAsset(URL: nextURL)
-            
-            let keys = ["playable"]
-            
-            streamAsset.loadValuesAsynchronouslyForKeys(keys) { () -> Void in
-                dispatch_async(dispatch_get_main_queue()) {
-                    let playerItem = AVPlayerItem(asset: streamAsset)
-                    
-                    NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
-                    
-                    self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
-                    self.delegate?.allowForwardAndBack()
+        if tracks.count < currentTrack+1 {
+            if let nextURL = tracks[currentTrack+1].streamURL {
+                let streamAsset = AVURLAsset(URL: nextURL)
+                
+                let keys = ["playable"]
+                
+                streamAsset.loadValuesAsynchronouslyForKeys(keys) { () -> Void in
+                    dispatch_async(dispatch_get_main_queue()) {
+                        let playerItem = AVPlayerItem(asset: streamAsset)
+                        
+                        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerItem)
+                        
+                        self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
+                        self.delegate?.allowForwardAndBack()
+                    }
                 }
             }
         }
