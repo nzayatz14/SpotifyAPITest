@@ -96,7 +96,7 @@ class SoundcloudAPIAccess: NSObject {
      
      - parameter jsonData: the data object to be parsed
      - returns: the dictionary made out of that JSON data
-    */
+     */
     func JSONParseDictionary(jsonData: NSData) -> [String: AnyObject]? {
         do {
             guard let dictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(rawValue: 0))  as? [String: AnyObject] else {
@@ -108,5 +108,39 @@ class SoundcloudAPIAccess: NSObject {
             return nil
         }
         
+    }
+    
+    
+    /**
+     Function called to get the image data of a song
+     
+     - parameter track: the track to get the image data of
+     - parameter success: code block executed when the fetch has succeeded
+     - parameter failure: code block executed when the fetch has failed
+     - returns: void
+     */
+    func getSongArt(track: Track, success: (songData: NSData) -> Void, failure: (error: AnyObject) -> Void){
+        if let url = track.artworkImageURL.largeURL {
+            
+            //AFNetworking session manager and serialization
+            let manager = AFHTTPSessionManager()
+            manager.responseSerializer = AFHTTPResponseSerializer()
+            
+            //get the song data using AFNetworking
+            manager.GET(url.absoluteString , parameters: nil, success: { (theOperation, responseObject) -> Void in
+                
+                guard let data = responseObject as? NSData else {
+                    failure(error: "Bad data fetched")
+                    return
+                }
+                
+                success(songData: data)
+                
+                }) { (theOperation, error) -> Void in
+                    
+                    failure(error: error)
+                    
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
-    @IBOutlet weak var sliderArea: UIView!
+    @IBOutlet weak var imgArtwork: UIImageView!
     
     @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var btnForward: UIButton!
@@ -70,6 +70,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         if let currentTrack = track {
             lblSongTitle.text = currentTrack.title
             lblArtistName.text = currentTrack.createdBy.username
+            getAlbumArt()
         }
         
         if paused {
@@ -260,6 +261,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             circleSlider?.enabled = true
         }
         
+        getAlbumArt()
         updateOutsidePlayer()
     }
     
@@ -288,9 +290,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         //if the slider is not initialized, initialize it
         if circleSlider == nil {
-            self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
+            self.circleSlider = CircleSlider(frame: self.imgArtwork.bounds, options: options)
             self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-            self.sliderArea.addSubview(self.circleSlider!)
+            self.imgArtwork.addSubview(self.circleSlider!)
         }else{
             circleSlider?.maxValue = length
             updateCircle()
@@ -400,6 +402,20 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             }
             
             sharedSongPlayer.playPreviousSong()
+        }
+    }
+    
+    
+    func getAlbumArt(){
+        if let thisTrack = track {
+        sharedSoundcloudAPIAccess.getSongArt(thisTrack, success: { (songData) -> Void in
+            
+            let image = UIImage(data: songData)
+            self.imgArtwork.image = image
+            
+            }) { (error) -> Void in
+                print("Error fetching image: \(error)")
+        }
         }
     }
     

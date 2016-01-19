@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -111,7 +110,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="25p-H9-ck2">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="25p-H9-ck2">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -192,23 +191,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V04-js-jqv">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
-                                <color key="backgroundColor" red="0.42742193070000001" green="0.39742013549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="V04-js-jqv" secondAttribute="height" multiplier="1:1" id="5Jt-eK-BQA"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="5Jt-eK-BQA"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=regular-widthClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="5Jt-eK-BQA"/>
-                                    </mask>
-                                </variation>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CoK-f4-8jE">
                                 <rect key="frame" x="-23" y="-15" width="46" height="30"/>
                                 <state key="normal" title="Forward"/>
@@ -230,83 +212,105 @@
                                     <action selector="btnPausePlayPressed:" destination="qyG-6y-feR" eventType="touchUpInside" id="Sh5-2P-DR0"/>
                                 </connections>
                             </button>
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="onepassword-button" translatesAutoresizingMaskIntoConstraints="NO" id="yhb-QS-uql">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="yhb-QS-uql" secondAttribute="height" multiplier="1:1" id="trK-kH-Aae"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="trK-kH-Aae"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="trK-kH-Aae"/>
+                                    </mask>
+                                </variation>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="CoK-f4-8jE" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="0gs-Dv-H4O"/>
-                            <constraint firstItem="9V4-EO-28H" firstAttribute="top" secondItem="V04-js-jqv" secondAttribute="bottom" constant="17" id="1jn-IP-Hqm"/>
                             <constraint firstItem="Q2x-X6-7re" firstAttribute="top" secondItem="KJG-Tf-b33" secondAttribute="bottom" constant="20.5" id="4zU-iu-fVb"/>
                             <constraint firstItem="CoK-f4-8jE" firstAttribute="width" secondItem="UDv-1h-Rrb" secondAttribute="width" id="6IN-DP-zls"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="V04-js-jqv" secondAttribute="trailing" constant="60" id="8be-Xg-LcI"/>
+                            <constraint firstItem="yhb-QS-uql" firstAttribute="leading" secondItem="UDv-1h-Rrb" secondAttribute="trailing" constant="16" id="CEU-5c-Y2h"/>
                             <constraint firstItem="ve5-Qc-JW4" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="FTY-cb-PGo"/>
                             <constraint firstItem="9V4-EO-28H" firstAttribute="centerX" secondItem="mdg-1v-irv" secondAttribute="centerX" id="KP9-Uy-wVz"/>
+                            <constraint firstItem="yhb-QS-uql" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="LCb-jb-T7B"/>
                             <constraint firstItem="UDv-1h-Rrb" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="QXM-3r-OvA"/>
-                            <constraint firstItem="V04-js-jqv" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="WIB-vX-4w1"/>
+                            <constraint firstItem="9V4-EO-28H" firstAttribute="top" secondItem="yhb-QS-uql" secondAttribute="bottom" constant="17" id="Yuy-dU-AfY"/>
+                            <constraint firstItem="CoK-f4-8jE" firstAttribute="leading" secondItem="yhb-QS-uql" secondAttribute="trailing" constant="16" id="ZFA-ho-yYG"/>
                             <constraint firstAttribute="trailing" secondItem="KJG-Tf-b33" secondAttribute="trailing" constant="8" id="Zqx-ot-lcQ"/>
                             <constraint firstItem="KJG-Tf-b33" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leading" constant="8" id="bax-bb-mQd"/>
                             <constraint firstAttribute="trailing" secondItem="ve5-Qc-JW4" secondAttribute="trailing" constant="8" id="cDd-19-U2V"/>
+                            <constraint firstItem="yhb-QS-uql" firstAttribute="centerX" secondItem="mdg-1v-irv" secondAttribute="centerX" id="cyR-I3-y7C"/>
                             <constraint firstItem="KJG-Tf-b33" firstAttribute="top" secondItem="ve5-Qc-JW4" secondAttribute="bottom" constant="15" id="dXv-Jd-1OO"/>
                             <constraint firstAttribute="trailing" secondItem="CoK-f4-8jE" secondAttribute="trailing" constant="8" id="dcS-n0-Sqo"/>
-                            <constraint firstItem="V04-js-jqv" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leadingMargin" constant="60" id="gDC-Gv-fQi"/>
-                            <constraint firstItem="V04-js-jqv" firstAttribute="centerX" secondItem="mdg-1v-irv" secondAttribute="centerX" id="rX8-xx-7hM"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="yhb-QS-uql" secondAttribute="trailing" constant="60" id="ldp-BK-CSa"/>
+                            <constraint firstItem="yhb-QS-uql" firstAttribute="leading" secondItem="mdg-1v-irv" secondAttribute="leadingMargin" constant="60" id="mu0-Cu-pGI"/>
                             <constraint firstItem="UDv-1h-Rrb" firstAttribute="centerY" secondItem="mdg-1v-irv" secondAttribute="centerY" id="sRd-1S-Orb"/>
                         </constraints>
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="ve5-Qc-JW4"/>
                                 <exclude reference="KJG-Tf-b33"/>
-                                <exclude reference="V04-js-jqv"/>
                                 <exclude reference="CoK-f4-8jE"/>
                                 <exclude reference="UDv-1h-Rrb"/>
                                 <exclude reference="9V4-EO-28H"/>
+                                <exclude reference="yhb-QS-uql"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="4zU-iu-fVb"/>
-                                <exclude reference="1jn-IP-Hqm"/>
-                                <exclude reference="KP9-Uy-wVz"/>
-                                <exclude reference="0gs-Dv-H4O"/>
-                                <exclude reference="6IN-DP-zls"/>
-                                <exclude reference="dcS-n0-Sqo"/>
+                                <exclude reference="CEU-5c-Y2h"/>
+                                <exclude reference="LCb-jb-T7B"/>
+                                <exclude reference="cyR-I3-y7C"/>
+                                <exclude reference="ldp-BK-CSa"/>
+                                <exclude reference="mu0-Cu-pGI"/>
                                 <exclude reference="QXM-3r-OvA"/>
                                 <exclude reference="sRd-1S-Orb"/>
+                                <exclude reference="0gs-Dv-H4O"/>
+                                <exclude reference="6IN-DP-zls"/>
+                                <exclude reference="ZFA-ho-yYG"/>
+                                <exclude reference="dcS-n0-Sqo"/>
+                                <exclude reference="KP9-Uy-wVz"/>
+                                <exclude reference="Yuy-dU-AfY"/>
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
                                 <exclude reference="Zqx-ot-lcQ"/>
                                 <exclude reference="bax-bb-mQd"/>
                                 <exclude reference="dXv-Jd-1OO"/>
-                                <exclude reference="FTY-cb-PGo"/>
-                                <exclude reference="cDd-19-U2V"/>
-                                <exclude reference="8be-Xg-LcI"/>
-                                <exclude reference="WIB-vX-4w1"/>
-                                <exclude reference="gDC-Gv-fQi"/>
-                                <exclude reference="rX8-xx-7hM"/>
+                                <exclude reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="ve5-Qc-JW4"/>
                                 <include reference="KJG-Tf-b33"/>
-                                <include reference="V04-js-jqv"/>
                                 <include reference="CoK-f4-8jE"/>
                                 <include reference="UDv-1h-Rrb"/>
                                 <include reference="9V4-EO-28H"/>
+                                <include reference="yhb-QS-uql"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="4zU-iu-fVb"/>
-                                <include reference="1jn-IP-Hqm"/>
-                                <include reference="KP9-Uy-wVz"/>
-                                <include reference="0gs-Dv-H4O"/>
-                                <include reference="6IN-DP-zls"/>
-                                <include reference="dcS-n0-Sqo"/>
+                                <include reference="CEU-5c-Y2h"/>
+                                <include reference="LCb-jb-T7B"/>
+                                <include reference="cyR-I3-y7C"/>
+                                <include reference="ldp-BK-CSa"/>
+                                <include reference="mu0-Cu-pGI"/>
                                 <include reference="QXM-3r-OvA"/>
                                 <include reference="sRd-1S-Orb"/>
+                                <include reference="0gs-Dv-H4O"/>
+                                <include reference="6IN-DP-zls"/>
+                                <include reference="ZFA-ho-yYG"/>
+                                <include reference="dcS-n0-Sqo"/>
+                                <include reference="KP9-Uy-wVz"/>
+                                <include reference="Yuy-dU-AfY"/>
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
                                 <include reference="Zqx-ot-lcQ"/>
                                 <include reference="bax-bb-mQd"/>
                                 <include reference="dXv-Jd-1OO"/>
-                                <include reference="FTY-cb-PGo"/>
-                                <include reference="cDd-19-U2V"/>
-                                <include reference="8be-Xg-LcI"/>
-                                <include reference="WIB-vX-4w1"/>
-                                <include reference="gDC-Gv-fQi"/>
-                                <include reference="rX8-xx-7hM"/>
+                                <include reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                     </view>
@@ -315,9 +319,9 @@
                         <outlet property="btnBack" destination="UDv-1h-Rrb" id="ZWZ-q7-4Sm"/>
                         <outlet property="btnForward" destination="CoK-f4-8jE" id="8vT-j1-TOb"/>
                         <outlet property="btnPausePlay" destination="9V4-EO-28H" id="m1T-02-oZo"/>
+                        <outlet property="imgArtwork" destination="yhb-QS-uql" id="PJ7-O1-fzh"/>
                         <outlet property="lblArtistName" destination="KJG-Tf-b33" id="NaA-ji-Bgn"/>
                         <outlet property="lblSongTitle" destination="ve5-Qc-JW4" id="cO0-T4-uir"/>
-                        <outlet property="sliderArea" destination="V04-js-jqv" id="aou-Ik-9RL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhC-Uh-7VY" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -327,5 +331,6 @@
     </scenes>
     <resources>
         <image name="Black&amp;WhiteSoundcloud.png" width="64" height="64"/>
+        <image name="onepassword-button" width="27" height="27"/>
     </resources>
 </document>
