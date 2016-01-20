@@ -40,6 +40,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         sharedSongPlayer.delegate = self
         
+        lblArtistName.marqueeType = MarqueeType.MLContinuous
+        lblSongTitle.marqueeType = MarqueeType.MLContinuous
+        
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
         bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)
@@ -70,6 +73,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
         imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
         imgArtwork.layer.masksToBounds = true
@@ -106,17 +110,63 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     /**
-     Function called when an audio player has finished playing
+     Function called to set up the timer with a new song
      
-     - parameter player: the player that has finished playing
-     - parameter flag: whether or not the finish was successful
+     - parameter thisTrack: the track that is currently being played
      - returns: void
      */
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        if flag == true{
-            print("done")
+    func setUpTimer(thisTrack: Track){
+        let length: Float = Float(thisTrack.duration)/1000.0
+        
+        print("Length: \(length)")
+        
+        //set the options of the slider
+        let options = [
+            CircleSliderOption.BarColor(UIColor.clearColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0)
+        ]
+        
+        //set options for the buffer progress
+        let bufferOptions = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.lightGrayColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0),
+            CircleSliderOption.SliderEnabled(false)
+        ]
+        
+        
+        //if the buffer is not initialized, initialize it
+        if circleBufferSlider == nil {
+            self.circleBufferSlider = CircleSlider(frame: self.circleView.bounds, options: bufferOptions)
+            
+            /*if let transform = circleBufferSlider?.transform {
+            circleBufferSlider?.transform = CGAffineTransformScale(transform, 0.9, 0.9)
+            }*/
+            
+            self.circleView.addSubview(self.circleBufferSlider!)
         }else{
-            print("did not finish properly")
+            circleBufferSlider?.maxValue = length
+            updateBufferCircle()
+        }
+        
+        
+        //if the slider is not initialized, initialize it
+        if circleSlider == nil {
+            self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
+            self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
+            self.circleView.addSubview(self.circleSlider!)
+        }else{
+            circleSlider?.maxValue = length
+            updateCircle()
         }
     }
     
@@ -131,7 +181,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         let timeTo = CMTime(seconds: Double(slider.value), preferredTimescale: Int32(NSEC_PER_SEC))
         sharedSongPlayer.audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
-            
+            self.updateBufferCircle()
         })
     }
     
@@ -173,77 +223,13 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                     
                     if !Float(myStreamer.currentTime().seconds).isNaN && circleBufferSlider != nil {
                         circleBufferSlider?.value = seconds
-                    }else{
-                        circleBufferSlider?.value = 0
+                        return
                     }
-                }else{
-                    circleBufferSlider?.value = 0
                 }
-            }else{
-                circleBufferSlider?.value = 0
             }
-        }else{
-            circleBufferSlider?.value = 0
         }
-    }
-    
-    
-    /**
-     Function called when the user controls music from the lock screen
-     
-     - parameter event: the event being triggered from the lock screen
-     - returns: void
-     */
-    override func remoteControlReceivedWithEvent(event: UIEvent?) {
         
-        if event?.type == .RemoteControl {
-            
-            switch (event!.subtype) {
-            case UIEventSubtype.RemoteControlTogglePlayPause:
-                print("Play/pause")
-                break
-            case UIEventSubtype.RemoteControlNextTrack:
-                print("next track")
-                if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
-                    sharedSongPlayer.currentTrack++
-                    sharedSongPlayer.audioStreamer?.advanceToNextItem()
-                    
-                    setupNextSong()
-                    
-                    updateOutsidePlayer()
-                }
-                
-                break
-            case UIEventSubtype.RemoteControlPreviousTrack:
-                print("previous track")
-                
-                if btnBack.enabled {
-                    setupPreviousSong()
-                }
-                
-                break
-            case UIEventSubtype.RemoteControlPlay:
-                print("play")
-                paused = false
-                btnPausePlay.setTitle("Pause", forState: .Normal)
-                sharedSongPlayer.audioStreamer?.play()
-                
-                updateOutsidePlayer()
-                
-                break
-            case UIEventSubtype.RemoteControlPause:
-                print("pause")
-                paused = true
-                btnPausePlay.setTitle("Play", forState: .Normal)
-                sharedSongPlayer.audioStreamer?.pause()
-                
-                updateOutsidePlayer()
-                
-                break
-            default:
-                print("default")
-            }
-        }
+        circleBufferSlider?.value = 0
     }
     
     
@@ -311,66 +297,63 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     /**
-     Function called to set up the timer with a new song
+     Function called when the user controls music from the lock screen
      
-     - parameter thisTrack: the track that is currently being played
+     - parameter event: the event being triggered from the lock screen
      - returns: void
      */
-    func setUpTimer(thisTrack: Track){
-        let length: Float = Float(thisTrack.duration)/1000.0
+    override func remoteControlReceivedWithEvent(event: UIEvent?) {
         
-        print("Length: \(length)")
-        
-        //set the options of the slider
-        let options = [
-            CircleSliderOption.BarColor(UIColor.clearColor()),
-            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
-            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
-            CircleSliderOption.BarWidth(3),
-            CircleSliderOption.StartAngle(0),
-            CircleSliderOption.MaxValue(length),
-            CircleSliderOption.MinValue(0)
-        ]
-        
-        //set options for the buffer progress
-        let bufferOptions = [
-            CircleSliderOption.BarColor(UIColor.blackColor()),
-            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
-            CircleSliderOption.TrackingColor(UIColor.redColor()),
-            CircleSliderOption.BarWidth(3),
-            CircleSliderOption.StartAngle(0),
-            CircleSliderOption.MaxValue(length),
-            CircleSliderOption.MinValue(0),
-            CircleSliderOption.SliderEnabled(false)
-        ]
-        
-        
-        //if the buffer is not initialized, initialize it
-        if circleBufferSlider == nil {
-            self.circleBufferSlider = CircleSlider(frame: self.circleView.bounds, options: bufferOptions)
+        if event?.type == .RemoteControl {
             
-            /*if let transform = circleBufferSlider?.transform {
-            circleBufferSlider?.transform = CGAffineTransformScale(transform, 0.9, 0.9)
-            }*/
-            
-            self.circleView.addSubview(self.circleBufferSlider!)
-        }else{
-            circleBufferSlider?.maxValue = length
-            updateBufferCircle()
-        }
-        
-        
-        //if the slider is not initialized, initialize it
-        if circleSlider == nil {
-            self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
-            self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-            self.circleView.addSubview(self.circleSlider!)
-        }else{
-            circleSlider?.maxValue = length
-            updateCircle()
+            switch (event!.subtype) {
+            case UIEventSubtype.RemoteControlTogglePlayPause:
+                print("Play/pause")
+                break
+            case UIEventSubtype.RemoteControlNextTrack:
+                print("next track")
+                if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+                    sharedSongPlayer.currentTrack++
+                    sharedSongPlayer.audioStreamer?.advanceToNextItem()
+                    
+                    setupNextSong()
+                    
+                    updateOutsidePlayer()
+                }
+                
+                break
+            case UIEventSubtype.RemoteControlPreviousTrack:
+                print("previous track")
+                
+                if btnBack.enabled {
+                    setupPreviousSong()
+                }
+                
+                break
+            case UIEventSubtype.RemoteControlPlay:
+                print("play")
+                paused = false
+                btnPausePlay.setTitle("Pause", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.play()
+                
+                updateOutsidePlayer()
+                
+                break
+            case UIEventSubtype.RemoteControlPause:
+                print("pause")
+                paused = true
+                btnPausePlay.setTitle("Play", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.pause()
+                
+                updateOutsidePlayer()
+                
+                break
+            default:
+                print("default")
+            }
         }
     }
-    
+
     
     /**
      Function called when the pause/play button is pressed

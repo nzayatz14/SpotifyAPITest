@@ -27,6 +27,8 @@ class SoundcloudAPIAccess: NSObject {
     func getSongs(completion: (songlist: [Track]) -> Void){
         let session = Soundcloud.session
         session?.me({result in
+            print("got me: \(result.response.result)\n\n")
+            
             result.response.result?.favorites({ tracklist in
                 //print("Tracklist count: \(tracklist.response.result?.count)")
                 
@@ -142,9 +144,7 @@ class SoundcloudAPIAccess: NSObject {
                     
             }
         }else{
-            
-            let data = UIImagePNGRepresentation(UIImage(named: "musicNote.png")!)
-            success(songData: data!)
+            failure(error: "No Image URL")
         }
     }
 }

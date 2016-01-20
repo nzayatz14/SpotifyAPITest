@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
@@ -80,10 +81,10 @@
             </objects>
             <point key="canvasLocation" x="1026" y="281"/>
         </scene>
-        <!--Tab Bar Controller-->
+        <!--Sound Cloud Tab View Controller-->
         <scene sceneID="CMq-SQ-yqr">
             <objects>
-                <tabBarController storyboardIdentifier="TabViewController" id="ufn-Eu-qoP" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="TabViewController" id="ufn-Eu-qoP" customClass="SoundCloudTabViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Tfb-vt-OB6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -92,13 +93,14 @@
                     <connections>
                         <segue destination="WUa-Lq-tmr" kind="relationship" relationship="viewControllers" id="TNR-SP-vmy"/>
                         <segue destination="qyG-6y-feR" kind="relationship" relationship="viewControllers" id="1ej-Mz-NLe"/>
+                        <segue destination="gVl-b3-zjU" kind="relationship" relationship="viewControllers" id="WLV-aM-ZEt"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8H-WS-CoN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-669" y="1260.75"/>
         </scene>
-        <!--Item-->
+        <!--Playlist-->
         <scene sceneID="ErJ-Rz-UVg">
             <objects>
                 <viewController storyboardIdentifier="SoundCloudMain" id="WUa-Lq-tmr" customClass="SoundCloudMainViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
@@ -158,7 +160,7 @@
                             <constraint firstItem="knN-bL-YNE" firstAttribute="top" secondItem="25p-H9-ck2" secondAttribute="bottom" id="dIy-du-ftl"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="Rfb-rm-c8v"/>
+                    <tabBarItem key="tabBarItem" title="Playlist" id="Rfb-rm-c8v"/>
                     <connections>
                         <outlet property="tblSongList" destination="25p-H9-ck2" id="8l4-6q-WDQ"/>
                     </connections>
@@ -167,7 +169,7 @@
             </objects>
             <point key="canvasLocation" x="1026" y="951.75"/>
         </scene>
-        <!--Item-->
+        <!--Now Playing-->
         <scene sceneID="SeC-sh-aiB">
             <objects>
                 <viewController storyboardIdentifier="songPlayer" id="qyG-6y-feR" customClass="SongPlayerViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
@@ -298,25 +300,25 @@
                                 <exclude reference="CHX-Fj-CeQ"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="4zU-iu-fVb"/>
+                                <exclude reference="KP9-Uy-wVz"/>
+                                <exclude reference="pqR-Xs-8zz"/>
+                                <exclude reference="0gs-Dv-H4O"/>
+                                <exclude reference="6IN-DP-zls"/>
+                                <exclude reference="dcS-n0-Sqo"/>
+                                <exclude reference="v6r-7j-uui"/>
+                                <exclude reference="QXM-3r-OvA"/>
+                                <exclude reference="sRd-1S-Orb"/>
+                                <exclude reference="Zqx-ot-lcQ"/>
+                                <exclude reference="bax-bb-mQd"/>
+                                <exclude reference="dXv-Jd-1OO"/>
+                                <exclude reference="FTY-cb-PGo"/>
+                                <exclude reference="cDd-19-U2V"/>
                                 <exclude reference="BCn-bX-NW3"/>
                                 <exclude reference="Ouk-UX-Rrb"/>
                                 <exclude reference="TTe-Sn-gyv"/>
                                 <exclude reference="b8j-wD-cNG"/>
                                 <exclude reference="vqX-jN-Iit"/>
-                                <exclude reference="QXM-3r-OvA"/>
-                                <exclude reference="sRd-1S-Orb"/>
-                                <exclude reference="0gs-Dv-H4O"/>
-                                <exclude reference="6IN-DP-zls"/>
-                                <exclude reference="dcS-n0-Sqo"/>
-                                <exclude reference="v6r-7j-uui"/>
-                                <exclude reference="KP9-Uy-wVz"/>
-                                <exclude reference="pqR-Xs-8zz"/>
-                                <exclude reference="FTY-cb-PGo"/>
-                                <exclude reference="cDd-19-U2V"/>
-                                <exclude reference="Zqx-ot-lcQ"/>
-                                <exclude reference="bax-bb-mQd"/>
-                                <exclude reference="dXv-Jd-1OO"/>
-                                <exclude reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -329,29 +331,29 @@
                                 <include reference="CHX-Fj-CeQ"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="4zU-iu-fVb"/>
+                                <include reference="KP9-Uy-wVz"/>
+                                <include reference="pqR-Xs-8zz"/>
+                                <include reference="0gs-Dv-H4O"/>
+                                <include reference="6IN-DP-zls"/>
+                                <include reference="dcS-n0-Sqo"/>
+                                <include reference="v6r-7j-uui"/>
+                                <include reference="QXM-3r-OvA"/>
+                                <include reference="sRd-1S-Orb"/>
+                                <include reference="Zqx-ot-lcQ"/>
+                                <include reference="bax-bb-mQd"/>
+                                <include reference="dXv-Jd-1OO"/>
+                                <include reference="FTY-cb-PGo"/>
+                                <include reference="cDd-19-U2V"/>
                                 <include reference="BCn-bX-NW3"/>
                                 <include reference="Ouk-UX-Rrb"/>
                                 <include reference="TTe-Sn-gyv"/>
                                 <include reference="b8j-wD-cNG"/>
                                 <include reference="vqX-jN-Iit"/>
-                                <include reference="QXM-3r-OvA"/>
-                                <include reference="sRd-1S-Orb"/>
-                                <include reference="0gs-Dv-H4O"/>
-                                <include reference="6IN-DP-zls"/>
-                                <include reference="dcS-n0-Sqo"/>
-                                <include reference="v6r-7j-uui"/>
-                                <include reference="KP9-Uy-wVz"/>
-                                <include reference="pqR-Xs-8zz"/>
-                                <include reference="FTY-cb-PGo"/>
-                                <include reference="cDd-19-U2V"/>
-                                <include reference="Zqx-ot-lcQ"/>
-                                <include reference="bax-bb-mQd"/>
-                                <include reference="dXv-Jd-1OO"/>
-                                <include reference="4zU-iu-fVb"/>
                             </mask>
                         </variation>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="gPZ-OA-F0I"/>
+                    <tabBarItem key="tabBarItem" title="Now Playing" id="gPZ-OA-F0I"/>
                     <connections>
                         <outlet property="btnBack" destination="UDv-1h-Rrb" id="ZWZ-q7-4Sm"/>
                         <outlet property="btnForward" destination="CoK-f4-8jE" id="8vT-j1-TOb"/>
@@ -365,6 +367,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QhC-Uh-7VY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1026" y="1646.25"/>
+        </scene>
+        <!--Settings-->
+        <scene sceneID="gvR-Vr-PuT">
+            <objects>
+                <viewController id="gVl-b3-zjU" customClass="SettingsViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="RoN-s9-lpg"/>
+                        <viewControllerLayoutGuide type="bottom" id="qdA-Uz-ZDv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="XqU-Eg-fUb">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" id="xxG-9o-eZV"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="byG-DB-PsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1026" y="2424.75"/>
         </scene>
     </scenes>
     <resources>
