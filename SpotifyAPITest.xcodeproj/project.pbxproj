@@ -33,6 +33,7 @@
 		849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */; };
 		84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACF0881C49378500E83A5C /* SongPlayer.swift */; };
 		84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */; };
+		84D7A24D1C5082530030971B /* poweredBySoundcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7A24C1C5082530030971B /* poweredBySoundcloud.png */; };
 		84E9D09E1C47241D00EE8CEF /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */; };
 		84EFA9731BF6975900B872BC /* OnePasswordExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */; };
 		84EFA9751BF6975900B872BC /* UICKeyChainStore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */; };
@@ -98,6 +99,7 @@
 		849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		84ACF0881C49378500E83A5C /* SongPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
 		84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudMainViewController.swift; sourceTree = "<group>"; };
+		84D7A24C1C5082530030971B /* poweredBySoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poweredBySoundcloud.png; sourceTree = "<group>"; };
 		84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
@@ -190,8 +192,7 @@
 				84ACF0881C49378500E83A5C /* SongPlayer.swift */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
-				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
-				8431D77E1C4EECEF0046924F /* musicNote.png */,
+				84D7A24E1C5082980030971B /* Images */,
 				845B47311BF68FE10043AC08 /* LaunchScreen.storyboard */,
 				8456026F1C1B02B000E4856D /* Objective-CBridgingHeader.h */,
 				845B47341BF68FE10043AC08 /* Info.plist */,
@@ -215,6 +216,16 @@
 				845B474A1BF68FE20043AC08 /* Info.plist */,
 			);
 			path = SpotifyAPITestUITests;
+			sourceTree = "<group>";
+		};
+		84D7A24E1C5082980030971B /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
+				8431D77E1C4EECEF0046924F /* musicNote.png */,
+				84D7A24C1C5082530030971B /* poweredBySoundcloud.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 		BB1767591B2C07959D250043 /* Frameworks */ = {
@@ -352,6 +363,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */,
+				84D7A24D1C5082530030971B /* poweredBySoundcloud.png in Resources */,
 				845B47331BF68FE10043AC08 /* LaunchScreen.storyboard in Resources */,
 				845B47301BF68FE10043AC08 /* Assets.xcassets in Resources */,
 				845B472E1BF68FE10043AC08 /* Main.storyboard in Resources */,

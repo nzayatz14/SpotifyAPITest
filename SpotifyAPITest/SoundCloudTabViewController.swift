@@ -11,6 +11,8 @@ import UIKit
 class SoundCloudTabViewController: UITabBarController {
     
     var topLabel: UILabel!
+    var btnSoundcloud: UIBarButtonItem!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,9 +38,27 @@ class SoundCloudTabViewController: UITabBarController {
         topLabel.textAlignment = .Center
         topLabel.adjustsFontSizeToFitWidth = true
         
+        let rightButton = UIButton(frame: CGRectMake(0, 0, 36, 36))
+        rightButton.setImage(UIImage(named: "poweredBySoundcloud.png"), forState: UIControlState.Normal)
+        rightButton.addTarget(self, action: "btnSoundcloudPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        btnSoundcloud = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.leftBarButtonItem = btnSoundcloud
+        
         self.navigationController?.navigationBar.addSubview(topLabel)
         self.navigationController?.navigationBar.translucent = false
         topLabel.center.x = self.navigationController!.navigationBar.center.x
         topLabel.center.y = self.navigationController!.navigationBar.frame.minY
+    }
+    
+    
+    /**
+     Function called when the Soundcloud button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+    */
+    func btnSoundcloudPressed(sender: AnyObject){
+        UIApplication.sharedApplication().openURL(NSURL(string: "https://soundcloud.com/")!)
     }
 }
