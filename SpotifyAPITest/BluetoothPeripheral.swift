@@ -21,6 +21,9 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
     
     required init() throws {
         
+        peripheral.delegate = self
+        peripheral.addAvailabilityObserver(self)
+        
         guard let serviceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23"),
             let characteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D") else {
                 throw BluetoothErrorType.FailedToInitialize(message: "serviceUUID or characteristicUUID was nil")
@@ -30,8 +33,15 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
         let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID:  characteristicUUID, localName: localName)
         try peripheral.startWithConfiguration(configuration)
         // You are now ready for incoming connections
-        logMsg("=====================")
         
+    }
+    
+    var availability: BKAvailability {
+        return peripheral.availability
+    }
+    
+    var dataSource: [BKRemoteCentral] {
+        return peripheral.connectedRemoteCentrals
     }
     
     //MARK: - BKPeripheralDelegate
