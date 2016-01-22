@@ -27,8 +27,10 @@ class SoundcloudAPIAccess: NSObject {
     func getSongs(completion: (songlist: [Track]) -> Void){
         let session = Soundcloud.session
         session?.me({result in
+            print("got me: \(result.response.result)\n\n")
+            
             result.response.result?.favorites({ tracklist in
-                print("Tracklist count: \(tracklist.response.result?.count)")
+                //print("Tracklist count: \(tracklist.response.result?.count)")
                 
                 self.songs = (tracklist.response.result?.filter({$0.streamable == true}))!
                 
@@ -37,7 +39,7 @@ class SoundcloudAPIAccess: NSObject {
                 
                 //get related tracks example
                 Track.relatedTracks(self.songs[0].identifier, completion: { result in
-                    print("\(self.songs[0]) \n\n \(result)")
+                    //print("\(self.songs[0]) \n\n \(result)")
                 })
                 
             })
@@ -96,7 +98,7 @@ class SoundcloudAPIAccess: NSObject {
      
      - parameter jsonData: the data object to be parsed
      - returns: the dictionary made out of that JSON data
-    */
+     */
     func JSONParseDictionary(jsonData: NSData) -> [String: AnyObject]? {
         do {
             guard let dictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions(rawValue: 0))  as? [String: AnyObject] else {
@@ -108,5 +110,41 @@ class SoundcloudAPIAccess: NSObject {
             return nil
         }
         
+    }
+    
+    
+    /**
+     Function called to get the image data of a song
+     
+     - parameter track: the track to get the image data of
+     - parameter success: code block executed when the fetch has succeeded
+     - parameter failure: code block executed when the fetch has failed
+     - returns: void
+     */
+    func getSongArt(track: Track, success: (songData: NSData) -> Void, failure: (error: AnyObject) -> Void){
+        if let url = track.artworkImageURL.highURL {
+            
+            //AFNetworking session manager and serialization
+            let manager = AFHTTPSessionManager()
+            manager.responseSerializer = AFHTTPResponseSerializer()
+            
+            //get the song data using AFNetworking
+            manager.GET(url.absoluteString , parameters: nil, success: { (theOperation, responseObject) -> Void in
+                
+                guard let data = responseObject as? NSData else {
+                    failure(error: "Bad data fetched")
+                    return
+                }
+                
+                success(songData: data)
+                
+                }) { (theOperation, error) -> Void in
+                    
+                    failure(error: error)
+                    
+            }
+        }else{
+            failure(error: "No Image URL")
+        }
     }
 }

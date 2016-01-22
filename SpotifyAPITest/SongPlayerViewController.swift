@@ -13,31 +13,39 @@ import AVFoundation
 import CircleSlider
 import MediaPlayer
 
-class SongPlayerViewController: UIViewController {
+class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     
     
     @IBOutlet weak var lblSongTitle: MarqueeLabel!
     @IBOutlet weak var lblArtistName: MarqueeLabel!
-    @IBOutlet weak var sliderArea: UIView!
+    @IBOutlet weak var imgArtwork: UIImageView!
+    @IBOutlet weak var circleView: UIView!
+    
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnForward: UIButton!
+    @IBOutlet weak var btnPausePlay: UIButton!
     
     
-    var circleSlider: CircleSlider!
+    var circleSlider: CircleSlider?
+    var circleBufferSlider: CircleSlider?
     var trackTimer: NSTimer?
+    var bufferTimer: NSTimer?
     
-    var trackInArray: Int!
-    var track: Track!
+    var track: Track?
     
+    var paused = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        lblSongTitle.text = track.title
-        lblArtistName.text = track.createdBy.fullname
+        sharedSongPlayer.delegate = self
         
-        sharedSongPlayer.clearStreamer()
-        sharedSongPlayer.initPlayerWithTrack(track)
+        lblArtistName.marqueeType = MarqueeType.MLContinuous
+        lblSongTitle.marqueeType = MarqueeType.MLContinuous
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
+        
+        bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)
         
         /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
         audioStreamer?.insertItem(item, afterItem: audioStreamer?.currentItem)*/
@@ -65,40 +73,100 @@ class SongPlayerViewController: UIViewController {
     
     
     override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
         
+        imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        imgArtwork.layer.masksToBounds = true
+        
+        if let currentTrack = track {
+            lblSongTitle.text = currentTrack.title
+            lblArtistName.text = currentTrack.createdBy.username
+            getAlbumArt()
+        }
+        
+        if paused {
+            btnPausePlay.setTitle("Play", forState: .Normal)
+        }else{
+            btnPausePlay.setTitle("Pause", forState: .Normal)
+        }
         
         //show the player when the phone is locked
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
         
-        let mpic = MPNowPlayingInfoCenter.defaultCenter()
-        mpic.nowPlayingInfo = [
-            MPMediaItemPropertyTitle:track.title,
-            MPMediaItemPropertyArtist:track.createdBy.fullname
-        ]
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: sharedSongPlayer.audioStreamer?.currentItem)
+        updateOutsidePlayer()
         
     }
     
     
     override func viewDidAppear(animated: Bool) {
-        setUpTimer(track)
+        imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        imgArtwork.layer.masksToBounds = true
+        
+        if let currentTrack = track {
+            setUpTimer(currentTrack)
+        }
     }
     
     
     /**
-     Function called when an audio player has finished playing
+     Function called to set up the timer with a new song
      
-     - parameter player: the player that has finished playing
-     - parameter flag: whether or not the finish was successful
+     - parameter thisTrack: the track that is currently being played
      - returns: void
      */
-    func audioPlayerDidFinishPlaying(player: AVAudioPlayer, successfully flag: Bool) {
-        if flag == true{
-            print("done")
+    func setUpTimer(thisTrack: Track){
+        let length: Float = Float(thisTrack.duration)/1000.0
+        
+        print("Length: \(length)")
+        
+        //set the options of the slider
+        let options = [
+            CircleSliderOption.BarColor(UIColor.clearColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0)
+        ]
+        
+        //set options for the buffer progress
+        let bufferOptions = [
+            CircleSliderOption.BarColor(UIColor.blackColor()),
+            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
+            CircleSliderOption.TrackingColor(UIColor.lightGrayColor()),
+            CircleSliderOption.BarWidth(3),
+            CircleSliderOption.StartAngle(0),
+            CircleSliderOption.MaxValue(length),
+            CircleSliderOption.MinValue(0),
+            CircleSliderOption.SliderEnabled(false)
+        ]
+        
+        
+        //if the buffer is not initialized, initialize it
+        if circleBufferSlider == nil {
+            self.circleBufferSlider = CircleSlider(frame: self.circleView.bounds, options: bufferOptions)
+            
+            /*if let transform = circleBufferSlider?.transform {
+            circleBufferSlider?.transform = CGAffineTransformScale(transform, 0.9, 0.9)
+            }*/
+            
+            self.circleView.addSubview(self.circleBufferSlider!)
         }else{
-            print("did not finish properly")
+            circleBufferSlider?.maxValue = length
+            updateBufferCircle()
+        }
+        
+        
+        //if the slider is not initialized, initialize it
+        if circleSlider == nil {
+            self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
+            self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
+            self.circleView.addSubview(self.circleSlider!)
+        }else{
+            circleSlider?.maxValue = length
+            updateCircle()
         }
     }
     
@@ -113,7 +181,7 @@ class SongPlayerViewController: UIViewController {
         
         let timeTo = CMTime(seconds: Double(slider.value), preferredTimescale: Int32(NSEC_PER_SEC))
         sharedSongPlayer.audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
-            
+            self.updateBufferCircle()
         })
     }
     
@@ -123,10 +191,108 @@ class SongPlayerViewController: UIViewController {
      
      - parameter void:
      - returns: void
-    */
+     */
     func updateCircle(){
-        print(Float(sharedSongPlayer.audioStreamer!.currentTime().seconds))
-        circleSlider.value = Float(sharedSongPlayer.audioStreamer!.currentTime().seconds)
+        
+        if let myStreamer = sharedSongPlayer.audioStreamer {
+            if !Float(myStreamer.currentTime().seconds).isNaN && circleSlider != nil {
+                circleSlider?.value = Float(myStreamer.currentTime().seconds)
+            }else{
+                circleSlider?.value = 0
+            }
+        }else{
+            circleSlider?.value = 0
+        }
+    }
+    
+    
+    /**
+     Function called to update the buffer circle on the timer tick
+     
+     - parameter void:
+     - returns: void
+     */
+    func updateBufferCircle(){
+        
+        if let myStreamer = sharedSongPlayer.audioStreamer {
+            if myStreamer.currentItem?.loadedTimeRanges.count >= 1 {
+                if let duration = myStreamer.currentItem?.loadedTimeRanges[0].CMTimeRangeValue.duration {
+                    
+                    let seconds = Float(CMTimeGetSeconds(duration))
+                    print(seconds)
+                    
+                    if !Float(myStreamer.currentTime().seconds).isNaN && circleBufferSlider != nil {
+                        circleBufferSlider?.value = seconds
+                        return
+                    }
+                }
+            }
+        }
+        
+        circleBufferSlider?.value = 0
+    }
+    
+    
+    /**
+     Function called to update the UI after a song has finished playing
+     
+     - parameter void:
+     - returns: void
+     */
+    func updateUI() {
+        print("called from VC")
+        
+        updateOutsidePlayer()
+        
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+            sharedSongPlayer.currentTrack++
+            setupNextSong()
+        }
+    }
+    
+    
+    /**
+     Function called to update the outside player
+     
+     - parameter void:
+     - returns: void
+     */
+    func updateOutsidePlayer(){
+        var currentTime: Float
+        
+        if let streamer = sharedSongPlayer.audioStreamer {
+            currentTime = Float(streamer.currentTime().seconds)
+        }else{
+            currentTime = 0
+        }
+        
+        if let currentTrack = track {
+            MPNowPlayingInfoCenter.defaultCenter().nowPlayingInfo = [
+                MPMediaItemPropertyTitle:currentTrack.title,
+                MPMediaItemPropertyArtist:currentTrack.createdBy.username,
+                MPMediaItemPropertyPlaybackDuration:currentTrack.duration/1000,
+                MPNowPlayingInfoPropertyElapsedPlaybackTime: currentTime,
+                MPNowPlayingInfoPropertyPlaybackRate:1.0
+            ]
+        }
+    }
+    
+    
+    /**
+     Re-enables the forward and back buttons for song changing
+     
+     - parameter void:
+     - returns: void
+     */
+    func allowForwardAndBack(){
+        btnBack.enabled = true
+        btnForward.enabled = true
+        
+        if circleSlider != nil {
+            circleSlider?.enabled = true
+        }
+        
+        updateOutsidePlayer()
     }
     
     
@@ -146,63 +312,181 @@ class SongPlayerViewController: UIViewController {
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
+                if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+                    sharedSongPlayer.currentTrack++
+                    sharedSongPlayer.audioStreamer?.advanceToNextItem()
+                    
+                    setupNextSong()
+                    
+                    updateOutsidePlayer()
+                }
+                
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
+                
+                if btnBack.enabled {
+                    setupPreviousSong()
+                }
+                
                 break
-            default: break
+            case UIEventSubtype.RemoteControlPlay:
+                print("play")
+                paused = false
+                btnPausePlay.setTitle("Pause", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.play()
                 
+                updateOutsidePlayer()
                 
+                break
+            case UIEventSubtype.RemoteControlPause:
+                print("pause")
+                paused = true
+                btnPausePlay.setTitle("Play", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.pause()
+                
+                updateOutsidePlayer()
+                
+                break
+            default:
+                print("default")
             }
+        }
+    }
+
+    
+    /**
+     Function called when the pause/play button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
+    @IBAction func btnPausePlayPressed(sender: AnyObject) {
+        if let _ = sharedSongPlayer.audioStreamer {
+            if !paused {
+                paused = true
+                btnPausePlay.setTitle("Play", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.pause()
+                return
+            }else{
+                paused = false
+                btnPausePlay.setTitle("Pause", forState: .Normal)
+                sharedSongPlayer.audioStreamer?.play()
+            }
+            
+            updateOutsidePlayer()
         }
     }
     
     
     /**
-     Function called when the audio player has finished playing a song
+     Function called when the back button is pressed
      
-     - parameter note: the NSNotification sent out that the player has finished playing a song
+     - parameter sender: the button pressed
      - returns: void
      */
-    func playerDidFinishPlaying(note: NSNotification) {
-        print("called from VC")
-        track = sharedSongPlayer.nextPlaying
-        setUpTimer(track)
-        sharedSongPlayer.currentlyPlaying = sharedSongPlayer.nextPlaying
-        sharedSongPlayer.loadNextSong()
+    @IBAction func btnBackPressed(sender: AnyObject) {
+        if sharedSongPlayer.currentTrack > 0 {
+            self.imgArtwork.image = UIImage(named: "musicNote.png")
+        }
+        
+        setupPreviousSong()
     }
     
     
     /**
-     Function called to set up the timer with a new song
+     Function called when the forward button is pressed
      
-     - parameter thisTrack: the track that is currently being played
+     - parameter sender: the button pressed
      - returns: void
-    */
-    func setUpTimer(thisTrack: Track){
-        let length: Float = Float(thisTrack.duration)/1000.0
+     */
+    @IBAction func btnForwardPressed(sender: AnyObject) {
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+            sharedSongPlayer.currentTrack++
+            sharedSongPlayer.audioStreamer?.advanceToNextItem()
+            self.imgArtwork.image = UIImage(named: "musicNote.png")
+            
+            setupNextSong()
+        }
+    }
+    
+    
+    /**
+     Function called to set up the UI for the next song
+     
+     - parameter void:
+     - returns: void
+     */
+    func setupNextSong(){
         
-        print("Length: \(length)")
-        
-        //set the options of the slider
-        let options = [
-            CircleSliderOption.BarColor(UIColor.blackColor()),
-            CircleSliderOption.ThumbColor(UIColor.darkGrayColor()),
-            CircleSliderOption.TrackingColor(UIColor.orangeColor()),
-            CircleSliderOption.BarWidth(3),
-            CircleSliderOption.StartAngle(0),
-            CircleSliderOption.MaxValue(length),
-            CircleSliderOption.MinValue(0)
-        ]
-        
-        //if the slider is not initialized, initialize it
-        if circleSlider == nil {
-            self.circleSlider = CircleSlider(frame: self.sliderArea.bounds, options: options)
-            self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
-            self.sliderArea.addSubview(self.circleSlider)
+        if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack {
+            
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider?.enabled = false
+            
+            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
+            getAlbumArt()
+            
+            if let currentTrack = track {
+                setUpTimer(currentTrack)
+                
+                lblSongTitle.text = currentTrack.title
+                lblArtistName.text = currentTrack.createdBy.username
+            }
+            
+            sharedSongPlayer.loadNextSong()
         }else{
-            circleSlider.maxValue = length
-            circleSlider.value = 0
+            sharedSongPlayer.clearStreamer()
+        }
+    }
+    
+    
+    /**
+     Function called to set up the UI for the previous song
+     
+     - parameter void:
+     - returns: void
+     */
+    func setupPreviousSong(){
+        if sharedSongPlayer.currentTrack > 0 {
+            
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider?.enabled = false
+            
+            track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            getAlbumArt()
+            
+            if let currentTrack = track {
+                setUpTimer(currentTrack)
+                
+                lblSongTitle.text = currentTrack.title
+                lblArtistName.text = currentTrack.createdBy.username
+            }
+            
+            sharedSongPlayer.playPreviousSong()
+        }
+    }
+    
+    
+    /**
+     Function called to get the album art
+     
+     - parameter void:
+     - returns: void
+     */
+    func getAlbumArt(){
+        if let thisTrack = track {
+            sharedSoundcloudAPIAccess.getSongArt(thisTrack, success: { (songData) -> Void in
+                
+                let image = UIImage(data: songData)
+                self.imgArtwork.image = image
+                
+                }) { (error) -> Void in
+                    print("Error fetching image: \(error)")
+                    self.imgArtwork.image = UIImage(named: "musicNote.png")
+            }
         }
     }
     

@@ -10,8 +10,16 @@ import Foundation
 import UIKit
 import Soundcloud
 
-public extension Track {
-    
+extension Array
+{
+    /** Randomizes the order of an array's elements. */
+    mutating func shuffle()
+    {
+        for _ in 0..<10
+        {
+            sortInPlace { (_,_) in arc4random() < arc4random() }
+        }
+    }
 }
 
 func + <K,V>(left: Dictionary<K,V>, right: Dictionary<K,V>)

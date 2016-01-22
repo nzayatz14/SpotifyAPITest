@@ -34,7 +34,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         if Soundcloud.session != nil {
             Soundcloud.session?.refreshSession({ session in
-                initialViewController = storyboard.instantiateViewControllerWithIdentifier("SoundCloudMain")
+                initialViewController = storyboard.instantiateViewControllerWithIdentifier("TabViewController")
                 navController.pushViewController(initialViewController, animated: false)
             })
         }else{
