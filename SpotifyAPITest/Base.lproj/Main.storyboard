@@ -48,7 +48,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="307" y="281"/>
+            <point key="canvasLocation" x="-3844.5" y="2270.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="4Ei-MX-a0n">
@@ -61,7 +61,129 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Eoo-aC-pf4" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-512" y="263"/>
+            <point key="canvasLocation" x="-4780.5" y="2270.25"/>
+        </scene>
+        <!--Server Client Decision View Controller-->
+        <scene sceneID="hUG-QL-BfF">
+            <objects>
+                <viewController storyboardIdentifier="ServerClientDecision" id="Fir-7X-4H2" customClass="ServerClientDecisionViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OOx-ED-3pR"/>
+                        <viewControllerLayoutGuide type="bottom" id="oCq-0p-74Q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Cjr-gN-FnE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="BlurredEDMBackground.png" translatesAutoresizingMaskIntoConstraints="NO" id="q3L-Dy-A7S">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            </imageView>
+                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rau-Ce-EJ7">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F5n-rk-0SO">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="They got the juice"/>
+                                <connections>
+                                    <action selector="btnClientPressed:" destination="Fir-7X-4H2" eventType="touchUpInside" id="Gwp-0k-TkQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUu-EB-cBn">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <state key="normal" title="I got the juice"/>
+                                <connections>
+                                    <action selector="btnHostPressed:" destination="Fir-7X-4H2" eventType="touchUpInside" id="g9z-bS-1cY"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="rau-Ce-EJ7" secondAttribute="trailing" id="5aM-1s-JUf"/>
+                            <constraint firstItem="rau-Ce-EJ7" firstAttribute="leading" secondItem="Cjr-gN-FnE" secondAttribute="leading" id="8hh-Zp-jGz"/>
+                            <constraint firstItem="rau-Ce-EJ7" firstAttribute="top" secondItem="Cjr-gN-FnE" secondAttribute="top" id="CNq-8Q-MZa"/>
+                            <constraint firstItem="q3L-Dy-A7S" firstAttribute="leading" secondItem="Cjr-gN-FnE" secondAttribute="leading" id="Dhw-xg-OZT"/>
+                            <constraint firstItem="q3L-Dy-A7S" firstAttribute="top" secondItem="Cjr-gN-FnE" secondAttribute="top" id="FuA-Se-K1t"/>
+                            <constraint firstItem="aUu-EB-cBn" firstAttribute="leading" secondItem="Cjr-gN-FnE" secondAttribute="leading" constant="20" id="MTT-4f-EvR"/>
+                            <constraint firstAttribute="trailing" secondItem="F5n-rk-0SO" secondAttribute="trailing" constant="20" id="NPP-VQ-06r"/>
+                            <constraint firstItem="oCq-0p-74Q" firstAttribute="top" secondItem="q3L-Dy-A7S" secondAttribute="bottom" id="Tf3-qh-eff"/>
+                            <constraint firstItem="F5n-rk-0SO" firstAttribute="centerY" secondItem="Cjr-gN-FnE" secondAttribute="centerY" id="Ycv-Dx-a2O"/>
+                            <constraint firstAttribute="trailing" secondItem="q3L-Dy-A7S" secondAttribute="trailing" id="jYL-H1-FCU"/>
+                            <constraint firstItem="aUu-EB-cBn" firstAttribute="centerY" secondItem="Cjr-gN-FnE" secondAttribute="centerY" id="kPu-SO-coI"/>
+                            <constraint firstItem="oCq-0p-74Q" firstAttribute="top" secondItem="rau-Ce-EJ7" secondAttribute="bottom" id="yhW-EV-G4u"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="q3L-Dy-A7S"/>
+                                <exclude reference="rau-Ce-EJ7"/>
+                                <exclude reference="F5n-rk-0SO"/>
+                                <exclude reference="aUu-EB-cBn"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="Dhw-xg-OZT"/>
+                                <exclude reference="FuA-Se-K1t"/>
+                                <exclude reference="jYL-H1-FCU"/>
+                                <exclude reference="5aM-1s-JUf"/>
+                                <exclude reference="8hh-Zp-jGz"/>
+                                <exclude reference="CNq-8Q-MZa"/>
+                                <exclude reference="MTT-4f-EvR"/>
+                                <exclude reference="kPu-SO-coI"/>
+                                <exclude reference="NPP-VQ-06r"/>
+                                <exclude reference="Ycv-Dx-a2O"/>
+                                <exclude reference="Tf3-qh-eff"/>
+                                <exclude reference="yhW-EV-G4u"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="q3L-Dy-A7S"/>
+                                <include reference="rau-Ce-EJ7"/>
+                                <include reference="F5n-rk-0SO"/>
+                                <include reference="aUu-EB-cBn"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="Dhw-xg-OZT"/>
+                                <include reference="FuA-Se-K1t"/>
+                                <include reference="jYL-H1-FCU"/>
+                                <include reference="5aM-1s-JUf"/>
+                                <include reference="8hh-Zp-jGz"/>
+                                <include reference="CNq-8Q-MZa"/>
+                                <include reference="MTT-4f-EvR"/>
+                                <include reference="kPu-SO-coI"/>
+                                <include reference="NPP-VQ-06r"/>
+                                <include reference="Ycv-Dx-a2O"/>
+                                <include reference="Tf3-qh-eff"/>
+                                <include reference="yhW-EV-G4u"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="btnClient" destination="aUu-EB-cBn" id="2O4-mw-1FF"/>
+                        <outlet property="btnHost" destination="F5n-rk-0SO" id="YF3-gO-1hh"/>
+                        <outlet property="imgBackground" destination="q3L-Dy-A7S" id="m1g-QR-XFO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6tI-HC-soM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2920.5" y="2270.25"/>
+        </scene>
+        <!--Connect To Bluetooth Session View Controller-->
+        <scene sceneID="j6G-0m-bOv">
+            <objects>
+                <viewController storyboardIdentifier="ConnectToSession" id="7Z0-TB-yYk" customClass="ConnectToBluetoothSessionViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="e14-NU-ho6"/>
+                        <viewControllerLayoutGuide type="bottom" id="SJr-OU-rjd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="2oj-ii-fgp">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.42742193070000001" green="0.39742013549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dGK-d0-fik" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1900.5" y="3024.75"/>
         </scene>
         <!--Main View Controller-->
         <scene sceneID="Vxw-Q0-2zT">
@@ -80,6 +202,110 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cd2-3V-WSP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1026" y="281"/>
+        </scene>
+        <!--Create Bluetooth Session View Controller-->
+        <scene sceneID="YjV-TB-etJ">
+            <objects>
+                <viewController storyboardIdentifier="CreateSession" id="4ni-fg-6az" customClass="CreateBluetoothSessionViewController" customModule="SpotifyAPITest" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="6NN-cp-dtd"/>
+                        <viewControllerLayoutGuide type="bottom" id="rb7-hC-slS"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="dZS-2g-6ae">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z3n-qw-aU4">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BluetoothTableCell" id="Dti-n5-ZFE" customClass="BluetoothDeviceTableCell" customModule="SpotifyAPITest" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Dti-n5-ZFE" id="eFu-VR-XNP">
+                                            <rect key="frame" x="0.0" y="0.0" width="240" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Device Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kF4-ND-QSt">
+                                                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                    <variation key="heightClass=regular-widthClass=compact" misplaced="YES">
+                                                        <rect key="frame" x="8" y="11.5" width="224" height="20.5"/>
+                                                    </variation>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="kF4-ND-QSt" secondAttribute="trailing" constant="8" id="Ids-lR-fN2"/>
+                                                <constraint firstItem="kF4-ND-QSt" firstAttribute="leading" secondItem="eFu-VR-XNP" secondAttribute="leading" constant="8" id="TIL-f4-qWK"/>
+                                                <constraint firstItem="kF4-ND-QSt" firstAttribute="centerY" secondItem="eFu-VR-XNP" secondAttribute="centerY" id="Wcy-0C-pUG"/>
+                                            </constraints>
+                                            <variation key="default">
+                                                <mask key="subviews">
+                                                    <exclude reference="kF4-ND-QSt"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <exclude reference="Ids-lR-fN2"/>
+                                                    <exclude reference="TIL-f4-qWK"/>
+                                                    <exclude reference="Wcy-0C-pUG"/>
+                                                </mask>
+                                            </variation>
+                                            <variation key="heightClass=regular-widthClass=compact">
+                                                <mask key="subviews">
+                                                    <include reference="kF4-ND-QSt"/>
+                                                </mask>
+                                                <mask key="constraints">
+                                                    <include reference="Ids-lR-fN2"/>
+                                                    <include reference="TIL-f4-qWK"/>
+                                                    <include reference="Wcy-0C-pUG"/>
+                                                </mask>
+                                            </variation>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="lblDeviceName" destination="kF4-ND-QSt" id="lMr-T9-nVA"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.039031107590000003" blue="0.33135617639999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="Z3n-qw-aU4" secondAttribute="trailing" id="7Ey-aB-rkj"/>
+                            <constraint firstItem="Z3n-qw-aU4" firstAttribute="top" secondItem="6NN-cp-dtd" secondAttribute="bottom" id="Kxd-aS-EeU"/>
+                            <constraint firstItem="rb7-hC-slS" firstAttribute="top" secondItem="Z3n-qw-aU4" secondAttribute="bottom" id="aKn-Me-fwr"/>
+                            <constraint firstItem="Z3n-qw-aU4" firstAttribute="leading" secondItem="dZS-2g-6ae" secondAttribute="leading" id="jrS-uF-xKQ"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="subviews">
+                                <exclude reference="Z3n-qw-aU4"/>
+                            </mask>
+                            <mask key="constraints">
+                                <exclude reference="7Ey-aB-rkj"/>
+                                <exclude reference="Kxd-aS-EeU"/>
+                                <exclude reference="jrS-uF-xKQ"/>
+                                <exclude reference="aKn-Me-fwr"/>
+                            </mask>
+                        </variation>
+                        <variation key="heightClass=regular-widthClass=compact">
+                            <mask key="subviews">
+                                <include reference="Z3n-qw-aU4"/>
+                            </mask>
+                            <mask key="constraints">
+                                <include reference="7Ey-aB-rkj"/>
+                                <include reference="Kxd-aS-EeU"/>
+                                <include reference="jrS-uF-xKQ"/>
+                                <include reference="aKn-Me-fwr"/>
+                            </mask>
+                        </variation>
+                    </view>
+                    <connections>
+                        <outlet property="tblDeviceList" destination="Z3n-qw-aU4" id="mjG-DD-rgk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V3P-hP-rtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1900.5" y="1422.75"/>
         </scene>
         <!--Sound Cloud Tab View Controller-->
         <scene sceneID="CMq-SQ-yqr">
@@ -377,6 +603,7 @@
                         <viewControllerLayoutGuide type="bottom" id="qdA-Uz-ZDv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="XqU-Eg-fUb">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -389,6 +616,7 @@
     </scenes>
     <resources>
         <image name="Black&amp;WhiteSoundcloud.png" width="64" height="64"/>
+        <image name="BlurredEDMBackground.png" width="1000" height="667"/>
         <image name="musicNote.png" width="808" height="808"/>
     </resources>
 </document>

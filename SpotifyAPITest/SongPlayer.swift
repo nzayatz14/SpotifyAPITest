@@ -39,7 +39,7 @@ class SongPlayer: NSObject {
         
         clearStreamer()
         tracks.removeAll()
-        tracks = sharedSoundcloudAPIAccess.songs
+        tracks = sharedSoundcloudAPIAccess.userSongs
         tracks = tracks.filter({$0.identifier != track.identifier})
         tracks.shuffle()
         tracks.insert(track, atIndex: 0)

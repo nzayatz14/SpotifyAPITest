@@ -32,7 +32,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         tblSongList.dataSource = self
         tblSongList.delegate = self
         
-        sharedSoundcloudAPIAccess.getSongs { (songlist) -> Void in
+        sharedSoundcloudAPIAccess.getUserSongs { (songlist) -> Void in
             self.songs = songlist
         }
     }

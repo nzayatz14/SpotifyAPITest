@@ -29,12 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set root VC based on login status
         let navController = self.window?.rootViewController as! UINavigationController
+        navController.setNavigationBarHidden(true, animated: false)
+        navController.navigationBar.translucent = true
+        UIApplication.sharedApplication().statusBarHidden = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
         
         if Soundcloud.session != nil {
             Soundcloud.session?.refreshSession({ session in
-                initialViewController = storyboard.instantiateViewControllerWithIdentifier("TabViewController")
+                initialViewController = storyboard.instantiateViewControllerWithIdentifier("ServerClientDecision")
                 navController.pushViewController(initialViewController, animated: false)
             })
         }else{
