@@ -20,10 +20,9 @@ class ConnectToBluetoothSessionViewController: UIViewController {
     
     
     override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
         UIApplication.sharedApplication().statusBarHidden = false
-        self.navigationController?.navigationBarHidden = false
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+        super.viewWillAppear(animated)
     }
     
     

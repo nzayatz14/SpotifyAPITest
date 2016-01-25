@@ -32,6 +32,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         tblSongList.dataSource = self
         tblSongList.delegate = self
         
+        //TODO: decide which call to make based on whether the user is by himself or not
         sharedSoundcloudAPIAccess.getUserSongs { (songlist) -> Void in
             self.songs = songlist
         }

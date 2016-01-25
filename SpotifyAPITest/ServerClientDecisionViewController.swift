@@ -11,6 +11,7 @@ import UIKit
 class ServerClientDecisionViewController: UIViewController {
     
     
+    @IBOutlet weak var lblCurrentLogin: UILabel!
     @IBOutlet weak var imgBackground: UIImageView!
     @IBOutlet weak var btnHost: UIButton!
     @IBOutlet weak var btnClient: UIButton!
@@ -19,14 +20,29 @@ class ServerClientDecisionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        sharedSoundcloudAPIAccess.getUser { (user) -> Void in
+            self.lblCurrentLogin.text = "Currently logged in as: \(user.username)"
+            self.lblCurrentLogin.hidden = false
+        }
+        
+        //crop the background image
+        let standardCrop = CGRect(x: (imgBackground.image!.size.width - UIScreen.mainScreen().bounds.width)/2.0 , y: fmax((imgBackground.image!.size.height - UIScreen.mainScreen().bounds.height), 0) , width: UIScreen.mainScreen().bounds.width, height: imgBackground.image!.size.height)
+        
+        logMsg("\(standardCrop)")
+        
+        if let standardThumb = CGImageCreateWithImageInRect(imgBackground.image!.CGImage, standardCrop) {
+            let newImage = UIImage(CGImage: standardThumb, scale: 1.0, orientation: UIImageOrientation.Up)
+            logMsg("\(newImage)")
+            
+            imgBackground.image = newImage
+        }
     }
     
     
     override func viewWillAppear(animated: Bool) {
+        UIApplication.sharedApplication().statusBarHidden = false
+        self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
-        
-        UIApplication.sharedApplication().statusBarHidden = true
-        self.navigationController?.navigationBarHidden = true
     }
     
     
@@ -37,7 +53,7 @@ class ServerClientDecisionViewController: UIViewController {
      - returns: void
     */
     @IBAction func btnHostPressed(sender: AnyObject) {
-        let nextVC = storyboard?.instantiateViewControllerWithIdentifier("CreateSession") as! CreateBluetoothSessionViewController
+        let nextVC = storyboard?.instantiateViewControllerWithIdentifier("PlaybackType") as! PlaybackTypeViewController
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

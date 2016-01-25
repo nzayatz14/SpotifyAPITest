@@ -36,10 +36,6 @@ class LoginViewController: UIViewController {
         
         }
         
-        Soundcloud.session?.refreshSession({ session in
-            self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
-        })
-        
         let auth = SPTAuth.defaultInstance()
         
         //if there is a session saved in userDefaults, get it
@@ -128,9 +124,19 @@ class LoginViewController: UIViewController {
     }
     
     
+    /**
+     Function called when the soundcloud login button is pressed
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
     @IBAction func btnSoundCloudLoginPressed(sender: AnyObject) {
         Session.login(self, completion: { response in
-        self.presentViewController(self.storyboard!.instantiateViewControllerWithIdentifier("SoundCloudMain"), animated: true, completion: nil)
+            if response.response.isSuccessful {
+                self.navigationController?.pushViewController(self.storyboard!.instantiateViewControllerWithIdentifier("ServerClientDecision"), animated: true)
+            }else{
+                print(response.response.error)
+            }
         })
     }
     

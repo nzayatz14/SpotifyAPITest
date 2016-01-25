@@ -17,6 +17,24 @@ class SoundcloudAPIAccess: NSObject {
     var userSongs = [Track]()
     var svennedSongs = [Track]()
     var songDatas = [String : NSData]()
+    var userData: User?
+    
+    
+    /**
+     Function called to get the user profile of the soundcloud user
+     
+     - parameter: void
+     - returns: void
+     */
+    func getUser(completion: (user: User) -> Void){
+        let session = Soundcloud.session
+        session?.me({result in
+            print("got me: \(result.response.result)\n\n")
+            
+            self.userData = result.response.result
+            completion(user: self.userData!)
+        })
+    }
     
     
     /**
@@ -26,12 +44,10 @@ class SoundcloudAPIAccess: NSObject {
      - returns: void
      */
     func getUserSongs(completion: (songlist: [Track]) -> Void){
-        let session = Soundcloud.session
-        session?.me({result in
-            print("got me: \(result.response.result)\n\n")
-            
-            result.response.result?.favorites({ tracklist in
-                //print("Tracklist count: \(tracklist.response.result?.count)")
+        
+        //if we already have the users information, use it
+        if let currentUser = userData {
+            currentUser.favorites({ tracklist in
                 
                 self.userSongs = (tracklist.response.result?.filter({$0.streamable == true}))!
                 
@@ -44,7 +60,29 @@ class SoundcloudAPIAccess: NSObject {
                 })
                 
             })
-        })
+            
+        } else {
+            
+            let session = Soundcloud.session
+            session?.me({result in
+                print("got me: \(result.response.result)\n\n")
+                
+                result.response.result?.favorites({ tracklist in
+                    //print("Tracklist count: \(tracklist.response.result?.count)")
+                    
+                    self.userSongs = (tracklist.response.result?.filter({$0.streamable == true}))!
+                    
+                    //call completion once the list has finished fetching
+                    completion(songlist: self.userSongs)
+                    
+                    //get related tracks example
+                    Track.relatedTracks(self.userSongs[0].identifier, completion: { result in
+                        //print("\(self.songs[0]) \n\n \(result)")
+                    })
+                    
+                })
+            })
+        }
     }
     
     

@@ -8,16 +8,22 @@
 
 import UIKit
 
-class SoundCloudTabViewController: UITabBarController {
+class SoundCloudTabViewController: UITabBarController, SettingsDelegate {
     
     var topLabel: UILabel!
     var btnSoundcloud: UIBarButtonItem!
     
+    //var settingsVC: SettingsViewController
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupNavBar()
+        
+        
+        if let settingsVC = self.viewControllers?[2] as? PlayerSettingsViewController {
+            settingsVC.delegate = self
+        }
     }
     
     
@@ -60,5 +66,16 @@ class SoundCloudTabViewController: UITabBarController {
     */
     func btnSoundcloudPressed(sender: AnyObject){
         UIApplication.sharedApplication().openURL(NSURL(string: "https://soundcloud.com/")!)
+    }
+    
+    
+    /**
+    Delegate function called when the user chooses to disconnect from a playlist
+     
+     - parameter: void
+     - returns: void
+    */
+    func disconnect() {
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }

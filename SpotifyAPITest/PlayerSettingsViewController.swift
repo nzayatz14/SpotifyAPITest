@@ -10,7 +10,14 @@ import UIKit
 import AVFoundation
 import MediaPlayer
 
-class SettingsViewController: UIViewController {
+protocol SettingsDelegate {
+    func disconnect()
+}
+
+class PlayerSettingsViewController: UIViewController {
+    
+    
+    var delegate: SettingsDelegate?
     
     
     override func viewDidLoad() {
@@ -150,6 +157,29 @@ class SettingsViewController: UIViewController {
             
             sharedSongPlayer.playPreviousSong()
         }
+    }
+    
+    
+    /**
+     Function called when the user pressed the save playlist button
+     
+     - parameter sender: the button pressed
+     - returns: void
+    */
+    @IBAction func btnSavePlaylistPressed(sender: AnyObject) {
+        
+    }
+    
+    
+    /**
+     Function called when the user pressed the disconnect button
+     
+     - parameter sender: the button pressed
+     - returns: void
+     */
+    @IBAction func btnDisconnectPressed(sender: AnyObject) {
+        sharedSongPlayer.clearStreamer()
+        delegate?.disconnect()
     }
     
 }
