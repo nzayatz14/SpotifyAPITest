@@ -15,9 +15,11 @@ class ConnectToBluetoothSessionViewController: UIViewController, BluetoothPeriph
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        peripheral = BluetoothPeripheral.sharedPeripheral
+        peripheral?.delegate = self
+        
         do {
-            peripheral = try BluetoothPeripheral.sharedPeripheral()
-            peripheral?.delegate = self
+            try peripheral?.start(sharedSoundcloudAPIAccess.userData?.username ?? "Unknown")
         } catch let error {
             logErr(error)
         }

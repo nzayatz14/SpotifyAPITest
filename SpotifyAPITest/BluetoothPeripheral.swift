@@ -18,14 +18,7 @@ protocol BluetoothPeripheralDelegate {
 
 class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
     
-    private static var privateSharedPeripheral = try? BluetoothPeripheral()
-    
-    static func sharedPeripheral() throws -> BluetoothPeripheral {
-        if privateSharedPeripheral == nil {
-            privateSharedPeripheral = try BluetoothPeripheral()
-        }
-        return privateSharedPeripheral!
-    }
+    static let sharedPeripheral = BluetoothPeripheral()
     
     var delegate: BluetoothPeripheralDelegate?
     
@@ -50,21 +43,23 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
     
     private let peripheral = BKPeripheral()
     
-    required init() throws {
+    required init() {
         
         peripheral.delegate = self
         peripheral.addAvailabilityObserver(self)
         
+    }
+    
+    func start(name: String) throws {
         guard let serviceUUID = NSUUID(UUIDString: "6E6B5C64-FAF7-40AE-9C21-D4933AF45B23"),
             let characteristicUUID = NSUUID(UUIDString: "477A2967-1FAB-4DC5-920A-DEE5DE685A3D") else {
                 throw BluetoothErrorType.FailedToInitialize(message: "serviceUUID or characteristicUUID was nil")
         }
         
-        let localName = "My Cool Peripheral"
-        let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID:  characteristicUUID, localName: localName)
+        let configuration = BKPeripheralConfiguration(dataServiceUUID: serviceUUID, dataServiceCharacteristicUUID:  characteristicUUID, localName: name)
         try peripheral.startWithConfiguration(configuration)
         // You are now ready for incoming connections
-        
+
     }
     
     func stop() throws {
