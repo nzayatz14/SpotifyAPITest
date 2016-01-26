@@ -9,6 +9,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>spotify-action</string>
+		<string>org-appextension-feature-password-management</string>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>

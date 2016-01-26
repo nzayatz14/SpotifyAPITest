@@ -13,7 +13,7 @@ protocol BluetoothCentralDelegate {
     func bcDidUpdateDataSource(sender: BluetoothCentral)
     func bcDidUpdateState(sender: BluetoothCentral, state: BKCentral.ContinuousScanState)
     
-    func bcIsAbleToScan()
+    func bcIsAbleToScan(sender: BluetoothCentral)
     
     func bcDidConnectToRemotePeripheral(sender: BluetoothCentral)
     func bcDidDisconnectFromRemotePeripheral(sender: BluetoothCentral)
@@ -169,7 +169,7 @@ class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
     func availabilityObserver(availabilityObservable: BKAvailabilityObservable, availabilityDidChange availability: BKAvailability) {
         logMsg(availability)
         if availability == .Available {
-            delegate?.bcIsAbleToScan()
+            delegate?.bcIsAbleToScan(self)
         }
     }
     

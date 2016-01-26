@@ -8,11 +8,19 @@
 
 import UIKit
 
-class ConnectToBluetoothSessionViewController: UIViewController {
+class ConnectToBluetoothSessionViewController: UIViewController, BluetoothPeripheralDelegate {
     
+    var peripheral: BluetoothPeripheral?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        do {
+            peripheral = try BluetoothPeripheral.sharedPeripheral()
+            peripheral?.delegate = self
+        } catch let error {
+            logErr(error)
+        }
         
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -29,6 +37,26 @@ class ConnectToBluetoothSessionViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
+    }
+    
+    func bpDidConnectToRemoteCentral(sender: BluetoothPeripheral) {
+        logMsg("bpDidConnectToRemoteCentral(sender: \(sender))")
+        let data = NSKeyedArchiver.archivedDataWithRootObject(["Message":"Test"])
+        do {
+            try sender.sendData(data) {
+                logMsg("send data success")
+            }
+        } catch let error {
+            logErr(error)
+        }
+    }
+    
+    func bpDidDisconnectFromRemoteCentral(sender: BluetoothPeripheral) {
+        logMsg("bpDidDisconnectFromRemoteCentral(sender: \(sender))")
+    }
+    
+    func bpErrorOccured(sender: BluetoothPeripheral, error: ErrorType) {
+        logErr("errbpErrorOccured(sender: \(sender), error: \(error))")
     }
     
     

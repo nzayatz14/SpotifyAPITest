@@ -10,12 +10,43 @@ import Foundation
 import BluetoothKit
 
 protocol BluetoothPeripheralDelegate {
+    func bpDidConnectToRemoteCentral(sender: BluetoothPeripheral)
+    func bpDidDisconnectFromRemoteCentral(sender: BluetoothPeripheral)
     
+    func bpErrorOccured(sender: BluetoothPeripheral, error: ErrorType)
 }
 
 class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
     
+    private static var privateSharedPeripheral = try? BluetoothPeripheral()
+    
+    static func sharedPeripheral() throws -> BluetoothPeripheral {
+        if privateSharedPeripheral == nil {
+            privateSharedPeripheral = try BluetoothPeripheral()
+        }
+        return privateSharedPeripheral!
+    }
+    
     var delegate: BluetoothPeripheralDelegate?
+    
+    var connectedCentral: BKRemoteCentral? {
+        didSet {
+            if connectedCentral == nil {
+                delegate?.bpDidDisconnectFromRemoteCentral(self)
+            } else {
+                delegate?.bpDidConnectToRemoteCentral(self)
+            }
+        }
+    }
+    
+    
+    var availability: BKAvailability {
+        return peripheral.availability
+    }
+    
+//    var dataSource: [BKRemoteCentral] {
+//        return peripheral.connectedRemoteCentrals
+//    }
     
     private let peripheral = BKPeripheral()
     
@@ -36,12 +67,20 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
         
     }
     
-    var availability: BKAvailability {
-        return peripheral.availability
-    }
-    
-    var dataSource: [BKRemoteCentral] {
-        return peripheral.connectedRemoteCentrals
+    func sendData(data: NSData, success: (() -> Void)? = nil) throws {
+        guard let connectedCentral = self.connectedCentral else {
+            throw BluetoothErrorType.ConnectedDeviceWasNil
+        }
+        
+        peripheral.sendData(data, toRemoteCentral: connectedCentral) { (data, remoteCentral, error) -> Void in
+            if let error = error {
+                logErr(error)
+                self.delegate?.bpErrorOccured(self, error: error)
+                return
+            }
+            
+            success?()
+        }
     }
     
     //MARK: - BKPeripheralDelegate
@@ -53,6 +92,11 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
      */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidConnect remoteCentral: BKRemoteCentral) {
         logMsg(remoteCentral)
+        if connectedCentral == nil {
+            connectedCentral = remoteCentral
+        } else {
+            logErr("connected to more than one central")
+        }
     }
     
     /**
@@ -62,6 +106,11 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
      */
     func peripheral(peripheral: BKPeripheral, remoteCentralDidDisconnect remoteCentral: BKRemoteCentral) {
         logMsg(remoteCentral)
+        if remoteCentral == connectedCentral {
+            connectedCentral = nil
+        } else {
+            logErr("disconnected from unknown central")
+        }
     }
     
     /**

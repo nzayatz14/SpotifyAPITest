@@ -192,7 +192,6 @@
 				848F154A1C567CED0014A902 /* BluetoothDeviceTableCell.swift */,
 				848F15481C5671FC0014A902 /* ConnectToBluetoothSessionViewController.swift */,
 				848F15461C5671C10014A902 /* CreateBluetoothSessionViewController.swift */,
-				845557D31C3C694000FD6C12 /* Extensions.swift */,
 				847A27C51C56D2CD00BB0D8B /* GeneralSettingsViewController.swift */,
 				845B472A1BF68FE10043AC08 /* LoginViewController.swift */,
 				84EFA9761BF69A3E00B872BC /* MainViewController.swift */,
@@ -261,6 +260,7 @@
 			isa = PBXGroup;
 			children = (
 				A77086D61C47FD7400FB31E7 /* Console.swift */,
+				845557D31C3C694000FD6C12 /* Extensions.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";

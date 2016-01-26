@@ -11,6 +11,7 @@ import Foundation
 enum BluetoothErrorType : ErrorType {
     case FailedToInitialize(message: String)
     case IndexOutOfBounds(idx: Int, cnt: Int)
+    case ConnectedDeviceWasNil
 }
 
 //func ~=(lhs: BluetoothErrorType, rhs: BluetoothErrorType) -> Bool {

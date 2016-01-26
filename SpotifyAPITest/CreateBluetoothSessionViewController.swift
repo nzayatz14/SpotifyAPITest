@@ -7,18 +7,23 @@
 //
 
 import UIKit
+import BluetoothKit
 
-class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
+class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, BluetoothCentralDelegate {
     
     @IBOutlet weak var tblDeviceList: UITableView!
     
-    var deviceList = [Int]()
-    
+    var central: BluetoothCentral?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        do {
+         central = try BluetoothCentral.sharedCentral()
+            central?.delegate = self
+        } catch let error {
+            logErr(error)
+        }
         tblDeviceList.dataSource = self
         tblDeviceList.delegate = self
         
@@ -47,7 +52,7 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
      - returns: the number of sections in this tableView
      */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return deviceList.count
+        return central?.dataSource.count ?? 0
     }
     
     
@@ -60,11 +65,53 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
      */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("BluetoothTableCell", forIndexPath: indexPath) as! BluetoothDeviceTableCell
-        
-        cell.lblDeviceName.text = "\(deviceList[indexPath.row])"
+
+        let name = central?.dataSource[indexPath.row].localName ?? "Unknown"
+        cell.lblDeviceName.text = "\(name)"
         
         return cell
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        do {
+            try central?.connect(indexPath.row)
+        } catch let error {
+            logErr(error)
+        }
+    }
+    
+    func reloadTableView() {
+        dispatch_async(dispatch_get_main_queue()) {
+            self.tblDeviceList.reloadData()
+        }
+    }
+    
+    func bcDidConnectToRemotePeripheral(sender: BluetoothCentral) {
+        logMsg("bcDidConnectToRemotePeripheral(sender: \(sender)")
+        reloadTableView()
+    }
+    
+    func bcDidDisconnectFromRemotePeripheral(sender: BluetoothCentral) {
+        logMsg("bcDidDisconnectFromRemotePeripheral(sender: \(sender))")
+        reloadTableView()
+    }
+    
+    func bcDidUpdateDataSource(sender: BluetoothCentral) {
+        logMsg("bcDidUpdateDataSource(sender: \(sender))")
+        reloadTableView()
+    }
+    
+    func bcDidUpdateState(sender: BluetoothCentral, state: BKCentral.ContinuousScanState) {
+        logMsg("bcDidUpdateState(sender: \(sender), state: \(state))")
+    }
+    
+    func bcErrorOccured(sender: BluetoothCentral, error: ErrorType) {
+        logMsg("bcErrorOccured(sender: \(sender), error: \(error))")
+    }
+    
+    func bcIsAbleToScan(sender: BluetoothCentral) {
+        logMsg("bcIsAbleToScan(sender: \(sender))")
+        central?.startContinuousScan()
+    }
     
 }
