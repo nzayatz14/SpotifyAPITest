@@ -67,6 +67,10 @@ class BluetoothPeripheral: BKPeripheralDelegate, BKAvailabilityObserver {
         
     }
     
+    func stop() throws {
+        try peripheral.stop()
+    }
+    
     func sendData(data: NSData, success: (() -> Void)? = nil) throws {
         guard let connectedCentral = self.connectedCentral else {
             throw BluetoothErrorType.ConnectedDeviceWasNil

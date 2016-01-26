@@ -114,4 +114,9 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
         central?.startContinuousScan()
     }
     
+    func bcDidReceiveData(sender: BluetoothCentral, remotePeripheral: BKRemotePeripheral, data: NSData) {
+        let dict = NSKeyedUnarchiver.unarchiveObjectWithData(data) as? [String: AnyObject]
+        logMsg("bcDidRecieveData(sender: \(sender), remotePeripheral: \(remotePeripheral), data: \(dict))")
+    }
+    
 }

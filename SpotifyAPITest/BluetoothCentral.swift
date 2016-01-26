@@ -18,10 +18,12 @@ protocol BluetoothCentralDelegate {
     func bcDidConnectToRemotePeripheral(sender: BluetoothCentral)
     func bcDidDisconnectFromRemotePeripheral(sender: BluetoothCentral)
     
+    func bcDidReceiveData(sender: BluetoothCentral, remotePeripheral: BKRemotePeripheral, data: NSData)
+    
     func bcErrorOccured(sender: BluetoothCentral, error: ErrorType)
 }
 
-class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
+class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver, BKRemotePeripheralDelegate {
     
     private static var privateSharedCentral = try? BluetoothCentral()
     
@@ -46,6 +48,7 @@ class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
             if connectedPeripheral == nil {
                 delegate?.bcDidDisconnectFromRemotePeripheral(self)
             } else {
+                connectedPeripheral?.delegate = self
                 delegate?.bcDidConnectToRemotePeripheral(self)
             }
         }
@@ -161,6 +164,8 @@ class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
         }
     }
     
+    //MARK: - BKAvailabilityObserver
+    
     /**
      Informs the observer about a change in Bluetooth LE availability.
      - parameter availabilityObservable: The object that registered the availability change.
@@ -181,5 +186,26 @@ class BluetoothCentral: BKCentralDelegate, BKAvailabilityObserver {
     func availabilityObserver(availabilityObservable: BKAvailabilityObservable, unavailabilityCauseDidChange unavailabilityCause: BKUnavailabilityCause) {
         logMsg(unavailabilityCause)
     }
+    
+    //MARK: - BKRemotePeripheralDelegate
+    
+    /**
+    Called when the remote peripheral updated its name.
+    - parameter remotePeripheral: The remote peripheral that updated its name.
+    - parameter name: The new name.
+    */
+    func remotePeripheral(remotePeripheral: BKRemotePeripheral, didUpdateName name: String) {
+        
+    }
+    
+    /**
+     Called when the remote peripheral sent data.
+     - parameter remotePeripheral: The remote peripheral that sent the data.
+     - parameter data: The data it sent.
+     */
+    func remotePeripheral(remotePeripheral: BKRemotePeripheral, didSendArbitraryData data: NSData) {
+        delegate?.bcDidReceiveData(self, remotePeripheral: remotePeripheral, data: data)
+    }
+    
     
 }
