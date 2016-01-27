@@ -93,7 +93,7 @@ class CoreDataManager: NSObject {
         }
     }
     
-    func getPlaylists(id: String) -> CDPlaylist? {
+    func getPlaylist(id: String) -> CDPlaylist? {
         let playlistsFetch = NSFetchRequest(entityName: "CDPlaylist")
         playlistsFetch.predicate = NSPredicate(format: "id == %@", id)
         
@@ -121,7 +121,9 @@ class CoreDataManager: NSObject {
     }
     
     func deletePlaylist(id: String) {
-        
+        if let playlist = getPlaylist(id) {
+            managedObjectContext.deleteObject(playlist)
+        }
     }
     
     private func getSong(id: Int) -> CDSong? {
@@ -146,7 +148,9 @@ class CoreDataManager: NSObject {
     }
     
     func deleteSong(id: Int) {
-        
+        if let song = getSong(id) {
+            managedObjectContext.deleteObject(song)
+        }
     }
     
 }
