@@ -42,6 +42,13 @@
 		A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086CE1C47F5AA00FB31E7 /* BluetoothCentral.swift */; };
 		A77086D51C47F93F00FB31E7 /* BluetoothErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086D41C47F93F00FB31E7 /* BluetoothErrorType.swift */; };
 		A77086D71C47FD7400FB31E7 /* Console.swift in Sources */ = {isa = PBXBuildFile; fileRef = A77086D61C47FD7400FB31E7 /* Console.swift */; };
+		A78115681C59480E006B3F9D /* CoreDataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A78115661C59480E006B3F9D /* CoreDataModel.xcdatamodeld */; };
+		A78115721C594A5F006B3F9D /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78115711C594A5F006B3F9D /* CoreDataManager.swift */; };
+		A78115751C594B0C006B3F9D /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A78115741C594B0C006B3F9D /* CoreData.framework */; };
+		A78115CB1C59617B006B3F9D /* CDPlaylist+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78115C91C59617B006B3F9D /* CDPlaylist+CoreDataProperties.swift */; };
+		A78115CC1C59617B006B3F9D /* CDPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78115CA1C59617B006B3F9D /* CDPlaylist.swift */; };
+		A78115CF1C596186006B3F9D /* CDSong+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78115CD1C596186006B3F9D /* CDSong+CoreDataProperties.swift */; };
+		A78115D01C596186006B3F9D /* CDSong.swift in Sources */ = {isa = PBXBuildFile; fileRef = A78115CE1C596186006B3F9D /* CDSong.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -122,6 +129,13 @@
 		A77086CE1C47F5AA00FB31E7 /* BluetoothCentral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothCentral.swift; sourceTree = "<group>"; };
 		A77086D41C47F93F00FB31E7 /* BluetoothErrorType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothErrorType.swift; sourceTree = "<group>"; };
 		A77086D61C47FD7400FB31E7 /* Console.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Console.swift; sourceTree = "<group>"; };
+		A78115671C59480E006B3F9D /* CoreDataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDataModel.xcdatamodel; sourceTree = "<group>"; };
+		A78115711C594A5F006B3F9D /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
+		A78115741C594B0C006B3F9D /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		A78115C91C59617B006B3F9D /* CDPlaylist+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDPlaylist+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A78115CA1C59617B006B3F9D /* CDPlaylist.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDPlaylist.swift; sourceTree = "<group>"; };
+		A78115CD1C596186006B3F9D /* CDSong+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CDSong+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		A78115CE1C596186006B3F9D /* CDSong.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDSong.swift; sourceTree = "<group>"; };
 		D56D9E755ECC9A9C282FB320 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,6 +144,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A78115751C594B0C006B3F9D /* CoreData.framework in Frameworks */,
 				843AF94D1C1B24D4009A8F75 /* Foundation.framework in Frameworks */,
 				60E5964C6C35D579E850D3F7 /* Pods.framework in Frameworks */,
 				843AF94F1C1B2856009A8F75 /* SystemConfiguration.framework in Frameworks */,
@@ -207,6 +222,7 @@
 				84ACF0881C49378500E83A5C /* SongPlayer.swift */,
 				A77086D31C47F81600FB31E7 /* Utilities */,
 				A77086D21C47F66700FB31E7 /* Bluetooth */,
+				A78115651C5947E0006B3F9D /* CoreData */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
 				84D7A24E1C5082980030971B /* Images */,
@@ -265,9 +281,47 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		A78115651C5947E0006B3F9D /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+				A78115711C594A5F006B3F9D /* CoreDataManager.swift */,
+				A78115731C594A6B006B3F9D /* Models */,
+			);
+			name = CoreData;
+			sourceTree = "<group>";
+		};
+		A78115731C594A6B006B3F9D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A78115661C59480E006B3F9D /* CoreDataModel.xcdatamodeld */,
+				A78115C81C5950CE006B3F9D /* CDSong */,
+				A78115C71C5950C5006B3F9D /* CDPlaylist */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		A78115C71C5950C5006B3F9D /* CDPlaylist */ = {
+			isa = PBXGroup;
+			children = (
+				A78115C91C59617B006B3F9D /* CDPlaylist+CoreDataProperties.swift */,
+				A78115CA1C59617B006B3F9D /* CDPlaylist.swift */,
+			);
+			name = CDPlaylist;
+			sourceTree = "<group>";
+		};
+		A78115C81C5950CE006B3F9D /* CDSong */ = {
+			isa = PBXGroup;
+			children = (
+				A78115CD1C596186006B3F9D /* CDSong+CoreDataProperties.swift */,
+				A78115CE1C596186006B3F9D /* CDSong.swift */,
+			);
+			name = CDSong;
+			sourceTree = "<group>";
+		};
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A78115741C594B0C006B3F9D /* CoreData.framework */,
 				84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */,
 				844792D91C470C7B0044FE07 /* CircleSlider.framework */,
 				846AF6201C45CAE500A13F24 /* MarqueeLabel.framework */,
@@ -481,6 +535,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				845557D41C3C694000FD6C12 /* Extensions.swift in Sources */,
+				A78115CF1C596186006B3F9D /* CDSong+CoreDataProperties.swift in Sources */,
 				A77086D51C47F93F00FB31E7 /* BluetoothErrorType.swift in Sources */,
 				A77086CD1C47F59300FB31E7 /* BluetoothPeripheral.swift in Sources */,
 				849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */,
@@ -492,15 +547,20 @@
 				84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */,
 				847A27C61C56D2CD00BB0D8B /* GeneralSettingsViewController.swift in Sources */,
 				848F15471C5671C10014A902 /* CreateBluetoothSessionViewController.swift in Sources */,
+				A78115D01C596186006B3F9D /* CDSong.swift in Sources */,
 				848F154B1C567CED0014A902 /* BluetoothDeviceTableCell.swift in Sources */,
 				845B472B1BF68FE10043AC08 /* LoginViewController.swift in Sources */,
+				A78115CB1C59617B006B3F9D /* CDPlaylist+CoreDataProperties.swift in Sources */,
 				84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */,
+				A78115CC1C59617B006B3F9D /* CDPlaylist.swift in Sources */,
 				84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */,
 				84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */,
+				A78115681C59480E006B3F9D /* CoreDataModel.xcdatamodeld in Sources */,
 				847A27C41C56BB1F00BB0D8B /* PlaylistTableCell.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
 				A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */,
 				847A27C21C56B87400BB0D8B /* PlaybackTypeViewController.swift in Sources */,
+				A78115721C594A5F006B3F9D /* CoreDataManager.swift in Sources */,
 				845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -789,6 +849,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A78115661C59480E006B3F9D /* CoreDataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A78115671C59480E006B3F9D /* CoreDataModel.xcdatamodel */,
+			);
+			currentVersion = A78115671C59480E006B3F9D /* CoreDataModel.xcdatamodel */;
+			path = CoreDataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 845B471D1BF68FE10043AC08 /* Project object */;
 }

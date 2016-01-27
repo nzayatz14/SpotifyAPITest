@@ -147,6 +147,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        }
         
         
+//        let cd = CoreDataManager()
+//        var songs = [Int]()
+//        // extend the array using a Range
+//        songs += 1...100
+//        
+//        cd.addPlaylist("Test Playlist 0", songs: songs)
+//        let playlists = cd.getPlaylists()
+//        logMsg(playlists?.first)
+//        logMsg(cd.getPlaylists((playlists?.first?.id)!))
+//        logMsg(playlists?.first?.songs)
+//        
+//        for p in playlists! {
+//            logMsg("{")
+//            logMsg("\t\(p)")
+//            for s in p.songs! {
+//                logMsg("\t\t\(s as? CDSong)")
+//            }
+//            logMsg("}")
+//        }
+        
         
         return true
     }
@@ -204,5 +224,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return false
         }
     }
+    
+    
 }
 
