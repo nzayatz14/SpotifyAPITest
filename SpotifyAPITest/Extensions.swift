@@ -86,3 +86,13 @@ extension String {
     }
 }
 
+
+extension UINavigationController {
+    
+    //make sure the view only goes into portrait mode
+    override public func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+}
+

@@ -53,6 +53,12 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Returns the number of rows in the given tableView in the given section
      
@@ -136,22 +142,28 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
+                
+                if sharedSongPlayer.canChange {
                 sharedSongPlayer.currentTrack++
                 sharedSongPlayer.audioStreamer?.advanceToNextItem()
                 
                 setupNextSong()
                 
                 updateOutsidePlayer()
+                }
                 
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
+                if sharedSongPlayer.canChange {
                 setupPreviousSong()
+                }
                 
                 break
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
                 playerVC.paused = false
+                sharedSongPlayer.paused = false
                 sharedSongPlayer.audioStreamer?.play()
                 
                 updateOutsidePlayer()
@@ -160,6 +172,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
             case UIEventSubtype.RemoteControlPause:
                 print("pause")
                 playerVC.paused = true
+                sharedSongPlayer.paused = true
                 sharedSongPlayer.audioStreamer?.pause()
                 
                 updateOutsidePlayer()
@@ -213,6 +226,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
             
             playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
             
+            sharedSongPlayer.canChange = false
             sharedSongPlayer.loadNextSong()
         }else{
             sharedSongPlayer.clearStreamer()
@@ -236,6 +250,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
             
             playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
             
+            sharedSongPlayer.canChange = false
             sharedSongPlayer.playPreviousSong()
         }
     }

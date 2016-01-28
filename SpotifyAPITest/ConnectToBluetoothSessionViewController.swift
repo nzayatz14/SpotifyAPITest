@@ -32,4 +32,10 @@ class ConnectToBluetoothSessionViewController: UIViewController {
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
 }

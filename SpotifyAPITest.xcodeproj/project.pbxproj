@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		60E5964C6C35D579E850D3F7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369C2C46D81302EF1865882C /* Pods.framework */; };
+		8407C1391C5AC34E005B3A28 /* SelectPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */; };
+		8407C13B1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */; };
 		8431D77F1C4EECEF0046924F /* musicNote.png in Resources */ = {isa = PBXBuildFile; fileRef = 8431D77E1C4EECEF0046924F /* musicNote.png */; };
 		84392C331C502845001E5A4E /* PlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */; };
 		84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */; };
@@ -64,6 +66,8 @@
 /* Begin PBXFileReference section */
 		25F37ECB111D65459E373BDD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		369C2C46D81302EF1865882C /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlaylistViewController.swift; sourceTree = "<group>"; };
+		8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlaylistTableCell.swift; sourceTree = "<group>"; };
 		840FB46E1C2F7333007725B1 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "Pods/../build/Debug-iphoneos/Spotify.framework"; sourceTree = "<group>"; };
 		8431D77E1C4EECEF0046924F /* musicNote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicNote.png; sourceTree = "<group>"; };
 		84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSettingsViewController.swift; sourceTree = "<group>"; };
@@ -192,7 +196,6 @@
 				848F154A1C567CED0014A902 /* BluetoothDeviceTableCell.swift */,
 				848F15481C5671FC0014A902 /* ConnectToBluetoothSessionViewController.swift */,
 				848F15461C5671C10014A902 /* CreateBluetoothSessionViewController.swift */,
-				845557D31C3C694000FD6C12 /* Extensions.swift */,
 				847A27C51C56D2CD00BB0D8B /* GeneralSettingsViewController.swift */,
 				845B472A1BF68FE10043AC08 /* LoginViewController.swift */,
 				84EFA9761BF69A3E00B872BC /* MainViewController.swift */,
@@ -200,6 +203,8 @@
 				847A27C31C56BB1F00BB0D8B /* PlaylistTableCell.swift */,
 				848F15441C566FC90014A902 /* ServerClientDecisionViewController.swift */,
 				84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */,
+				8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */,
+				8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */,
 				849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */,
 				84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */,
 				84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */,
@@ -261,6 +266,7 @@
 			isa = PBXGroup;
 			children = (
 				A77086D61C47FD7400FB31E7 /* Console.swift */,
+				845557D31C3C694000FD6C12 /* Extensions.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -484,6 +490,7 @@
 				A77086D51C47F93F00FB31E7 /* BluetoothErrorType.swift in Sources */,
 				A77086CD1C47F59300FB31E7 /* BluetoothPeripheral.swift in Sources */,
 				849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */,
+				8407C1391C5AC34E005B3A28 /* SelectPlaylistViewController.swift in Sources */,
 				848F15491C5671FC0014A902 /* ConnectToBluetoothSessionViewController.swift in Sources */,
 				84EFA9771BF69A3E00B872BC /* MainViewController.swift in Sources */,
 				A77086D71C47FD7400FB31E7 /* Console.swift in Sources */,
@@ -497,6 +504,7 @@
 				84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */,
 				84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */,
 				84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */,
+				8407C13B1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift in Sources */,
 				847A27C41C56BB1F00BB0D8B /* PlaylistTableCell.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
 				A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */,

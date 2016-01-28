@@ -42,6 +42,12 @@ class PlaybackTypeViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Function called when the user pressed the new connection button
      

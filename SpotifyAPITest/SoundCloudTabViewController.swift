@@ -27,6 +27,12 @@ class SoundCloudTabViewController: UITabBarController, SettingsDelegate {
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Function called to set up the nav bar scheme
      

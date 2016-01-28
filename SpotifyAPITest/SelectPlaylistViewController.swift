@@ -1,41 +1,29 @@
 //
-//  CreateBluetoothSessionViewController.swift
+//  SelectPlaylistViewController.swift
 //  SpotifyAPITest
 //
-//  Created by Nick Zayatz on 1/25/16.
+//  Created by Nick Zayatz on 1/28/16.
 //  Copyright © 2016 Nick Zayatz. All rights reserved.
 //
 
 import UIKit
+import Soundcloud
 
-class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SelectPlaylistViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
-    @IBOutlet weak var tblDeviceList: UITableView!
+    @IBOutlet weak var tblPlaylists: UITableView!
     
-    var deviceList = [Int]()
+    
+    
+    var playlists = [Playlist]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tblDeviceList.dataSource = self
-        tblDeviceList.delegate = self
-        
-        self.automaticallyAdjustsScrollViewInsets = false
-    }
-    
-    
-    override func viewWillAppear(animated: Bool) {
-        UIApplication.sharedApplication().statusBarHidden = false
-        self.navigationController?.setNavigationBarHidden(false, animated: animated)
-        super.viewWillAppear(animated)
-    }
-    
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+        tblPlaylists.dataSource = self
+        tblPlaylists.delegate = self
     }
     
     
@@ -53,7 +41,7 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
      - returns: the number of sections in this tableView
      */
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return deviceList.count
+        return playlists.count
     }
     
     
@@ -65,12 +53,11 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
      - returns: the new table cell to be loaded into the table view
      */
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BluetoothTableCell", forIndexPath: indexPath) as! BluetoothDeviceTableCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("SelectPlaylistTableCell", forIndexPath: indexPath) as! SelectPlaylistTableCell
         
-        cell.lblDeviceName.text = "\(deviceList[indexPath.row])"
+        cell.lblPlaylistName.text = "\(playlists[indexPath.row])"
         
         return cell
     }
-    
     
 }

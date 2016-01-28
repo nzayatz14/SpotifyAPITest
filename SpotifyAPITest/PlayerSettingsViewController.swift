@@ -35,6 +35,12 @@ class PlayerSettingsViewController: UIViewController {
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Function called when the user controls music from the lock screen
      
@@ -55,22 +61,28 @@ class PlayerSettingsViewController: UIViewController {
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
-                sharedSongPlayer.currentTrack++
-                sharedSongPlayer.audioStreamer?.advanceToNextItem()
                 
-                setupNextSong()
-                
-                updateOutsidePlayer()
+                if sharedSongPlayer.canChange {
+                    sharedSongPlayer.currentTrack++
+                    sharedSongPlayer.audioStreamer?.advanceToNextItem()
+                    
+                    setupNextSong()
+                    
+                    updateOutsidePlayer()
+                }
                 
                 break
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
-                setupPreviousSong()
+                if sharedSongPlayer.canChange {
+                    setupPreviousSong()
+                }
                 
                 break
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
                 playerVC.paused = false
+                sharedSongPlayer.paused = false
                 sharedSongPlayer.audioStreamer?.play()
                 
                 updateOutsidePlayer()
@@ -79,6 +91,7 @@ class PlayerSettingsViewController: UIViewController {
             case UIEventSubtype.RemoteControlPause:
                 print("pause")
                 playerVC.paused = true
+                sharedSongPlayer.paused = true
                 sharedSongPlayer.audioStreamer?.pause()
                 
                 updateOutsidePlayer()
@@ -132,6 +145,7 @@ class PlayerSettingsViewController: UIViewController {
             
             playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
             
+            sharedSongPlayer.canChange = false
             sharedSongPlayer.loadNextSong()
         }else{
             sharedSongPlayer.clearStreamer()
@@ -155,9 +169,11 @@ class PlayerSettingsViewController: UIViewController {
             
             playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
             
+            sharedSongPlayer.canChange = false
             sharedSongPlayer.playPreviousSong()
         }
     }
+
     
     
     /**

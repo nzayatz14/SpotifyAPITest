@@ -109,6 +109,12 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Function called to set up the timer with a new song
      
@@ -216,10 +222,9 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         
         if let myStreamer = sharedSongPlayer.audioStreamer {
             if myStreamer.currentItem?.loadedTimeRanges.count >= 1 {
-                if let duration = myStreamer.currentItem?.loadedTimeRanges[0].CMTimeRangeValue.duration {
+                if let duration = myStreamer.currentItem?.loadedTimeRanges[0].CMTimeRangeValue.duration, let start = myStreamer.currentItem?.loadedTimeRanges[0].CMTimeRangeValue.start {
                     
-                    let seconds = Float(CMTimeGetSeconds(duration))
-                    print(seconds)
+                    let seconds = Float(CMTimeGetSeconds(duration) + CMTimeGetSeconds(start))
                     
                     if !Float(myStreamer.currentTime().seconds).isNaN && circleBufferSlider != nil {
                         circleBufferSlider?.value = seconds
@@ -287,6 +292,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     func allowForwardAndBack(){
         btnBack.enabled = true
         btnForward.enabled = true
+        sharedSongPlayer.canChange = true
         
         if circleSlider != nil {
             circleSlider?.enabled = true
@@ -312,7 +318,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
                 break
             case UIEventSubtype.RemoteControlNextTrack:
                 print("next track")
-                if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+                if sharedSongPlayer.canChange && sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
                     sharedSongPlayer.currentTrack++
                     sharedSongPlayer.audioStreamer?.advanceToNextItem()
                     
@@ -325,7 +331,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             case UIEventSubtype.RemoteControlPreviousTrack:
                 print("previous track")
                 
-                if btnBack.enabled {
+                if sharedSongPlayer.canChange {
                     setupPreviousSong()
                 }
                 
@@ -333,6 +339,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
                 paused = false
+                sharedSongPlayer.paused = false
                 btnPausePlay.setTitle("Pause", forState: .Normal)
                 sharedSongPlayer.audioStreamer?.play()
                 
@@ -342,6 +349,7 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
             case UIEventSubtype.RemoteControlPause:
                 print("pause")
                 paused = true
+                sharedSongPlayer.paused = true
                 btnPausePlay.setTitle("Play", forState: .Normal)
                 sharedSongPlayer.audioStreamer?.pause()
                 
@@ -365,11 +373,13 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
         if let _ = sharedSongPlayer.audioStreamer {
             if !paused {
                 paused = true
+                sharedSongPlayer.paused = true
                 btnPausePlay.setTitle("Play", forState: .Normal)
                 sharedSongPlayer.audioStreamer?.pause()
                 return
             }else{
                 paused = false
+                sharedSongPlayer.paused = false
                 btnPausePlay.setTitle("Pause", forState: .Normal)
                 sharedSongPlayer.audioStreamer?.play()
             }
@@ -387,6 +397,10 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      */
     @IBAction func btnBackPressed(sender: AnyObject) {
         if sharedSongPlayer.currentTrack > 0 {
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider?.enabled = false
+            sharedSongPlayer.canChange = false
             self.imgArtwork.image = UIImage(named: "musicNote.png")
         }
         
@@ -402,6 +416,10 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      */
     @IBAction func btnForwardPressed(sender: AnyObject) {
         if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack+1 {
+            btnBack.enabled = false
+            btnForward.enabled = false
+            circleSlider?.enabled = false
+            sharedSongPlayer.canChange = false
             sharedSongPlayer.currentTrack++
             sharedSongPlayer.audioStreamer?.advanceToNextItem()
             self.imgArtwork.image = UIImage(named: "musicNote.png")
@@ -420,10 +438,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
     func setupNextSong(){
         
         if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack {
-            
-            btnBack.enabled = false
-            btnForward.enabled = false
-            circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
             getAlbumArt()
@@ -450,10 +464,6 @@ class SongPlayerViewController: UIViewController, SongPlayerDelegate {
      */
     func setupPreviousSong(){
         if sharedSongPlayer.currentTrack > 0 {
-            
-            btnBack.enabled = false
-            btnForward.enabled = false
-            circleSlider?.enabled = false
             
             track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
             getAlbumArt()

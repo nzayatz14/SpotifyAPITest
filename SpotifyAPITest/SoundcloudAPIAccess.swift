@@ -47,7 +47,10 @@ class SoundcloudAPIAccess: NSObject {
         
         //if we already have the users information, use it
         if let currentUser = userData {
+            
             currentUser.favorites({ tracklist in
+                
+                print(tracklist.response.result?.count)
                 
                 self.userSongs = (tracklist.response.result?.filter({$0.streamable == true}))!
                 

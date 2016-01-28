@@ -85,6 +85,12 @@ class LoginViewController: UIViewController {
     }
     
     
+    //make sure the view only goes into portrait mode
+    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
+        return UIInterfaceOrientationMask.Portrait
+    }
+    
+    
     /**
      Function called when the user has finished a new login
      

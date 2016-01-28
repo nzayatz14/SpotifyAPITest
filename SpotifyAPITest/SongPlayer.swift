@@ -25,8 +25,11 @@ class SongPlayer: NSObject {
     
     var tracks = [Track]()
     var currentTrack = 0
+    var canChange = true
+    var paused = true
     
     var delegate: SongPlayerDelegate?
+    var trackTimer: NSTimer?
     
     
     /**
@@ -48,6 +51,9 @@ class SongPlayer: NSObject {
         audioStreamer = AVQueuePlayer(URL: track.streamURL!)
         audioStreamer?.play()
         audioStreamer?.actionAtItemEnd = AVPlayerActionAtItemEnd.Advance
+        paused = false
+        
+        trackTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("canResume"), userInfo: nil, repeats: true)
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidFinishPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: sharedSongPlayer.audioStreamer?.currentItem)
         
@@ -63,6 +69,10 @@ class SongPlayer: NSObject {
      - returns: void
      */
     func clearStreamer(){
+        
+        trackTimer?.invalidate()
+        trackTimer = nil
+        
         audioStreamer?.pause()
         audioStreamer?.removeAllItems()
         audioStreamer = nil
@@ -98,11 +108,13 @@ class SongPlayer: NSObject {
                         print("Done fetching")
                         
                         self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
+                        self.canChange = true
                         self.delegate?.allowForwardAndBack()
                     }
                 }
             }
         }else{
+            canChange = true
             self.delegate?.allowForwardAndBack()
         }
     }
@@ -130,7 +142,6 @@ class SongPlayer: NSObject {
                     
                     self.audioStreamer?.insertItem(playerItem, afterItem: self.audioStreamer?.currentItem)
                     self.audioStreamer?.play()
-                    self.delegate?.allowForwardAndBack()
                     self.loadNextSong()
                 }
             }
@@ -164,5 +175,29 @@ class SongPlayer: NSObject {
         print("called from player")
         
         delegate?.updateUI()
+    }
+    
+    
+    /**
+     Function called on a timer to see if the buffer can resume playing
+     
+     - parameter void:
+     - returns: void
+    */
+    func canResume(){
+        
+        guard let currentTime = audioStreamer?.currentTime(), let currentDuration = audioStreamer?.currentItem?.duration, let rate = audioStreamer?.rate, let keepUp = audioStreamer?.currentItem?.playbackLikelyToKeepUp else {
+            return
+        }
+        
+        let duration = CMTimeGetSeconds(currentDuration)
+        let time = CMTimeGetSeconds(currentTime)
+        
+        print("\(keepUp)")
+        
+        if  rate == 0 && duration != time && !paused && keepUp {
+            audioStreamer?.play()
+        }
+        
     }
 }
