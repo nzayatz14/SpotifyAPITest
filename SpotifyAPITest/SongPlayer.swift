@@ -12,7 +12,7 @@ import MediaPlayer
 import Soundcloud
 
 
-var sharedSongPlayer = SongPlayer()
+let sharedSongPlayer = SongPlayer()
 
 protocol SongPlayerDelegate {
     func updateUI()

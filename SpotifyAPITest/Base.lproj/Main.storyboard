@@ -364,6 +364,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
+                            <searchBar contentMode="redraw" barStyle="black" searchBarStyle="minimal" placeholder="Search for Playlist" showsCancelButton="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9jk-dy-Lih">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rRN-k4-MYk">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="SS3-sR-ure">
@@ -395,6 +400,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="rRN-k4-MYk" firstAttribute="top" secondItem="Fnn-vO-8aR" secondAttribute="top" id="ATt-Mj-XTL"/>
+                            <constraint firstItem="rRN-k4-MYk" firstAttribute="top" secondItem="9jk-dy-Lih" secondAttribute="bottom" id="AmY-6F-6N2"/>
                             <constraint firstItem="rRN-k4-MYk" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="CrQ-x3-d3s"/>
                             <constraint firstItem="jb4-2U-OeG" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="Eeh-DR-gjq"/>
                             <constraint firstAttribute="trailing" secondItem="jb4-2U-OeG" secondAttribute="trailing" id="F09-gA-5aB"/>
@@ -406,6 +412,11 @@
                             <constraint firstItem="sCI-Me-fJh" firstAttribute="centerX" secondItem="Fnn-vO-8aR" secondAttribute="centerX" id="T7I-Zr-Nl5"/>
                             <constraint firstItem="gyM-D8-T8z" firstAttribute="top" secondItem="rRN-k4-MYk" secondAttribute="bottom" id="TDD-Pn-Hfs"/>
                             <constraint firstItem="gyM-D8-T8z" firstAttribute="top" secondItem="jb4-2U-OeG" secondAttribute="bottom" id="d0t-Ih-Z45"/>
+                            <constraint firstAttribute="trailing" secondItem="9jk-dy-Lih" secondAttribute="trailing" id="eT8-4e-s8G"/>
+                            <constraint firstItem="9jk-dy-Lih" firstAttribute="top" secondItem="Fnn-vO-8aR" secondAttribute="top" id="nPv-mw-8dS">
+                                <variation key="heightClass=regular-widthClass=compact" constant="64"/>
+                            </constraint>
+                            <constraint firstItem="9jk-dy-Lih" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="rZA-OA-tz1"/>
                             <constraint firstItem="v15-Da-dVS" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="tgW-KU-7Tn"/>
                             <constraint firstAttribute="trailing" secondItem="rRN-k4-MYk" secondAttribute="trailing" id="uBq-en-adY"/>
                         </constraints>
@@ -413,19 +424,24 @@
                             <mask key="subviews">
                                 <exclude reference="jb4-2U-OeG"/>
                                 <exclude reference="v15-Da-dVS"/>
+                                <exclude reference="9jk-dy-Lih"/>
                                 <exclude reference="rRN-k4-MYk"/>
                                 <exclude reference="sCI-Me-fJh"/>
                             </mask>
                             <mask key="constraints">
+                                <exclude reference="eT8-4e-s8G"/>
+                                <exclude reference="nPv-mw-8dS"/>
+                                <exclude reference="rZA-OA-tz1"/>
                                 <exclude reference="Eeh-DR-gjq"/>
                                 <exclude reference="F09-gA-5aB"/>
                                 <exclude reference="Gd4-Zi-YT2"/>
-                                <exclude reference="ATt-Mj-XTL"/>
-                                <exclude reference="CrQ-x3-d3s"/>
-                                <exclude reference="uBq-en-adY"/>
                                 <exclude reference="InI-Pb-uFg"/>
                                 <exclude reference="RFB-9Y-DeM"/>
                                 <exclude reference="tgW-KU-7Tn"/>
+                                <exclude reference="ATt-Mj-XTL"/>
+                                <exclude reference="AmY-6F-6N2"/>
+                                <exclude reference="CrQ-x3-d3s"/>
+                                <exclude reference="uBq-en-adY"/>
                                 <exclude reference="T7I-Zr-Nl5"/>
                                 <exclude reference="GKS-Ir-HHx"/>
                                 <exclude reference="NZL-St-anW"/>
@@ -437,19 +453,24 @@
                             <mask key="subviews">
                                 <include reference="jb4-2U-OeG"/>
                                 <include reference="v15-Da-dVS"/>
+                                <include reference="9jk-dy-Lih"/>
                                 <include reference="rRN-k4-MYk"/>
                                 <include reference="sCI-Me-fJh"/>
                             </mask>
                             <mask key="constraints">
+                                <include reference="eT8-4e-s8G"/>
+                                <include reference="nPv-mw-8dS"/>
+                                <include reference="rZA-OA-tz1"/>
                                 <include reference="Eeh-DR-gjq"/>
                                 <include reference="F09-gA-5aB"/>
                                 <include reference="Gd4-Zi-YT2"/>
-                                <include reference="ATt-Mj-XTL"/>
-                                <include reference="CrQ-x3-d3s"/>
-                                <include reference="uBq-en-adY"/>
                                 <include reference="InI-Pb-uFg"/>
                                 <include reference="RFB-9Y-DeM"/>
                                 <include reference="tgW-KU-7Tn"/>
+                                <exclude reference="ATt-Mj-XTL"/>
+                                <include reference="AmY-6F-6N2"/>
+                                <include reference="CrQ-x3-d3s"/>
+                                <include reference="uBq-en-adY"/>
                                 <include reference="T7I-Zr-Nl5"/>
                                 <include reference="GKS-Ir-HHx"/>
                                 <include reference="NZL-St-anW"/>
@@ -458,9 +479,11 @@
                             </mask>
                         </variation>
                     </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="colPlaylists" destination="rRN-k4-MYk" id="dUd-43-iSR"/>
                         <outlet property="imgBackground" destination="jb4-2U-OeG" id="N67-sH-gdP"/>
+                        <outlet property="searchBar" destination="9jk-dy-Lih" id="WOM-HJ-bF5"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TjF-IQ-qaT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1028,6 +1051,22 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="byG-DB-PsC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1026" y="2424.75"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Myb-yO-HOj">
+            <objects>
+                <viewController id="7fo-fF-x8F" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aDW-c2-8iO"/>
+                        <viewControllerLayoutGuide type="bottom" id="loY-Hp-0Mb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y8N-1c-EW2">
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Yce-cE-Kf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
         </scene>
     </scenes>
     <resources>

@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Soundcloud
 
 class ConnectToBluetoothSessionViewController: UIViewController {
     
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Soundcloud
 
 class ServerClientDecisionViewController: UIViewController {
     
@@ -16,11 +17,13 @@ class ServerClientDecisionViewController: UIViewController {
     @IBOutlet weak var btnHost: UIButton!
     @IBOutlet weak var btnClient: UIButton!
     
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         sharedSoundcloudAPIAccess.getUser { (user) -> Void in
+            self.user = user
             self.lblCurrentLogin.text = "Currently logged in as: \(user.username)"
             self.lblCurrentLogin.hidden = false
         }
@@ -60,6 +63,7 @@ class ServerClientDecisionViewController: UIViewController {
     */
     @IBAction func btnHostPressed(sender: AnyObject) {
         let nextVC = storyboard?.instantiateViewControllerWithIdentifier("PlaybackType") as! PlaybackTypeViewController
+        nextVC.user = user
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -72,6 +76,7 @@ class ServerClientDecisionViewController: UIViewController {
      */
     @IBAction func btnClientPressed(sender: AnyObject) {
         let nextVC = storyboard?.instantiateViewControllerWithIdentifier("ConnectToSession") as! ConnectToBluetoothSessionViewController
+        nextVC.user = user
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

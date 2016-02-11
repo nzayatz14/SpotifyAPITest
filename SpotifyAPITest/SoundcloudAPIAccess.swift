@@ -10,7 +10,7 @@ import Foundation
 import Soundcloud
 import AFNetworking
 
-var sharedSoundcloudAPIAccess = SoundcloudAPIAccess()
+let sharedSoundcloudAPIAccess = SoundcloudAPIAccess()
 
 class SoundcloudAPIAccess: NSObject {
     
@@ -27,13 +27,18 @@ class SoundcloudAPIAccess: NSObject {
      - returns: void
      */
     func getUser(completion: (user: User) -> Void){
-        let session = Soundcloud.session
-        session?.me({result in
-            print("got me: \(result.response.result)\n\n")
-            
-            self.userData = result.response.result
-            completion(user: self.userData!)
-        })
+        
+        if let user = userData {
+            completion(user: user)
+        } else {
+            let session = Soundcloud.session
+            session?.me({result in
+                print("got me: \(result.response.result)\n\n")
+                
+                self.userData = result.response.result
+                completion(user: self.userData!)
+            })
+        }
     }
     
     
