@@ -55,7 +55,7 @@ class SoundCloudTabViewController: UITabBarController, SettingsDelegate {
         rightButton.addTarget(self, action: "btnSoundcloudPressed:", forControlEvents: UIControlEvents.TouchUpInside)
         
         btnSoundcloud = UIBarButtonItem(customView: rightButton)
-        self.navigationItem.leftBarButtonItem = btnSoundcloud
+        self.navigationItem.rightBarButtonItem = btnSoundcloud
         
         self.navigationController?.navigationBar.addSubview(topLabel)
         self.navigationController?.navigationBar.translucent = false

@@ -7,19 +7,44 @@
 //
 
 import UIKit
+import MPSkewed
 
-class PlaybackTypeViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class PlaybackTypeViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     
     @IBOutlet weak var imgBackground: UIImageView!
-    @IBOutlet weak var tblPlaylists: UITableView!
+    @IBOutlet weak var colPlaylists: UICollectionView!
+    var btnNewConnection: UIBarButtonItem!
+    
     var playlists = [String]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        playlists = ["George", "Nick", "Terrance", "Joe", "Kyle"]
         self.automaticallyAdjustsScrollViewInsets = false
+        
+        let layout = MPSkewedParallaxLayout()
+        layout.lineSpacing = 2.0
+        layout.itemSize = CGSize(width: self.view.frame.width, height: 250)
+        
+        colPlaylists.dataSource = self
+        colPlaylists.delegate = self
+        colPlaylists.collectionViewLayout = layout
+        colPlaylists.registerClass(MPSkewedCell.classForCoder(), forCellWithReuseIdentifier: "PlaylistCollectionCell")
+        colPlaylists.backgroundColor = UIColor(patternImage: UIImage(named: "BlurredEDMBackground.png")!)
+        
+        
+        //set new connection button
+        let rightButton = UIButton(frame: CGRectMake(0, 0, 50, 36))
+        rightButton.setTitle("New", forState: .Normal)
+        rightButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
+        rightButton.addTarget(self, action: "btnNewConnectionPressed:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+        btnNewConnection = UIBarButtonItem(customView: rightButton)
+        self.navigationItem.rightBarButtonItem = btnNewConnection
+        
         
         //crop the background image
         let standardCrop = CGRect(x: (imgBackground.image!.size.width - UIScreen.mainScreen().bounds.width)/2.0 , y: fmax((imgBackground.image!.size.height - UIScreen.mainScreen().bounds.height), 0) , width: UIScreen.mainScreen().bounds.width, height: imgBackground.image!.size.height)
@@ -54,7 +79,7 @@ class PlaybackTypeViewController: UIViewController, UITableViewDataSource, UITab
      - parameter sender: the button pressed
      - returns: void
      */
-    @IBAction func btnNewConnectionPressed(sender: AnyObject) {
+    func btnNewConnectionPressed(sender: AnyObject) {
         let nextVC = storyboard?.instantiateViewControllerWithIdentifier("CreateSession") as! CreateBluetoothSessionViewController
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -73,13 +98,13 @@ class PlaybackTypeViewController: UIViewController, UITableViewDataSource, UITab
     
     
     /**
-     Returns the number of rows in the given tableView in the given section
+     Returns the number of rows in the given collectionView in the given section
      
-     - parameter tableView: the tableView passed in
+     - parameter collectionView: the collectionView passed in
      - parameter section: the section being described
-     - returns: the number of sections in this tableView
+     - returns: the number of sections in this collectionView
      */
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return playlists.count
     }
     
@@ -87,15 +112,17 @@ class PlaybackTypeViewController: UIViewController, UITableViewDataSource, UITab
     /**
      Returns the cell at the given index
      
-     - parameter tableView: the tableView passed in
+     - parameter collectionView: the collectionView passed in
      - parameter indexPath: the index of the cell being described
-     - returns: the new table cell to be loaded into the table view
+     - returns: the new collection cell to be loaded into the collection view
      */
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("PlaylistTableCell", forIndexPath: indexPath) as! BluetoothDeviceTableCell
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("PlaylistCollectionCell", forIndexPath: indexPath) as! MPSkewedCell
         
-        cell.lblDeviceName.text = playlists[indexPath.row]
+        cell.text = playlists[indexPath.row]
+        cell.image = UIImage(named: "BlurredEDMBackground.png")
         
         return cell
     }
+    
 }

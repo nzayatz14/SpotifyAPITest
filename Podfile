@@ -9,6 +9,7 @@ use_frameworks!
     pod 'AFNetworking'
     pod 'CircleSlider'
     pod 'BluetoothKit', '~> 0.2.0'
+    pod 'MPSkewed'
 
 target 'SpotifyAPITest' do
 
