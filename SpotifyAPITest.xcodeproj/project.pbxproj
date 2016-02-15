@@ -38,6 +38,8 @@
 		849D7FCF1C455D860001A9D6 /* SongPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */; };
 		84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ACF0881C49378500E83A5C /* SongPlayer.swift */; };
 		84ADEE8B1C3C0205003F5DA7 /* SoundCloudMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */; };
+		84AFEF741C72729B00C4618D /* SongPlayerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AFEF731C72729B00C4618D /* SongPlayerView.xib */; };
+		84AFEF761C72741100C4618D /* SongPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84AFEF751C72741100C4618D /* SongPlayerView.swift */; };
 		84D7A24D1C5082530030971B /* poweredBySoundcloud.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7A24C1C5082530030971B /* poweredBySoundcloud.png */; };
 		84DD574B1C6D30AA00BCDC57 /* EDM1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DD574A1C6D30AA00BCDC57 /* EDM1.png */; };
 		84DD57501C6D30BC00BCDC57 /* EDM2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84DD574C1C6D30BC00BCDC57 /* EDM2.png */; };
@@ -121,6 +123,9 @@
 		849D7FCE1C455D860001A9D6 /* SongPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerViewController.swift; sourceTree = "<group>"; };
 		84ACF0881C49378500E83A5C /* SongPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayer.swift; sourceTree = "<group>"; };
 		84ADEE8A1C3C0205003F5DA7 /* SoundCloudMainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudMainViewController.swift; sourceTree = "<group>"; };
+		84AFEF701C726E4F00C4618D /* FlowBarButtonItem.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FlowBarButtonItem.framework; path = "Pods/../build/Debug-iphoneos/FlowBarButtonItem.framework"; sourceTree = "<group>"; };
+		84AFEF731C72729B00C4618D /* SongPlayerView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SongPlayerView.xib; sourceTree = "<group>"; };
+		84AFEF751C72741100C4618D /* SongPlayerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SongPlayerView.swift; sourceTree = "<group>"; };
 		84D7A24C1C5082530030971B /* poweredBySoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = poweredBySoundcloud.png; sourceTree = "<group>"; };
 		84DD574A1C6D30AA00BCDC57 /* EDM1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EDM1.png; sourceTree = "<group>"; };
 		84DD574C1C6D30BC00BCDC57 /* EDM2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EDM2.png; sourceTree = "<group>"; };
@@ -225,6 +230,7 @@
 				84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */,
 				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
 				A77086D31C47F81600FB31E7 /* Utilities */,
+				84AFEF721C72727400C4618D /* Views */,
 				A77086D21C47F66700FB31E7 /* Bluetooth */,
 				845B472C1BF68FE10043AC08 /* Main.storyboard */,
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
@@ -252,6 +258,15 @@
 				845B474A1BF68FE20043AC08 /* Info.plist */,
 			);
 			path = SpotifyAPITestUITests;
+			sourceTree = "<group>";
+		};
+		84AFEF721C72727400C4618D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				84AFEF731C72729B00C4618D /* SongPlayerView.xib */,
+				84AFEF751C72741100C4618D /* SongPlayerView.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		84D7A24E1C5082980030971B /* Images */ = {
@@ -292,6 +307,7 @@
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84AFEF701C726E4F00C4618D /* FlowBarButtonItem.framework */,
 				84E850771C6CE40D004D0F27 /* MPSkewed.framework */,
 				84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */,
 				844792D91C470C7B0044FE07 /* CircleSlider.framework */,
@@ -426,6 +442,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84AFEF741C72729B00C4618D /* SongPlayerView.xib in Resources */,
 				84DD57501C6D30BC00BCDC57 /* EDM2.png in Resources */,
 				845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */,
 				84DD57511C6D30BC00BCDC57 /* EDM3.png in Resources */,
@@ -532,6 +549,7 @@
 				847A27C41C56BB1F00BB0D8B /* PlaylistTableCellInfo.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
 				A77086CF1C47F5AA00FB31E7 /* BluetoothCentral.swift in Sources */,
+				84AFEF761C72741100C4618D /* SongPlayerView.swift in Sources */,
 				847A27C21C56B87400BB0D8B /* PlaybackTypeViewController.swift in Sources */,
 				845B47291BF68FE10043AC08 /* AppDelegate.swift in Sources */,
 			);

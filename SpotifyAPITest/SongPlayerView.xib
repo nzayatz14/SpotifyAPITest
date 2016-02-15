@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SongPlayerView" customModule="SpotifyAPITest" customModuleProvider="target">
+            <connections>
+                <outlet property="btnBack" destination="qnd-Lf-ecL" id="pfy-1v-2vb"/>
+                <outlet property="btnForward" destination="0tc-0b-ZVa" id="Ctz-Gn-7ft"/>
+                <outlet property="btnPausePlay" destination="nbS-TI-GPc" id="eqX-Ka-SNg"/>
+                <outlet property="circleView" destination="6Qk-iD-6Id" id="Raf-j7-dBR"/>
+                <outlet property="imgArtwork" destination="zIC-RW-SMs" id="P6B-4F-Vqx"/>
+                <outlet property="lblArtistName" destination="bpd-2h-plf" id="ePx-Ee-BkA"/>
+                <outlet property="lblSongTitle" destination="w7i-7s-g3B" id="ugP-ax-8Ok"/>
+                <outlet property="view" destination="iN0-l3-epB" id="qbh-Qp-f3Y"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Song Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w7i-7s-g3B" customClass="MarqueeLabel">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Qk-iD-6Id">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <subviews>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="musicNote.png" translatesAutoresizingMaskIntoConstraints="NO" id="zIC-RW-SMs">
+                            <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                            <constraints>
+                                <constraint firstAttribute="width" secondItem="zIC-RW-SMs" secondAttribute="height" multiplier="1:1" id="CnM-2E-1Lq"/>
+                            </constraints>
+                            <variation key="default">
+                                <mask key="constraints">
+                                    <exclude reference="CnM-2E-1Lq"/>
+                                </mask>
+                            </variation>
+                            <variation key="heightClass=regular-widthClass=compact">
+                                <mask key="constraints">
+                                    <include reference="CnM-2E-1Lq"/>
+                                </mask>
+                            </variation>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.42742193070000001" green="0.39742013549999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="zIC-RW-SMs" firstAttribute="top" secondItem="6Qk-iD-6Id" secondAttribute="top" id="1yE-CH-f2T"/>
+                        <constraint firstItem="zIC-RW-SMs" firstAttribute="leading" secondItem="6Qk-iD-6Id" secondAttribute="leading" id="6g6-KQ-Yhd"/>
+                        <constraint firstAttribute="width" secondItem="6Qk-iD-6Id" secondAttribute="height" multiplier="1:1" id="WIR-LJ-svQ"/>
+                        <constraint firstAttribute="bottom" secondItem="zIC-RW-SMs" secondAttribute="bottom" id="hv6-lP-Dp8"/>
+                        <constraint firstAttribute="trailing" secondItem="zIC-RW-SMs" secondAttribute="trailing" id="jmv-pv-4Lr"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="subviews">
+                            <exclude reference="zIC-RW-SMs"/>
+                        </mask>
+                        <mask key="constraints">
+                            <exclude reference="WIR-LJ-svQ"/>
+                            <exclude reference="jmv-pv-4Lr"/>
+                            <exclude reference="hv6-lP-Dp8"/>
+                            <exclude reference="1yE-CH-f2T"/>
+                            <exclude reference="6g6-KQ-Yhd"/>
+                        </mask>
+                    </variation>
+                    <variation key="heightClass=regular-widthClass=compact">
+                        <mask key="subviews">
+                            <include reference="zIC-RW-SMs"/>
+                        </mask>
+                        <mask key="constraints">
+                            <include reference="WIR-LJ-svQ"/>
+                            <include reference="jmv-pv-4Lr"/>
+                            <include reference="hv6-lP-Dp8"/>
+                            <include reference="1yE-CH-f2T"/>
+                            <include reference="6g6-KQ-Yhd"/>
+                        </mask>
+                    </variation>
+                </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Artist Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bpd-2h-plf" customClass="MarqueeLabel">
+                    <rect key="frame" x="-42" y="-21" width="42" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbS-TI-GPc">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Pause"/>
+                    <connections>
+                        <action selector="btnPausePlayPressed:" destination="-1" eventType="touchUpInside" id="DCY-wb-vNE"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0tc-0b-ZVa">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Forward"/>
+                    <connections>
+                        <action selector="btnForwardPressed:" destination="-1" eventType="touchUpInside" id="ttr-Z9-wNK"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qnd-Lf-ecL">
+                    <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                    <state key="normal" title="Back"/>
+                    <connections>
+                        <action selector="btnBackPressed:" destination="-1" eventType="touchUpInside" id="pql-62-KHa"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="0tc-0b-ZVa" firstAttribute="width" secondItem="qnd-Lf-ecL" secondAttribute="width" id="0u0-XG-Cbk"/>
+                <constraint firstItem="6Qk-iD-6Id" firstAttribute="leading" secondItem="qnd-Lf-ecL" secondAttribute="trailing" constant="16" id="16k-CC-h9d"/>
+                <constraint firstItem="6Qk-iD-6Id" firstAttribute="width" secondItem="6Qk-iD-6Id" secondAttribute="height" multiplier="1:1" id="2NE-Xz-8OX"/>
+                <constraint firstItem="nbS-TI-GPc" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="7FO-en-3pM"/>
+                <constraint firstAttribute="trailing" secondItem="w7i-7s-g3B" secondAttribute="trailing" constant="8" id="J68-f5-b48"/>
+                <constraint firstAttribute="bottom" secondItem="bpd-2h-plf" secondAttribute="bottom" constant="63" id="OYG-Ol-5j7"/>
+                <constraint firstItem="nbS-TI-GPc" firstAttribute="top" secondItem="6Qk-iD-6Id" secondAttribute="bottom" constant="17" id="RgE-MD-wl3"/>
+                <constraint firstAttribute="trailing" secondItem="bpd-2h-plf" secondAttribute="trailing" constant="8" id="WTK-Om-vKd"/>
+                <constraint firstAttribute="trailing" secondItem="0tc-0b-ZVa" secondAttribute="trailing" constant="8" id="ayC-qc-VX9"/>
+                <constraint firstItem="0tc-0b-ZVa" firstAttribute="leading" secondItem="6Qk-iD-6Id" secondAttribute="trailing" constant="16" id="b0t-Kv-CdT"/>
+                <constraint firstItem="w7i-7s-g3B" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="cUH-dk-9He"/>
+                <constraint firstItem="qnd-Lf-ecL" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="d7M-P1-sWW"/>
+                <constraint firstItem="bpd-2h-plf" firstAttribute="top" secondItem="w7i-7s-g3B" secondAttribute="bottom" constant="15" id="eJB-ty-fqL"/>
+                <constraint firstItem="0tc-0b-ZVa" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gSu-ss-h3c"/>
+                <constraint firstItem="bpd-2h-plf" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="gnW-Z8-cCz"/>
+                <constraint firstItem="6Qk-iD-6Id" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="hLo-QG-M5r"/>
+                <constraint firstItem="6Qk-iD-6Id" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="iMp-0k-fv2"/>
+                <constraint firstItem="qnd-Lf-ecL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="uTq-g2-sUo"/>
+                <constraint firstAttribute="trailing" secondItem="6Qk-iD-6Id" secondAttribute="trailing" constant="80" id="yNv-cU-DeQ"/>
+            </constraints>
+            <variation key="default">
+                <mask key="subviews">
+                    <exclude reference="w7i-7s-g3B"/>
+                    <exclude reference="6Qk-iD-6Id"/>
+                    <exclude reference="bpd-2h-plf"/>
+                    <exclude reference="nbS-TI-GPc"/>
+                    <exclude reference="0tc-0b-ZVa"/>
+                    <exclude reference="qnd-Lf-ecL"/>
+                </mask>
+                <mask key="constraints">
+                    <exclude reference="16k-CC-h9d"/>
+                    <exclude reference="2NE-Xz-8OX"/>
+                    <exclude reference="hLo-QG-M5r"/>
+                    <exclude reference="iMp-0k-fv2"/>
+                    <exclude reference="yNv-cU-DeQ"/>
+                    <exclude reference="d7M-P1-sWW"/>
+                    <exclude reference="uTq-g2-sUo"/>
+                    <exclude reference="0u0-XG-Cbk"/>
+                    <exclude reference="ayC-qc-VX9"/>
+                    <exclude reference="b0t-Kv-CdT"/>
+                    <exclude reference="gSu-ss-h3c"/>
+                    <exclude reference="7FO-en-3pM"/>
+                    <exclude reference="RgE-MD-wl3"/>
+                    <exclude reference="J68-f5-b48"/>
+                    <exclude reference="cUH-dk-9He"/>
+                    <exclude reference="OYG-Ol-5j7"/>
+                    <exclude reference="WTK-Om-vKd"/>
+                    <exclude reference="eJB-ty-fqL"/>
+                    <exclude reference="gnW-Z8-cCz"/>
+                </mask>
+            </variation>
+            <variation key="heightClass=regular-widthClass=compact">
+                <mask key="subviews">
+                    <include reference="w7i-7s-g3B"/>
+                    <include reference="6Qk-iD-6Id"/>
+                    <include reference="bpd-2h-plf"/>
+                    <include reference="nbS-TI-GPc"/>
+                    <include reference="0tc-0b-ZVa"/>
+                    <include reference="qnd-Lf-ecL"/>
+                </mask>
+                <mask key="constraints">
+                    <include reference="16k-CC-h9d"/>
+                    <include reference="2NE-Xz-8OX"/>
+                    <include reference="hLo-QG-M5r"/>
+                    <include reference="iMp-0k-fv2"/>
+                    <include reference="yNv-cU-DeQ"/>
+                    <include reference="d7M-P1-sWW"/>
+                    <include reference="uTq-g2-sUo"/>
+                    <include reference="0u0-XG-Cbk"/>
+                    <include reference="ayC-qc-VX9"/>
+                    <include reference="b0t-Kv-CdT"/>
+                    <include reference="gSu-ss-h3c"/>
+                    <include reference="7FO-en-3pM"/>
+                    <include reference="RgE-MD-wl3"/>
+                    <include reference="J68-f5-b48"/>
+                    <include reference="cUH-dk-9He"/>
+                    <include reference="OYG-Ol-5j7"/>
+                    <include reference="WTK-Om-vKd"/>
+                    <include reference="eJB-ty-fqL"/>
+                    <include reference="gnW-Z8-cCz"/>
+                </mask>
+            </variation>
+        </view>
+    </objects>
+    <resources>
+        <image name="musicNote.png" width="808" height="808"/>
+    </resources>
+</document>

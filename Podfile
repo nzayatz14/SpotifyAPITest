@@ -10,6 +10,7 @@ use_frameworks!
     pod 'CircleSlider'
     pod 'BluetoothKit', '~> 0.2.0'
     pod 'MPSkewed'
+    pod 'FlowBarButtonItem'
 
 target 'SpotifyAPITest' do
 

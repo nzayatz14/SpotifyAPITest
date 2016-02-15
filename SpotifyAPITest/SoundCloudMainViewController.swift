@@ -117,7 +117,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "sgeToPlayer"{
             let playerVC = segue.destinationViewController as! SongPlayerViewController
-            playerVC.track = songs[songSelected]
+            playerVC.songPlayerView.track = songs[songSelected]
         }
     }
     
@@ -162,7 +162,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
                 break
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
-                playerVC.paused = false
+                playerVC.songPlayerView.paused = false
                 sharedSongPlayer.paused = false
                 sharedSongPlayer.audioStreamer?.play()
                 
@@ -171,7 +171,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
                 break
             case UIEventSubtype.RemoteControlPause:
                 print("pause")
-                playerVC.paused = true
+                playerVC.songPlayerView.paused = true
                 sharedSongPlayer.paused = true
                 sharedSongPlayer.audioStreamer?.pause()
                 
@@ -224,7 +224,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         
         if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack {
             
-            playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
+            playerVC.songPlayerView.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
             
             sharedSongPlayer.canChange = false
             sharedSongPlayer.loadNextSong()
@@ -248,7 +248,7 @@ class SoundCloudMainViewController: UIViewController, UITableViewDataSource, UIT
         
         if sharedSongPlayer.currentTrack > 0 {
             
-            playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            playerVC.songPlayerView.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
             
             sharedSongPlayer.canChange = false
             sharedSongPlayer.playPreviousSong()

@@ -1,8 +1,8 @@
 //
-//  SongPlayerViewController.swift
+//  SongPlayerView.swift
 //  SpotifyAPITest
 //
-//  Created by Nick Zayatz on 1/12/16.
+//  Created by Nick Zayatz on 2/15/16.
 //  Copyright © 2016 Nick Zayatz. All rights reserved.
 //
 
@@ -13,60 +13,82 @@ import AVFoundation
 import CircleSlider
 import MediaPlayer
 
-class SongPlayerViewController: UIViewController {
+class SongPlayerView: UIView, SongPlayerDelegate {
     
-    var songPlayerView: SongPlayerView!
+    @IBOutlet var view: UIView!
+    @IBOutlet weak var lblSongTitle: MarqueeLabel!
+    @IBOutlet weak var lblArtistName: MarqueeLabel!
+    @IBOutlet weak var imgArtwork: UIImageView!
+    @IBOutlet weak var circleView: UIView!
+    
+    @IBOutlet weak var btnBack: UIButton!
+    @IBOutlet weak var btnForward: UIButton!
+    @IBOutlet weak var btnPausePlay: UIButton!
+    
+    
+    var circleSlider: CircleSlider?
+    var circleBufferSlider: CircleSlider?
+    var trackTimer: NSTimer?
+    var bufferTimer: NSTimer?
     
     var track: Track?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    var paused = false
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         
-        /*sharedSongPlayer.delegate = self
+        NSBundle.mainBundle().loadNibNamed("SongPlayerView", owner: self, options: nil)
         
+        self.addSubview(self.view)
+        
+        setup()
+        
+    }
+    
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        NSBundle.mainBundle().loadNibNamed("SongPlayerView", owner: self, options: nil)
+        
+        self.frame = frame
+        self.view.frame = CGRect(x: 0, y: 0, width: self.frame.width, height: self.frame.height)
+        
+        self.addSubview(self.view)
+        
+        setup()
+    }
+    
+    
+    /**
+     Function called to setup the view
+     
+     - parameter void:
+     - returns: void
+     */
+    func setup(){
+        
+        //layout the view
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        
+        sharedSongPlayer.delegate = self
+
         lblArtistName.marqueeType = MarqueeType.MLContinuous
         lblSongTitle.marqueeType = MarqueeType.MLContinuous
         
         trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateCircle"), userInfo: nil, repeats: true)
         
-        bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)*/
-        
-        /*let item = AVPlayerItem(URL: NSURL(string:"https://api.soundcloud.com/tracks/149392650/stream?client_id=6c9090264a265d91bba9b915ec9cc0c5")!)
-        audioStreamer?.insertItem(item, afterItem: audioStreamer?.currentItem)*/
-        
-        //let asset = AVURLAsset(URL: track.streamURL!)
-        //asset.loa
-        
-        //NSNotificationCenter.defaultCenter().addObserver(self, selector: "playerDidReadSong", name: AVPlayerItemDidPlayToEndTimeNotification, object: audioStreamer?.currentItem)
-        //self.audioStreamer?.addObserver(self, forKeyPath: "status", options: nil, context: nil)
-        
-        //get the song data from AFNetworking
-        /*sharedSoundcloudAPIAccess.getSongFromSavedSongs(trackInArray, success: { (songData) -> Void in
-        
-        self.trackData = songData
-        
-        dispatch_async(dispatch_get_main_queue()) {
-        //update UI Things
-        }
-        
-        }) { (error) -> Void in
-        
-        print(error)
-        }*/
-    }
-    
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-        /*imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
-        imgArtwork.layer.masksToBounds = true
+        bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)
         
         if let currentTrack = track {
             lblSongTitle.text = currentTrack.title
             lblArtistName.text = currentTrack.createdBy.username
             getAlbumArt()
+            print("got track")
+        }else{
+            print("No Track set")
         }
         
         if paused {
@@ -75,43 +97,36 @@ class SongPlayerViewController: UIViewController {
             btnPausePlay.setTitle("Pause", forState: .Normal)
         }
         
-        //show the player when the phone is locked
         UIApplication.sharedApplication().beginReceivingRemoteControlEvents()
         self.becomeFirstResponder()
         
-        updateOutsidePlayer()*/
+        updateOutsidePlayer()
         
-    }
-    
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
-        songPlayerView = SongPlayerView(frame: self.view.frame)
-        self.view.addSubview(songPlayerView)
-        
-        if let myTrack = track {
-            songPlayerView.setTrack(myTrack)
-        }
-        
-        songPlayerView.setup()
-        
-        /*imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
-        imgArtwork.layer.masksToBounds = true
+        //imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        //imgArtwork.layer.masksToBounds = true
         
         if let currentTrack = track {
             setUpTimer(currentTrack)
-        }*/
+        }
+        
     }
     
     
-    //make sure the view only goes into portrait mode
-    override func supportedInterfaceOrientations() -> UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.Portrait
+    /**
+     Function called to set the track of the current Player View
+     
+     - parameter thisTrack: the track that is being set
+     - returns: void
+    */
+    func setTrack(thisTrack: Track) {
+        
+        if track == nil {
+            track = thisTrack
+        }
     }
     
     
-    /*/**
+    /**
      Function called to set up the timer with a new song
      
      - parameter thisTrack: the track that is currently being played
@@ -170,6 +185,11 @@ class SongPlayerViewController: UIViewController {
             circleSlider?.maxValue = length
             updateCircle()
         }
+        
+        imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
+        imgArtwork.layer.masksToBounds = true
+        
+        print(circleSlider?.frame)
     }
     
     
@@ -357,7 +377,7 @@ class SongPlayerViewController: UIViewController {
             }
         }
     }
-
+    
     
     /**
      Function called when the pause/play button is pressed
@@ -494,7 +514,5 @@ class SongPlayerViewController: UIViewController {
                     self.imgArtwork.image = UIImage(named: "musicNote.png")
             }
         }
-    }*/
-    
-    
+    }
 }

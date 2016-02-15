@@ -17,6 +17,7 @@ PODS:
     - AFNetworking/NSURLSession
   - BluetoothKit (0.2.1)
   - CircleSlider (0.1.0)
+  - FlowBarButtonItem (0.1.0)
   - MarqueeLabel (2.4.2)
   - MPSkewed (0.9.0)
   - Soundcloud (0.6.1):
@@ -29,6 +30,7 @@ DEPENDENCIES:
   - AFNetworking
   - BluetoothKit (~> 0.2.0)
   - CircleSlider
+  - FlowBarButtonItem
   - MarqueeLabel
   - MPSkewed
   - Soundcloud
@@ -39,6 +41,7 @@ SPEC CHECKSUMS:
   AFNetworking: a0075feb321559dc78d9d85b55d11caa19eabb93
   BluetoothKit: c1dfd8f529a1d4d2c0778b97a8937b5b68c75395
   CircleSlider: d195e672f7b7a644bb07743c90f271d939ef63f0
+  FlowBarButtonItem: c09fbcbc0a8a90df89a424e228018e43446a4be6
   MarqueeLabel: 641f82cd199dae0ab194bd157984b3cbfbb31b09
   MPSkewed: 53d2f5ae0ce57c2ee475107cfb8899426f0b68fa
   Soundcloud: 973814195594c910eac4ac27bd7fcc0d11e44fd0

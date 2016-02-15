@@ -81,7 +81,7 @@ class PlayerSettingsViewController: UIViewController {
                 break
             case UIEventSubtype.RemoteControlPlay:
                 print("play")
-                playerVC.paused = false
+                playerVC.songPlayerView.paused = false
                 sharedSongPlayer.paused = false
                 sharedSongPlayer.audioStreamer?.play()
                 
@@ -90,7 +90,7 @@ class PlayerSettingsViewController: UIViewController {
                 break
             case UIEventSubtype.RemoteControlPause:
                 print("pause")
-                playerVC.paused = true
+                playerVC.songPlayerView.paused = true
                 sharedSongPlayer.paused = true
                 sharedSongPlayer.audioStreamer?.pause()
                 
@@ -143,7 +143,7 @@ class PlayerSettingsViewController: UIViewController {
         
         if sharedSongPlayer.tracks.count > sharedSongPlayer.currentTrack {
             
-            playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
+            playerVC.songPlayerView.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack]
             
             sharedSongPlayer.canChange = false
             sharedSongPlayer.loadNextSong()
@@ -167,7 +167,7 @@ class PlayerSettingsViewController: UIViewController {
         
         if sharedSongPlayer.currentTrack > 0 {
             
-            playerVC.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
+            playerVC.songPlayerView.track = sharedSongPlayer.tracks[sharedSongPlayer.currentTrack-1]
             
             sharedSongPlayer.canChange = false
             sharedSongPlayer.playPreviousSong()
