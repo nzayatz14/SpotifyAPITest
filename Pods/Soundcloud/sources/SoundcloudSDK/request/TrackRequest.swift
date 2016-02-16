@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Kevin Delannoy. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
 public extension Track {
     internal static let BaseURL = NSURL(string: "https://api.soundcloud.com/tracks")!
@@ -120,6 +120,7 @@ public extension Track {
         request.start()
     }
 
+    #if os(iOS) || os(OSX)
     /**
     Create a new comment on a track
     
@@ -153,6 +154,7 @@ public extension Track {
         }
         request.start()
     }
+    #endif
 
     /**
     Fetch the list of users that favorited the track.
@@ -183,6 +185,7 @@ public extension Track {
         request.start()
     }
 
+    #if os(iOS) || os(OSX)
     /**
     Favorites a track for the logged user
     
@@ -212,7 +215,7 @@ public extension Track {
         }
         request.start()
     }
-    
+    #endif
     
     /**
      Load related tracks of a track with a specific identifier

@@ -29,12 +29,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //set root VC based on login status
         let navController = self.window?.rootViewController as! UINavigationController
+        navController.setNavigationBarHidden(true, animated: false)
+        navController.navigationBar.translucent = true
+        UIApplication.sharedApplication().statusBarHidden = true
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("Login")
         
         if Soundcloud.session != nil {
             Soundcloud.session?.refreshSession({ session in
-                initialViewController = storyboard.instantiateViewControllerWithIdentifier("SoundCloudMain")
+                initialViewController = storyboard.instantiateViewControllerWithIdentifier("ServerClientDecision")
                 navController.pushViewController(initialViewController, animated: false)
             })
         }else{
@@ -108,6 +111,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navController.pushViewController(initialViewController, animated: false)*/
         
         // Override point for customization after application launch.
+        
+        let central = true
+        
+        if central {
+            do {
+                let x = try BluetoothCentral.sharedCentral()
+//                x.startContinuousScan()
+//                sleep(5)
+//                x.startContinuousScan()
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(5 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+                    x.startContinuousScan()
+                    }
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+                    logMsg(x.dataSource)
+                    
+                }
+                
+            } catch let error {
+                logErr(error)
+            }
+        } else {
+            do {
+                let x = try BluetoothPeripheral()
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, Int64(15 * NSEC_PER_SEC)), dispatch_get_main_queue()) {
+                    logMsg(x.dataSource.first)
+                    
+                }
+            } catch let error {
+                logErr(error)
+            }
+        }
+        
+        
+        
         return true
     }
     
