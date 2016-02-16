@@ -22,6 +22,12 @@ class SongPlayerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.automaticallyAdjustsScrollViewInsets = false
+        
+        self.view.layoutIfNeeded()
+        songPlayerView = SongPlayerView(frame: CGRect(x: 0, y: -64, width: UIScreen.mainScreen().bounds.width, height: UIScreen.mainScreen().bounds.height))
+        self.view.addSubview(songPlayerView)
+        
         /*sharedSongPlayer.delegate = self
         
         lblArtistName.marqueeType = MarqueeType.MLContinuous
@@ -87,14 +93,7 @@ class SongPlayerViewController: UIViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        songPlayerView = SongPlayerView(frame: self.view.frame)
-        self.view.addSubview(songPlayerView)
-        
-        if let myTrack = track {
-            songPlayerView.setTrack(myTrack)
-        }
-        
-        songPlayerView.setup()
+        songPlayerView.setupUI()
         
         /*imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
         imgArtwork.layer.masksToBounds = true

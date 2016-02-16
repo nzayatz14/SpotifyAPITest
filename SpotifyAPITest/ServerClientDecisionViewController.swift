@@ -8,7 +8,6 @@
 
 import UIKit
 import Soundcloud
-import FlowBarButtonItem
 
 class ServerClientDecisionViewController: UIViewController {
     
@@ -19,6 +18,8 @@ class ServerClientDecisionViewController: UIViewController {
     @IBOutlet weak var btnClient: UIButton!
     
     var user: User?
+    
+    var playerButton: LLACircularProgressView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,18 @@ class ServerClientDecisionViewController: UIViewController {
         UIApplication.sharedApplication().statusBarHidden = false
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+    }
+    
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        playerButton = LLACircularProgressView(frame: CGRect(x: 0, y: 0, width: 60, height: 60))
+        playerButton?.progressTintColor = UIColor.orangeColor()
+        playerButton?.progress = 0.5
+        playerButton?.setBackgroundImageType(UIImage(named: "musicNote.png"))
+        
+        self.view.addSubview(playerButton!)
     }
     
     

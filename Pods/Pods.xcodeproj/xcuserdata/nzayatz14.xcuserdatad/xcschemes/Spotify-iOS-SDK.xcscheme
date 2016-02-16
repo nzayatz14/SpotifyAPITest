@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '13B1885B0E23E725394FEE58'
+               BlueprintIdentifier = 'AC26FEBA867E1F01297D34C4'
                BlueprintName = 'Spotify-iOS-SDK'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'Spotify.framework'>

@@ -870,23 +870,6 @@
             </objects>
             <point key="canvasLocation" x="1026" y="2424.75"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Myb-yO-HOj">
-            <objects>
-                <viewController id="7fo-fF-x8F" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aDW-c2-8iO"/>
-                        <viewControllerLayoutGuide type="bottom" id="loY-Hp-0Mb"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="y8N-1c-EW2">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yce-cE-Kf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="Black&amp;WhiteSoundcloud.png" width="64" height="64"/>

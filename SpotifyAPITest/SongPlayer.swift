@@ -193,11 +193,24 @@ class SongPlayer: NSObject {
         let duration = CMTimeGetSeconds(currentDuration)
         let time = CMTimeGetSeconds(currentTime)
         
-        print("\(keepUp)")
-        
         if  rate == 0 && duration != time && !paused && keepUp {
             audioStreamer?.play()
         }
         
+    }
+    
+    
+    /**
+     Function called to get the current track
+     
+     - parameter void:
+     - returns: the current track being played, if one is, returns nil if not
+    */
+    func getCurrentTrack() -> Track? {
+        if tracks.count > currentTrack {
+            return tracks[currentTrack]
+        }else{
+            return nil
+        }
     }
 }

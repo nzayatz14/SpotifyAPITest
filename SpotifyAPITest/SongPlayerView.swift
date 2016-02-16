@@ -32,8 +32,8 @@ class SongPlayerView: UIView, SongPlayerDelegate {
     var bufferTimer: NSTimer?
     
     var track: Track?
-    
     var paused = false
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -82,6 +82,24 @@ class SongPlayerView: UIView, SongPlayerDelegate {
         
         bufferTimer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: Selector("updateBufferCircle"), userInfo: nil, repeats: true)
         
+    }
+    
+    
+    /**
+     Function called to set up the UI of the player
+     
+     - parameter void:
+     - returns: void
+    */
+    func setupUI(){
+        
+        //layout the view
+        view.setNeedsLayout()
+        view.layoutIfNeeded()
+        
+        track = sharedSongPlayer.getCurrentTrack()
+        paused = sharedSongPlayer.paused
+        
         if let currentTrack = track {
             lblSongTitle.text = currentTrack.title
             lblArtistName.text = currentTrack.createdBy.username
@@ -101,9 +119,6 @@ class SongPlayerView: UIView, SongPlayerDelegate {
         self.becomeFirstResponder()
         
         updateOutsidePlayer()
-        
-        //imgArtwork.layer.cornerRadius = imgArtwork.frame.width/2
-        //imgArtwork.layer.masksToBounds = true
         
         if let currentTrack = track {
             setUpTimer(currentTrack)
@@ -170,6 +185,7 @@ class SongPlayerView: UIView, SongPlayerDelegate {
             }*/
             
             self.circleView.addSubview(self.circleBufferSlider!)
+            updateBufferCircle()
         }else{
             circleBufferSlider?.maxValue = length
             updateBufferCircle()
@@ -181,6 +197,7 @@ class SongPlayerView: UIView, SongPlayerDelegate {
             self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
             self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
             self.circleView.addSubview(self.circleSlider!)
+            updateCircle()
         }else{
             circleSlider?.maxValue = length
             updateCircle()
@@ -217,6 +234,7 @@ class SongPlayerView: UIView, SongPlayerDelegate {
     func updateCircle(){
         
         if let myStreamer = sharedSongPlayer.audioStreamer {
+            print("myStreamer Time: \(myStreamer.currentTime().seconds)")
             if !Float(myStreamer.currentTime().seconds).isNaN && circleSlider != nil {
                 circleSlider?.value = Float(myStreamer.currentTime().seconds)
             }else{
@@ -412,15 +430,24 @@ class SongPlayerView: UIView, SongPlayerDelegate {
      - returns: void
      */
     @IBAction func btnBackPressed(sender: AnyObject) {
-        if sharedSongPlayer.currentTrack > 0 {
+        
+        //if the track has not passed the clearance time, send them back to the previous song
+        if sharedSongPlayer.currentTrack > 0 && sharedSongPlayer.audioStreamer?.currentTime() < CMTime(seconds: Double(10.0), preferredTimescale: Int32(NSEC_PER_SEC)) {
             btnBack.enabled = false
             btnForward.enabled = false
             circleSlider?.enabled = false
             sharedSongPlayer.canChange = false
             self.imgArtwork.image = UIImage(named: "musicNote.png")
+            setupPreviousSong()
+            
+        //if they have passed the clearance time, rewind to the beginning
+        } else {
+            let timeTo = CMTime(seconds: Double(0), preferredTimescale: Int32(NSEC_PER_SEC))
+            sharedSongPlayer.audioStreamer?.seekToTime(timeTo, toleranceBefore: kCMTimeZero, toleranceAfter: kCMTimeZero, completionHandler: { (succeed) -> Void in
+                self.updateBufferCircle()
+                self.updateCircle()
+            })
         }
-        
-        setupPreviousSong()
     }
     
     

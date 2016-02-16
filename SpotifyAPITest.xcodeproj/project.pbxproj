@@ -10,6 +10,7 @@
 		60E5964C6C35D579E850D3F7 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 369C2C46D81302EF1865882C /* Pods.framework */; };
 		8407C1391C5AC34E005B3A28 /* SelectPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */; };
 		8407C13B1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */; };
+		84262C801C72D33B00143C5A /* LLACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84262C7F1C72D33B00143C5A /* LLACircularProgressView.m */; };
 		8431D77F1C4EECEF0046924F /* musicNote.png in Resources */ = {isa = PBXBuildFile; fileRef = 8431D77E1C4EECEF0046924F /* musicNote.png */; };
 		84392C331C502845001E5A4E /* PlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */; };
 		84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */; };
@@ -77,6 +78,9 @@
 		8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlaylistViewController.swift; sourceTree = "<group>"; };
 		8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectPlaylistTableCell.swift; sourceTree = "<group>"; };
 		840FB46E1C2F7333007725B1 /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "Pods/../build/Debug-iphoneos/Spotify.framework"; sourceTree = "<group>"; };
+		84262C7D1C72D33B00143C5A /* SpotifyAPITest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotifyAPITest-Bridging-Header.h"; sourceTree = "<group>"; };
+		84262C7E1C72D33B00143C5A /* LLACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLACircularProgressView.h; sourceTree = "<group>"; };
+		84262C7F1C72D33B00143C5A /* LLACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLACircularProgressView.m; sourceTree = "<group>"; };
 		8431D77E1C4EECEF0046924F /* musicNote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicNote.png; sourceTree = "<group>"; };
 		84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSettingsViewController.swift; sourceTree = "<group>"; };
 		84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudTabViewController.swift; sourceTree = "<group>"; };
@@ -88,7 +92,6 @@
 		845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Black&WhiteSoundcloud.png"; sourceTree = "<group>"; };
 		845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundcloudTableCell.swift; sourceTree = "<group>"; };
 		8456026D1C1B019400E4856D /* Spotify.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Spotify.framework; path = "Pods/../build/Debug-iphoneos/Spotify.framework"; sourceTree = "<group>"; };
-		8456026F1C1B02B000E4856D /* Objective-CBridgingHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Objective-CBridgingHeader.h"; path = "../Objective-CBridgingHeader.h"; sourceTree = "<group>"; };
 		845B47251BF68FE10043AC08 /* SpotifyAPITest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyAPITest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		845B47281BF68FE10043AC08 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		845B472A1BF68FE10043AC08 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +137,7 @@
 		84DD574F1C6D30BC00BCDC57 /* EDM5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EDM5.png; sourceTree = "<group>"; };
 		84E850771C6CE40D004D0F27 /* MPSkewed.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MPSkewed.framework; path = "Pods/../build/Debug-iphoneos/MPSkewed.framework"; sourceTree = "<group>"; };
 		84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		84EC65631C72CA1900311AC7 /* LLACircularProgressView.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LLACircularProgressView.framework; path = "Pods/../build/Debug-iphoneos/LLACircularProgressView.framework"; sourceTree = "<group>"; };
 		84EFA9701BF6975900B872BC /* OnePasswordExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OnePasswordExtension.framework; path = "Pods/../build/Debug-iphoneos/OnePasswordExtension.framework"; sourceTree = "<group>"; };
 		84EFA9711BF6975900B872BC /* Soundcloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Soundcloud.framework; path = "Pods/../build/Debug-iphoneos/Soundcloud.framework"; sourceTree = "<group>"; };
 		84EFA9721BF6975900B872BC /* UICKeyChainStore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UICKeyChainStore.framework; path = "Pods/../build/Debug-iphoneos/UICKeyChainStore.framework"; sourceTree = "<group>"; };
@@ -229,6 +233,7 @@
 				84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */,
 				84669FCD1C45A07100694931 /* SoundcloudAPIAccess.swift */,
 				845557D71C3C6E3200FD6C12 /* SoundcloudTableCell.swift */,
+				84CEAEE41C72C45C00C4ACB0 /* Custom Pods */,
 				A77086D31C47F81600FB31E7 /* Utilities */,
 				84AFEF721C72727400C4618D /* Views */,
 				A77086D21C47F66700FB31E7 /* Bluetooth */,
@@ -236,7 +241,7 @@
 				845B472F1BF68FE10043AC08 /* Assets.xcassets */,
 				84D7A24E1C5082980030971B /* Images */,
 				845B47311BF68FE10043AC08 /* LaunchScreen.storyboard */,
-				8456026F1C1B02B000E4856D /* Objective-CBridgingHeader.h */,
+				84262C7D1C72D33B00143C5A /* SpotifyAPITest-Bridging-Header.h */,
 				845B47341BF68FE10043AC08 /* Info.plist */,
 			);
 			path = SpotifyAPITest;
@@ -267,6 +272,15 @@
 				84AFEF751C72741100C4618D /* SongPlayerView.swift */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		84CEAEE41C72C45C00C4ACB0 /* Custom Pods */ = {
+			isa = PBXGroup;
+			children = (
+				84262C7E1C72D33B00143C5A /* LLACircularProgressView.h */,
+				84262C7F1C72D33B00143C5A /* LLACircularProgressView.m */,
+			);
+			name = "Custom Pods";
 			sourceTree = "<group>";
 		};
 		84D7A24E1C5082980030971B /* Images */ = {
@@ -307,6 +321,7 @@
 		BB1767591B2C07959D250043 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				84EC65631C72CA1900311AC7 /* LLACircularProgressView.framework */,
 				84AFEF701C726E4F00C4618D /* FlowBarButtonItem.framework */,
 				84E850771C6CE40D004D0F27 /* MPSkewed.framework */,
 				84E9D09D1C47241D00EE8CEF /* MediaPlayer.framework */,
@@ -399,7 +414,7 @@
 		845B471D1BF68FE10043AC08 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Nick Zayatz";
 				TargetAttributes = {
@@ -545,6 +560,7 @@
 				84ACF0891C49378500E83A5C /* SongPlayer.swift in Sources */,
 				84669FCE1C45A07100694931 /* SoundcloudAPIAccess.swift in Sources */,
 				84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */,
+				84262C801C72D33B00143C5A /* LLACircularProgressView.m in Sources */,
 				8407C13B1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift in Sources */,
 				847A27C41C56BB1F00BB0D8B /* PlaylistTableCellInfo.swift in Sources */,
 				845557D81C3C6E3200FD6C12 /* SoundcloudTableCell.swift in Sources */,
@@ -694,6 +710,7 @@
 			baseConfigurationReference = D56D9E755ECC9A9C282FB320 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -717,6 +734,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighPointUniversity.SpotifyAPITest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotifyAPITest/SpotifyAPITest-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -725,6 +744,7 @@
 			baseConfigurationReference = 25F37ECB111D65459E373BDD /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -748,6 +768,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.HighPointUniversity.SpotifyAPITest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "SpotifyAPITest/SpotifyAPITest-Bridging-Header.h";
 			};
 			name = Release;
 		};
