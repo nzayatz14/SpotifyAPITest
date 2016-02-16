@@ -8,6 +8,9 @@
 
 import UIKit
 import Soundcloud
+import AVFoundation
+
+let playerViewInset = CGFloat(30)
 
 class ServerClientDecisionViewController: UIViewController {
     
@@ -23,6 +26,12 @@ class ServerClientDecisionViewController: UIViewController {
     var animator: UIDynamicAnimator!
     var snapBehavior: UISnapBehavior!
     var snapPoints = [CGPoint]()
+    
+    var backgroundPlayerView: UIView?
+    var songPlayerView: SongPlayerView!
+    
+    var trackTimer: NSTimer?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,13 +62,24 @@ class ServerClientDecisionViewController: UIViewController {
         UIApplication.sharedApplication().statusBarHidden = false
         self.navigationController?.setNavigationBarHidden(true, animated: animated)
         super.viewWillAppear(animated)
+        
+        trackTimer = NSTimer.scheduledTimerWithTimeInterval(1.0, target: self, selector: Selector("updateStickyCircle"), userInfo: nil, repeats: true)
+        
     }
     
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         
-        initStickyButton()
+        if playerButton == nil {
+            initStickyButton()
+        }
+    }
+    
+    
+    override func viewWillDisappear(animated: Bool) {
+        trackTimer?.invalidate()
+        trackTimer = nil
     }
     
     
@@ -104,16 +124,16 @@ class ServerClientDecisionViewController: UIViewController {
     func initStickyButton(){
         playerButton = LLACircularProgressView(frame: CGRect(x: 20, y: 20, width: 60, height: 60))
         playerButton?.progressTintColor = UIColor.orangeColor()
-        playerButton?.progress = 0.5
+        playerButton?.progress = 0
         playerButton?.setBackgroundImageType(UIImage(named: "musicNote.png"))
         playerButton?.userInteractionEnabled = true
         
-        //add the drag, rotate, and zoom abilities for the explicit view
+        //add the tap functionality
         let aSelector: Selector = "btnStickyPressed:"
         let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
         playerButton?.backgroundImage.addGestureRecognizer(tapGesture)
         
-        //add the drag, rotate, and zoom abilities for the explicit view
+        //add the drag functionality
         let bSelector: Selector = "btnStickyDragged:"
         let DragGesture = UIPanGestureRecognizer(target: self, action: bSelector)
         playerButton?.backgroundImage.addGestureRecognizer(DragGesture)
@@ -145,6 +165,34 @@ class ServerClientDecisionViewController: UIViewController {
      */
     func btnStickyPressed(sender: AnyObject){
         print("sticky button")
+        
+        backgroundPlayerView = UIView(frame: UIScreen.mainScreen().bounds)
+        backgroundPlayerView?.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.8)
+        backgroundPlayerView?.userInteractionEnabled = true
+        
+        //add the dismiss functionality
+        let aSelector: Selector = "backViewHit:"
+        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
+        backgroundPlayerView?.addGestureRecognizer(tapGesture)
+        
+        
+        self.view.layoutIfNeeded()
+        songPlayerView = SongPlayerView(frame: CGRect(x: playerViewInset, y: 2*playerViewInset, width: UIScreen.mainScreen().bounds.width - 2*playerViewInset, height: UIScreen.mainScreen().bounds.height - 4*playerViewInset))
+        
+        backgroundPlayerView?.addSubview(songPlayerView)
+        
+        songPlayerView.setNeedsLayout()
+        songPlayerView.layoutIfNeeded()
+        //songPlayerView.setupUI()
+        
+        //bring in the tutorial view with the animation
+        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            self.view.addSubview(self.backgroundPlayerView!)
+            }, completion: { (success) in
+                self.songPlayerView.setNeedsLayout()
+                self.songPlayerView.layoutIfNeeded()
+                self.songPlayerView.setupUI()
+        })
     }
     
     
@@ -221,6 +269,43 @@ class ServerClientDecisionViewController: UIViewController {
         let distance = sqrt((xDist * xDist) + (yDist * yDist))
         
         return distance
+    }
+    
+    
+    /**
+     Function called when the back view is tapped
+     
+     - parameter void:
+     - returns: void
+     */
+    func backViewHit(sender: UITapGestureRecognizer){
+        //bring in the tutorial view with the animation
+        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
+            self.backgroundPlayerView?.removeFromSuperview()
+            }, completion: { (success) in
+                
+        })
+    }
+    
+    
+    /**
+     Function called to update the sticky button circle on the timer tick
+     
+     - parameter void:
+     - returns: void
+     */
+    func updateStickyCircle(){
+        
+        if let myStreamer = sharedSongPlayer.audioStreamer, let currentItem = sharedSongPlayer.audioStreamer?.currentItem {
+            print("myStreamer Time: \(myStreamer.currentTime().seconds)")
+            if !Float(myStreamer.currentTime().seconds).isNaN && playerButton != nil {
+                playerButton?.setProgress(Float(Double(myStreamer.currentTime().seconds) / CMTimeGetSeconds(currentItem.duration)), animated: true)
+            }else{
+                playerButton?.progress = 0
+            }
+        }else{
+            playerButton?.progress = 0
+        }
     }
     
     

@@ -193,13 +193,15 @@ class SongPlayerView: UIView, SongPlayerDelegate {
         
         
         //if the slider is not initialized, initialize it
-        if circleSlider == nil {
+        if let myCircleSlider = circleSlider {
+            myCircleSlider.maxValue = length
+            self.circleView.bringSubviewToFront(myCircleSlider)
+            updateCircle()
+        }else{
             self.circleSlider = CircleSlider(frame: self.circleView.bounds, options: options)
             self.circleSlider?.addTarget(self, action: Selector("valueChange:"), forControlEvents: .AllTouchEvents)
             self.circleView.addSubview(self.circleSlider!)
-            updateCircle()
-        }else{
-            circleSlider?.maxValue = length
+            self.circleView.bringSubviewToFront(self.circleSlider!)
             updateCircle()
         }
         

@@ -11,6 +11,7 @@
 		8407C1391C5AC34E005B3A28 /* SelectPlaylistViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C1381C5AC34E005B3A28 /* SelectPlaylistViewController.swift */; };
 		8407C13B1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8407C13A1C5AC4D8005B3A28 /* SelectPlaylistTableCell.swift */; };
 		84262C801C72D33B00143C5A /* LLACircularProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84262C7F1C72D33B00143C5A /* LLACircularProgressView.m */; };
+		84291E4F1C73DD8F002BF53D /* soundcloudWhite.png in Resources */ = {isa = PBXBuildFile; fileRef = 84291E4E1C73DD8F002BF53D /* soundcloudWhite.png */; };
 		8431D77F1C4EECEF0046924F /* musicNote.png in Resources */ = {isa = PBXBuildFile; fileRef = 8431D77E1C4EECEF0046924F /* musicNote.png */; };
 		84392C331C502845001E5A4E /* PlayerSettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */; };
 		84392C351C5032B8001E5A4E /* SoundCloudTabViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */; };
@@ -81,6 +82,7 @@
 		84262C7D1C72D33B00143C5A /* SpotifyAPITest-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SpotifyAPITest-Bridging-Header.h"; sourceTree = "<group>"; };
 		84262C7E1C72D33B00143C5A /* LLACircularProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLACircularProgressView.h; sourceTree = "<group>"; };
 		84262C7F1C72D33B00143C5A /* LLACircularProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLACircularProgressView.m; sourceTree = "<group>"; };
+		84291E4E1C73DD8F002BF53D /* soundcloudWhite.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = soundcloudWhite.png; sourceTree = "<group>"; };
 		8431D77E1C4EECEF0046924F /* musicNote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = musicNote.png; sourceTree = "<group>"; };
 		84392C321C502845001E5A4E /* PlayerSettingsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerSettingsViewController.swift; sourceTree = "<group>"; };
 		84392C341C5032B8001E5A4E /* SoundCloudTabViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SoundCloudTabViewController.swift; sourceTree = "<group>"; };
@@ -294,6 +296,7 @@
 				848F15511C5685550014A902 /* BlurredEDMBackground.png */,
 				845557D51C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png */,
 				8431D77E1C4EECEF0046924F /* musicNote.png */,
+				84291E4E1C73DD8F002BF53D /* soundcloudWhite.png */,
 				84D7A24C1C5082530030971B /* poweredBySoundcloud.png */,
 			);
 			name = Images;
@@ -462,6 +465,7 @@
 				845557D61C3C6DCE00FD6C12 /* Black&WhiteSoundcloud.png in Resources */,
 				84DD57511C6D30BC00BCDC57 /* EDM3.png in Resources */,
 				84D7A24D1C5082530030971B /* poweredBySoundcloud.png in Resources */,
+				84291E4F1C73DD8F002BF53D /* soundcloudWhite.png in Resources */,
 				84DD574B1C6D30AA00BCDC57 /* EDM1.png in Resources */,
 				848F15521C5685550014A902 /* BlurredEDMBackground.png in Resources */,
 				84DD57531C6D30BC00BCDC57 /* EDM5.png in Resources */,
