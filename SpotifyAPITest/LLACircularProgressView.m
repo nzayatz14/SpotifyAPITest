@@ -23,8 +23,8 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-        _backgroundImage = [[UIImageView alloc] initWithFrame:frame];
-        //_backgroundImage.image = [UIImage imageNamed:@"musicNote.png"];
+        _backgroundImage = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, frame.size.height)];
+        _backgroundImage.userInteractionEnabled = YES;
         [self addSubview:_backgroundImage];
         
         [self initialize];
