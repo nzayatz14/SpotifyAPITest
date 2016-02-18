@@ -11,6 +11,7 @@ import Soundcloud
 import AVFoundation
 
 let playerViewInset = CGFloat(30)
+let playerSwipeVelocityThreshold = CGFloat(1000)
 
 class ServerClientDecisionViewController: UIViewController {
     
@@ -32,6 +33,7 @@ class ServerClientDecisionViewController: UIViewController {
     
     var trackTimer: NSTimer?
     
+    var panY: CGFloat?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -166,15 +168,11 @@ class ServerClientDecisionViewController: UIViewController {
     func btnStickyPressed(sender: AnyObject){
         print("sticky button")
         
+        playerButton?.enabled = false
+        
         backgroundPlayerView = UIView(frame: UIScreen.mainScreen().bounds)
         backgroundPlayerView?.backgroundColor = UIColor(colorLiteralRed: 0, green: 0, blue: 0, alpha: 0.8)
         backgroundPlayerView?.userInteractionEnabled = true
-        
-        //add the dismiss functionality
-        let aSelector: Selector = "backViewHit:"
-        let tapGesture = UITapGestureRecognizer(target: self, action: aSelector)
-        backgroundPlayerView?.addGestureRecognizer(tapGesture)
-        
         
         self.view.layoutIfNeeded()
         songPlayerView = SongPlayerView(frame: CGRect(x: playerViewInset, y: 2*playerViewInset, width: UIScreen.mainScreen().bounds.width - 2*playerViewInset, height: UIScreen.mainScreen().bounds.height - 4*playerViewInset))
@@ -183,9 +181,14 @@ class ServerClientDecisionViewController: UIViewController {
         
         songPlayerView.setNeedsLayout()
         songPlayerView.layoutIfNeeded()
-        //songPlayerView.setupUI()
         
-        //bring in the tutorial view with the animation
+        //add the dismiss functionality
+        let aSelector: Selector = "playerViewPanned:"
+        let swipeGesture = UIPanGestureRecognizer(target: self, action: aSelector)
+        songPlayerView.addGestureRecognizer(swipeGesture)
+        
+        
+        //show the player view
         UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
             self.view.addSubview(self.backgroundPlayerView!)
             }, completion: { (success) in
@@ -273,18 +276,81 @@ class ServerClientDecisionViewController: UIViewController {
     
     
     /**
-     Function called when the back view is tapped
+     Function called when the player view is panned
      
      - parameter void:
      - returns: void
      */
-    func backViewHit(sender: UITapGestureRecognizer){
-        //bring in the tutorial view with the animation
-        UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.backgroundPlayerView?.removeFromSuperview()
-            }, completion: { (success) in
+    func playerViewPanned(sender: UIPanGestureRecognizer){
+        
+        //if the drag begins, initialize the variables
+        if sender.state == .Began {
+            animator.removeAllBehaviors()
+            snapBehavior = nil
+            
+            if let myView = sender.view {
+                panY = myView.center.y - sender.locationInView(self.view).y
+            }
+            
+        //if the drag ends, determine what to do
+        } else if sender.state == .Ended || sender.state == .Cancelled || sender.state == .Failed {
+            
+            let velocity = sender.velocityInView(self.view).y
+            
+            //determine where to slide the player to depending on the velocity
+            if velocity <= -playerSwipeVelocityThreshold {
+                let dist = sender.locationInView(self.view).y + self.view.center.y
+                let duration = Double(dist/velocity)
                 
-        })
+                //slide the view up
+                UIView.transitionWithView(self.view, duration: duration, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    if let background = self.backgroundPlayerView {
+                        background.alpha = 0
+                        self.songPlayerView.center.y = -self.view.center.y
+                    }
+                    }, completion: { (success) in
+                        self.backgroundPlayerView?.removeFromSuperview()
+                        self.backgroundPlayerView = nil
+                        self.songPlayerView = nil
+                        self.playerButton?.enabled = true
+                        self.panY = nil
+                })
+                
+            } else if velocity >= playerSwipeVelocityThreshold {
+                let dist = self.view.frame.height + self.view.center.y - sender.locationInView(self.view).y
+                let duration = Double(dist/velocity)
+                
+                //slide the view down
+                UIView.transitionWithView(self.view, duration: duration, options: UIViewAnimationOptions.CurveEaseInOut, animations: {
+                    if let background = self.backgroundPlayerView {
+                        background.alpha = 0
+                        self.songPlayerView.center.y = self.songPlayerView.center.y + self.view.frame.height
+                    }
+                    }, completion: { (success) in
+                        self.backgroundPlayerView?.removeFromSuperview()
+                        self.backgroundPlayerView = nil
+                        self.songPlayerView = nil
+                        self.playerButton?.enabled = true
+                        self.panY = nil
+                })
+                
+            //if the velocity threshold is not surpassed, snap the player back to the center
+            } else {
+                if let background = backgroundPlayerView {
+                    snapBehavior = UISnapBehavior(item: songPlayerView, snapToPoint: background.center)
+                    snapBehavior.damping = 0.85
+                
+                    animator.addBehavior(snapBehavior)
+                }
+            }
+            
+        //if the drag is current, move the player along with the finger
+        } else {
+            if let delta = panY {
+                let point = sender.locationInView(self.view).y + delta
+                self.songPlayerView.center.y = point
+            }
+        }
     }
     
     
