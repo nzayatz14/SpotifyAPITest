@@ -24,22 +24,19 @@ class ServerClientDecisionViewController: UIViewController {
     
     var user: User?
     
+    //sticky button and player view stuff
     var playerButton: LLACircularProgressView?
     var animator: UIDynamicAnimator!
     var snapBehavior: UISnapBehavior!
     var snapPoints = [CGPoint]()
-    
     var backgroundPlayerView: UIView?
     var songPlayerView: SongPlayerView!
-    
     var trackTimer: NSTimer?
-    
     var panY: CGFloat?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        animator = UIDynamicAnimator(referenceView: self.view)
         
         sharedSoundcloudAPIAccess.getUser { (user) -> Void in
             self.user = user
@@ -75,6 +72,7 @@ class ServerClientDecisionViewController: UIViewController {
         super.viewDidAppear(animated)
         
         if playerButton == nil {
+            animator = UIDynamicAnimator(referenceView: self.view)
             initStickyButton()
         }
     }
