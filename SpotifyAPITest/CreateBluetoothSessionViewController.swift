@@ -22,7 +22,7 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
         tblDeviceList.dataSource = self
         tblDeviceList.delegate = self
         
-        self.automaticallyAdjustsScrollViewInsets = false
+        //self.automaticallyAdjustsScrollViewInsets = false
     }
     
     
@@ -30,6 +30,7 @@ class CreateBluetoothSessionViewController: UIViewController, UITableViewDataSou
         UIApplication.sharedApplication().statusBarHidden = false
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
         super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.translucent = false
     }
     
     

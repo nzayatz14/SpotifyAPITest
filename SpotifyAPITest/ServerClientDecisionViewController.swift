@@ -12,6 +12,7 @@ import AVFoundation
 
 let playerViewInset = CGFloat(30)
 let playerSwipeVelocityThreshold = CGFloat(1000)
+let stickyDistanceFromSide = CGFloat(5)
 
 class ServerClientDecisionViewController: UIViewController {
     
@@ -144,17 +145,17 @@ class ServerClientDecisionViewController: UIViewController {
         
         //add snap points for sticky button
         if let stickyButton = playerButton {
-            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2, y: (20 + stickyButton.backgroundImage.frame.width)/2))
+            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2 + stickyDistanceFromSide, y: (30 + stickyButton.backgroundImage.frame.width)/2))
             
-            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2, y: self.view.center.y))
+            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2 + stickyDistanceFromSide, y: self.view.center.y))
             
-            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2, y: self.view.frame.height - stickyButton.backgroundImage.frame.width/2 - 20))
+            snapPoints.append(CGPoint(x: stickyButton.backgroundImage.frame.width/2 + stickyDistanceFromSide, y: self.view.frame.height - stickyButton.backgroundImage.frame.width/2 - stickyDistanceFromSide))
             
-            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2, y: (20 + stickyButton.backgroundImage.frame.width)/2))
+            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2 - stickyDistanceFromSide, y: (30 + stickyButton.backgroundImage.frame.width)/2))
             
-            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2, y: self.view.center.y))
+            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2 - stickyDistanceFromSide, y: self.view.center.y))
             
-            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2, y: self.view.frame.height - stickyButton.backgroundImage.frame.width/2 - 20))
+            snapPoints.append(CGPoint(x: self.view.frame.width - stickyButton.backgroundImage.frame.width/2 - stickyDistanceFromSide, y: self.view.frame.height - stickyButton.backgroundImage.frame.width/2 - stickyDistanceFromSide))
         }
     }
     

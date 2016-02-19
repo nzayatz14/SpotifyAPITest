@@ -85,6 +85,7 @@ class PlaybackTypeViewController: UIViewController, UICollectionViewDataSource, 
         btnNewConnection = UIBarButtonItem(customView: rightButton)
         self.navigationItem.rightBarButtonItem = btnNewConnection
         
+        self.navigationController?.navigationBar.translucent = false
         
         //crop the background image
         let standardCrop = CGRect(x: (imgBackground.image!.size.width - UIScreen.mainScreen().bounds.width)/2.0 , y: fmax((imgBackground.image!.size.height - UIScreen.mainScreen().bounds.height), 0) , width: UIScreen.mainScreen().bounds.width, height: imgBackground.image!.size.height)

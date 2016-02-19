@@ -412,7 +412,7 @@
                             <constraint firstItem="gyM-D8-T8z" firstAttribute="top" secondItem="jb4-2U-OeG" secondAttribute="bottom" id="d0t-Ih-Z45"/>
                             <constraint firstAttribute="trailing" secondItem="9jk-dy-Lih" secondAttribute="trailing" id="eT8-4e-s8G"/>
                             <constraint firstItem="9jk-dy-Lih" firstAttribute="top" secondItem="Fnn-vO-8aR" secondAttribute="top" id="nPv-mw-8dS">
-                                <variation key="heightClass=regular-widthClass=compact" constant="64"/>
+                                <variation key="heightClass=regular-widthClass=compact" constant="0.0"/>
                             </constraint>
                             <constraint firstItem="9jk-dy-Lih" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="rZA-OA-tz1"/>
                             <constraint firstItem="v15-Da-dVS" firstAttribute="leading" secondItem="Fnn-vO-8aR" secondAttribute="leading" id="tgW-KU-7Tn"/>
@@ -477,7 +477,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="colPlaylists" destination="rRN-k4-MYk" id="dUd-43-iSR"/>
                         <outlet property="imgBackground" destination="jb4-2U-OeG" id="N67-sH-gdP"/>
