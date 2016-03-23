@@ -79,7 +79,7 @@ class PlaybackTypeViewController: UIViewController, UICollectionViewDataSource, 
         super.viewDidAppear(animated)
         
         if playerButton == nil {
-            animator = UIDynamicAnimator(referenceView: self.view)
+            animator = UIDynamicAnimator(referenceView: UIApplication.sharedApplication().keyWindow!.viewForBaselineLayout())
             initStickyButton()
         }
     }
@@ -363,10 +363,13 @@ class PlaybackTypeViewController: UIViewController, UICollectionViewDataSource, 
         let swipeGesture = UIPanGestureRecognizer(target: self, action: aSelector)
         songPlayerView.addGestureRecognizer(swipeGesture)
         
+        self.backgroundPlayerView?.alpha = 0
+        UIApplication.sharedApplication().keyWindow?.addSubview(self.backgroundPlayerView!)
+        
         
         //show the player view
         UIView.transitionWithView(self.view, duration: 0.5, options: UIViewAnimationOptions.TransitionCrossDissolve, animations: {
-            self.view.addSubview(self.backgroundPlayerView!)
+                self.backgroundPlayerView?.alpha = 1
             }, completion: { (success) in
                 self.songPlayerView.setNeedsLayout()
                 self.songPlayerView.layoutIfNeeded()
